@@ -241,7 +241,8 @@ describe('every trace question', () => {
       expect(textRuleProblems(q), q.id).toEqual([])
       for (const text of allStrings(q)) {
         expect(text, q.id).not.toMatch(/undefined|NaN|\[object/)
-        expect(text, q.id).not.toMatch(/\bInfinity\b(?! *$)/) // Infinity only as an answer key, never in a sentence
+        // Students see ∞. "Infinity" may only be an answer key, and keys aren't in allStrings().
+        expect(text, q.id).not.toMatch(/Infinity/)
       }
     }
   })
