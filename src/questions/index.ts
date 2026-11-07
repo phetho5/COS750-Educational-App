@@ -6,3 +6,13 @@ export { LAYOUTS, layoutById, type GraphLayout, type LayoutId, type LayoutSize, 
 export { createRng, deriveSeed, randomSeed, type Rng } from './random'
 export { generateTraceQuestion, type TraceRequest, type TraceSkill } from './trace/generator'
 export type * from './types'
+export {
+  currentVertex,
+  neighboursToUpdate,
+  pickVertex,
+  startYourTurn,
+  submitDistances,
+  visitedSoFar,
+  type YourTurnFeedback,
+  type YourTurnState,
+} from './yourTurn'
