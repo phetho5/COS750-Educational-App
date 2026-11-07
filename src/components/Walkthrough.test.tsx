@@ -67,6 +67,21 @@ describe('Walkthrough', () => {
     expect(stepLine()).toBe('Step 1 of 16 · Set up')
   })
 
+  it('ignores arrow keys another control has already used (e.g. the Watch/Read/Try tabs)', () => {
+    render(<Walkthrough />)
+    const event = new KeyboardEvent('keydown', { key: 'ArrowRight', cancelable: true, bubbles: true })
+    event.preventDefault()
+    act(() => {
+      window.dispatchEvent(event)
+    })
+    expect(stepLine()).toBe('Step 1 of 16 · Set up')
+    // The same key, not used by anything else, does move on.
+    act(() => {
+      window.dispatchEvent(new KeyboardEvent('keydown', { key: 'ArrowRight', bubbles: true }))
+    })
+    expect(stepLine()).toBe('Step 2 of 16 · Visit A')
+  })
+
   it('hides and shows the pseudocode', async () => {
     render(<Walkthrough />)
     const toggle = screen.getByRole('button', { name: /Pseudocode/ })

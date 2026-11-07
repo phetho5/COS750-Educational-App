@@ -45,10 +45,12 @@ export function Walkthrough({
   const player = useStepPlayer(result.steps.length)
   const [codeOpen, setCodeOpen] = useState(true)
 
-  // Arrow keys move between steps, unless the student is typing somewhere.
+  // Arrow keys move between steps, unless the student is typing or another control used the key.
   const { next, back } = player
   useEffect(() => {
     function onKey(event: KeyboardEvent) {
+      // Another control (like the Watch/Read/Try tabs) already used this key.
+      if (event.defaultPrevented) return
       const tag = (event.target as HTMLElement | null)?.tagName
       if (tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT') return
       if (event.key === 'ArrowRight') next()
