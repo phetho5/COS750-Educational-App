@@ -1,0 +1,107 @@
+.welcome {
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-8);
+  gap: var(--space-7);
+}
+
+.hero {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-6) var(--space-7);
+  align-items: center;
+}
+
+.intro {
+  flex: 1 1 420px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.hook {
+  font-size: var(--text-title);
+  line-height: 1.5;
+  max-width: 40ch;
+  text-wrap: pretty;
+}
+
+.facts {
+  margin: 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.facts div {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-surface);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-pill);
+}
+
+.facts dt {
+  font-size: 15px;
+  color: var(--color-muted);
+}
+
+.facts dd {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.start {
+  align-self: flex-start;
+  min-width: 200px;
+}
+
+.figure {
+  flex: 1 1 400px;
+  min-width: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.objectives {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.objectivesTitle {
+  font-size: var(--text-heading);
+  font-weight: 700;
+}
+
+.objectiveList {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, 210px), 1fr));
+  gap: var(--space-4);
+}
+
+.objectiveList li {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  font-size: var(--text-body);
+}
+
+.number {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-blue-tint);
+  color: var(--color-blue-dark);
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}

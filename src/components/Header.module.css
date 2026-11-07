@@ -1,0 +1,66 @@
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 30;
+  background: var(--color-surface);
+  border-bottom: 1px solid var(--color-divider);
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  min-height: 64px;
+}
+
+.home {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-height: var(--button-height);
+  padding: 0 var(--space-2);
+  background: transparent;
+  border: 0;
+  border-radius: var(--radius-control);
+  cursor: pointer;
+}
+
+.home:hover {
+  background: var(--color-bg);
+}
+
+.logo {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  border: 3px solid var(--color-blue);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.logo span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--color-orange);
+}
+
+.name {
+  font-weight: 700;
+  font-size: 19px;
+}
+
+/* Hidden until a keyboard user tabs to it. */
+.skip {
+  position: absolute;
+  left: var(--space-4);
+  top: -100px;
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-surface);
+  border: 2px solid var(--color-blue);
+  border-radius: var(--radius-control);
+  font-weight: 700;
+}
+
+.skip:focus {
+  top: var(--space-2);
+}
