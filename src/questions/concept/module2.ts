@@ -6,7 +6,8 @@
 */
 import { listText } from '../../content/format'
 import { SAMPLE_GRAPH, type VertexId } from '../../engine'
-import { choiceVersion, right, sub, wrong } from './build'
+import type { WrongAnswerInfo } from '../types'
+import { choiceVersion, right, selectVersion, sub, wrong } from './build'
 import { nearbyEdges, neighbours, SAMPLE_VERTICES, weightBetween } from './sampleFacts'
 import type { ConceptGroup, ConceptOption, ConceptVersion, SampleFact } from './types'
 
@@ -193,6 +194,65 @@ const listEntry: ConceptGroup = {
   versions: [listEntryVersion('A'), listEntryVersion('C'), listEntryVersion('F'), listEntryVersion('E')],
 }
 
+// ---------- Whose list is it? (computed, select on the graph) ----------
+
+function listOwnerVersion(owner: VertexId): ConceptVersion {
+  const entries = listOf(owner)
+  const inList = neighbours(owner)
+  const vertexFeedback: Record<VertexId, WrongAnswerInfo> = {}
+  for (const v of SAMPLE_VERTICES) {
+    if (v === owner) continue
+    vertexFeedback[v] = inList.includes(v)
+      ? { misconception: 'm2-owner-is-entry', feedback: `${v} is one of the entries, so it's a neighbour of the owner. The list belongs to the vertex that all those edges touch.` }
+      : { misconception: 'm2-owner-not-joined', feedback: `${v} isn't joined to every vertex in the list. Find the vertex that has an edge to each of them, with those weights.` }
+  }
+  // The example list must not involve the owner, or it would give part of the answer away.
+  const exampleOwner = ['A', 'E'].find((v) => v !== owner && !neighbours(v).includes(owner))!
+  const exampleList = neighbours(exampleOwner)
+  const example = `For example, the list ${listText(listOf(exampleOwner))} belongs to ${exampleOwner}, because ${exampleOwner} has edges to ${listText(exampleList.map((n) => `${n} (${weightBetween(exampleOwner, n)})`))}.`
+
+  return selectVersion({
+    id: `m2-list-owner-${owner}`,
+    lead: 'Each entry is a neighbour and the weight of the edge to it.',
+    prompt: `Select the vertex whose adjacency list is ${listText(entries)}.`,
+    selectable: [...SAMPLE_VERTICES],
+    correctVertices: [owner],
+    vertexFeedback,
+    correctFeedback: `${owner} has edges to ${listText(inList)} with exactly those weights, so this is ${owner}'s list.`,
+    fallbackWrongFeedback: 'Find the vertex that has an edge to every vertex in the list, with those weights.',
+    hints: {
+      nudge: 'Every entry is a neighbour of the owner. Which vertex is joined to all of them?',
+      workedExample: example,
+      subSteps: [
+        sub(
+          `Which vertex is joined to ${listText(inList)}?`,
+          owner,
+          SAMPLE_VERTICES.filter((v) => v !== owner && !inList.includes(v)).slice(0, 2),
+          `${owner} has an edge to each of them.`,
+        ),
+        sub(
+          `Is the weight of edge ${owner}-${inList[0]} ${weightBetween(owner, inList[0])}?`,
+          'Yes',
+          ['No'],
+          `Yes, edge ${owner}-${inList[0]} has weight ${weightBetween(owner, inList[0])}, matching the list.`,
+        ),
+      ],
+    },
+    facts: [
+      { kind: 'list-length', of: owner, length: inList.length },
+      ...inList.map((n): SampleFact => ({ kind: 'in-list', of: owner, neighbour: n, weight: weightBetween(owner, n), present: true })),
+    ],
+  })
+}
+
+const listOwner: ConceptGroup = {
+  id: 'm2-list-owner',
+  module: 2,
+  objective: 2,
+  about: 'Working out which vertex an adjacency list belongs to.',
+  versions: [listOwnerVersion('B'), listOwnerVersion('C'), listOwnerVersion('D'), listOwnerVersion('F')],
+}
+
 // ---------- Adjacency list length (computed) ----------
 
 function listLengthVersion(of: VertexId): ConceptVersion {
@@ -294,4 +354,4 @@ const compare: ConceptGroup = {
   ],
 }
 
-export const MODULE_2_GROUPS: readonly ConceptGroup[] = [matrixCell, symmetry, listEntry, listLength, compare]
+export const MODULE_2_GROUPS: readonly ConceptGroup[] = [matrixCell, symmetry, listEntry, listOwner, listLength, compare]

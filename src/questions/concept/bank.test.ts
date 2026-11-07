@@ -85,6 +85,11 @@ const ANSWER_MATCHES_FACT: Record<string, (v: ConceptVersion) => void> = {
     const f = v.facts.find((x) => x.kind === 'in-list' && x.present) as Extract<SampleFact, { kind: 'in-list' }>
     expect(correctLabel(v)).toBe(`${f.neighbour} · ${f.weight}`)
   },
+  'm2-list-owner': (v) => {
+    const owners = new Set(v.facts.filter((f) => f.kind === 'in-list').map((f) => (f as Extract<SampleFact, { kind: 'in-list' }>).of))
+    expect([...owners]).toEqual((v as SelectVersion).correctVertices)
+    expect(v.facts.filter((f) => f.kind === 'in-list').length).toBe(firstFact(v, 'list-length').length)
+  },
   'm2-list-length': (v) => expect(correctLabel(v)).toBe(String(firstFact(v, 'list-length').length)),
   'm3-path-cost': (v) => expect(correctLabel(v)).toBe(String(firstFact(v, 'path-cost').cost)),
   'm3-shortest-distance': (v) => expect(correctLabel(v)).toBe(String(firstFact(v, 'shortest-distance').distance)),
@@ -220,6 +225,7 @@ describe('every version', () => {
       'm1-neighbour': (v) => firstFact(v, 'neighbours').of,
       'm1-directed': (v) => firstFact(v, 'out-neighbours').of,
       'm3-previous': (v) => firstFact(v, 'previous-on-shortest-path').to,
+      'm2-list-owner': (v) => (v as SelectVersion).correctVertices[0],
     }
     for (const [groupId, vertexOf] of Object.entries(asked)) {
       for (const version of conceptGroupById(groupId).versions) {
