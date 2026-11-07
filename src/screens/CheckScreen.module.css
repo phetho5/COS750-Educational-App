@@ -1,0 +1,50 @@
+.header {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.segments {
+  display: flex;
+  gap: var(--space-2);
+}
+
+.segments span {
+  flex: 1;
+  height: 8px;
+  border-radius: 4px;
+}
+
+.done {
+  background: var(--color-blue);
+}
+
+.now {
+  background: var(--color-blue-mid);
+}
+
+.todo {
+  background: var(--color-divider);
+}
+
+.next {
+  align-self: flex-start;
+}
+
+.narrow {
+  max-width: 1000px;
+}
+
+.result {
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  text-wrap: pretty;
+}
+
+.score {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
