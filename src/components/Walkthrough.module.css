@@ -1,0 +1,119 @@
+.walkthrough {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.stepCount {
+  font-size: var(--text-body);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.stepTitle {
+  font-weight: 400;
+  color: var(--color-muted);
+}
+
+.explain {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  font-size: var(--text-body);
+  max-width: 70ch;
+  text-wrap: pretty;
+}
+
+.codeToggle {
+  width: 100%;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: 0 var(--space-4);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.codeToggle:hover {
+  background: var(--color-bg);
+}
+
+.codeToggleLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-blue);
+}
+
+.code {
+  list-style: none;
+  padding: var(--space-2) 0;
+  margin: 0 var(--space-3) var(--space-3);
+  background: var(--color-bg);
+  border-radius: var(--radius-control);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-x: auto;
+}
+
+.codeLine,
+.codeLineOn {
+  display: flex;
+  gap: 10px;
+  padding: 2px 12px 2px 8px;
+  border-left: 4px solid transparent;
+  color: var(--color-muted);
+}
+
+.codeLineOn {
+  border-left-color: var(--color-orange);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.lineNumber {
+  width: 20px;
+  flex: none;
+  text-align: right;
+  color: var(--color-muted);
+  font-weight: 400;
+}
+
+.lineText {
+  white-space: pre;
+}
+
+.controls {
+  justify-content: center;
+}
+
+.play {
+  min-width: 112px;
+}
+
+.speed {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  color: var(--color-muted);
+}
+
+.speed select {
+  min-height: var(--button-height);
+  padding: 0 var(--space-2);
+  border: 2px solid var(--color-outline);
+  border-radius: var(--radius-control);
+  background: var(--color-surface);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-ink);
+  cursor: pointer;
+}
