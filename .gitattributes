@@ -1,0 +1,8 @@
+# Store text files with LF line endings in git, whatever each person's OS uses.
+# Stops Windows and macOS/Linux group members seeing line-ending-only changes.
+* text=auto eol=lf
+
+# Binary files: never touch them.
+*.ttf binary
+*.webp binary
+*.png binary
