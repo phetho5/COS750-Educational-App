@@ -1,0 +1,96 @@
+/*
+  Design tokens taken from design/cos212-app-v2.dc.html.
+  Components use these variables instead of raw values, so the look stays
+  consistent and can be changed in one place.
+*/
+
+@font-face {
+  font-family: 'Atkinson Hyperlegible Next';
+  src: url('/fonts/AtkinsonHyperlegibleNext-Variable.ttf') format('truetype');
+  font-weight: 200 800; /* variable font: one file covers every weight */
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Atkinson Hyperlegible Mono';
+  src: url('/fonts/AtkinsonHyperlegibleMono-Variable.ttf') format('truetype');
+  font-weight: 200 800;
+  font-style: normal;
+  font-display: swap;
+}
+
+:root {
+  /* Text */
+  --color-ink: #1b2430;
+  --color-muted: #4f5866;
+
+  /* Surfaces */
+  --color-bg: #f6f7f9;
+  --color-surface: #ffffff;
+  --color-divider: #e1e4e8;
+  --color-outline: #7a828e; /* form borders, unvisited vertices, edges */
+  --color-pill-border: #c4c9d0; /* edge weight pills */
+
+  /* Primary blue: actions, visited vertices, shortest path */
+  --color-blue: #256abf;
+  --color-blue-dark: #1c5cab; /* hover, focus ring, text on tint */
+  --color-blue-tint: #e8f0fb;
+  --color-blue-mid: #8db3e2; /* current segment in a progress bar */
+
+  /* Orange: current vertex and the edge being checked */
+  --color-orange: #eb6834;
+  --color-orange-tint: #fdebdd;
+
+  /* Purple: hints */
+  --color-hint: #6250d6;
+  --color-hint-text: #4a3aa7;
+  --color-hint-tint: #eeebfb;
+
+  /* Feedback */
+  --color-good: #006300;
+  --color-good-tint: #e7f4e7;
+  --color-bad-text: #a82828;
+  --color-bad-icon: #d03b3b;
+  --color-bad-tint: #fbe9e9;
+
+  /* Fonts */
+  --font-body: 'Atkinson Hyperlegible Next', 'Atkinson Hyperlegible', system-ui, sans-serif;
+  --font-mono: 'Atkinson Hyperlegible Mono', ui-monospace, monospace;
+
+  /*
+    Fluid type scale. Each size grows with the viewport width between a
+    phone (390px) and a laptop (1440px) and stops at its maximum.
+  */
+  --text-label: clamp(14px, 0.1vw + 13.6px, 15px); /* eyebrows, legends, small print */
+  --text-body: clamp(16px, 0.2vw + 15.2px, 18px);
+  --text-title: clamp(18px, 0.4vw + 16.4px, 22px); /* card headings, table cells */
+  --text-heading: clamp(22px, 0.6vw + 19.7px, 28px); /* question prompts, section headings */
+  --text-display: clamp(28px, 2.2vw + 19.4px, 40px); /* page titles */
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+  --space-6: 32px;
+  --space-7: 48px;
+  --space-8: 64px;
+  --card-padding: clamp(16px, 0.8vw + 12.9px, 24px);
+
+  /* Shape */
+  --radius-control: 8px; /* buttons, inputs */
+  --radius-card: 12px;
+  --radius-pill: 999px;
+  --shadow-card: 0 1px 3px rgba(27, 36, 48, 0.08);
+
+  /* Sizes */
+  --touch-target: 44px; /* WCAG minimum we commit to */
+  --button-height: 48px;
+  --content-width: 1200px;
+
+  /* Motion */
+  --transition-fast: 0.2s ease-out;
+  --transition-graph: 0.5s ease-out;
+}
