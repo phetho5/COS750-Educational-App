@@ -19,6 +19,7 @@ export interface StepPlayer {
   restart: () => void
   goTo: (step: number) => void
   togglePlay: () => void
+  playFromStart: () => void
   setSpeed: (speed: Speed) => void
 }
 
@@ -69,6 +70,10 @@ export function useStepPlayer(total: number, msPerStep = 2400): StepPlayer {
         return
       }
       if (step >= last) setStep(0) // play again from the start
+      setPlaying(true)
+    },
+    playFromStart: () => {
+      setStep(0)
       setPlaying(true)
     },
     setSpeed,

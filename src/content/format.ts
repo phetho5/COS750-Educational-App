@@ -27,3 +27,11 @@ export function edgeName(a: string, b: string): string {
 export function hasOrHave(items: readonly string[]): string {
   return `${listText(items)} ${items.length === 1 ? 'has' : 'have'}`
 }
+
+/** Splits "a **b** c" into parts, marking the ones between double stars as bold. */
+export function splitBold(text: string): { text: string; bold: boolean }[] {
+  return text
+    .split('**')
+    .map((part, i) => ({ text: part, bold: i % 2 === 1 }))
+    .filter((part) => part.text !== '')
+}
