@@ -30,6 +30,7 @@ export {
   rememberShown,
   removeLectureQuestion,
   setThinkNote,
+  unlockForDemo,
 } from './state'
 export { browserStorage, createProgressStore, parseProgress, STORAGE_KEY, type ProgressStore, type StorageLike } from './storage'
 export { misconceptionsToReview, preLectureSummary, type MisconceptionToReview, type PreLectureSummary } from './summary'

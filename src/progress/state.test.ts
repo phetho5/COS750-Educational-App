@@ -1,5 +1,6 @@
 import { describe, expect, it } from 'vitest'
 import { buildCheck, checkAnswer, newQuestionLike, type CheckId, type CheckResult, type Question } from '../questions'
+import { STARTER_LECTURE_QUESTIONS } from '../content/lectureQuestions'
 import { attempt, passedUpTo, stateWith } from '../test/progressFixtures'
 import { canStartCheck, latestAttempt, moduleStatus } from './mastery'
 import {
@@ -23,13 +24,15 @@ function answeredCheck(checkId: CheckId, correct: number, seed = 11): { question
 }
 
 describe('initialProgress', () => {
-  it('starts with no attempts, reviews, notes or questions', () => {
+  it('starts with no attempts, reviews or notes, nothing unlocked for the demo, and the three starter questions', () => {
     const state = initialProgress()
     expect(Object.values(state.attempts).every((a) => a.length === 0)).toBe(true)
     expect(state.reviewDue).toEqual([])
     expect(state.lastShown).toEqual({})
     expect(state.thinkNotes).toEqual({})
-    expect(state.lectureQuestions).toEqual([])
+    expect(state.demoUnlocked).toBe(false)
+    expect(state.lectureQuestions).toEqual(STARTER_LECTURE_QUESTIONS)
+    expect(state.lectureQuestions).toHaveLength(3)
   })
 
   it('gives a new object each time, so a reset never shares old state', () => {
@@ -147,6 +150,8 @@ describe('rememberShown', () => {
 })
 
 describe('notes and lecture questions', () => {
+  const noQuestions = stateWith({}, { lectureQuestions: [] })
+
   it('saves a Think about it answer exactly as typed', () => {
     const state = setThinkNote(initialProgress(), 'graph-vs-list', 'A graph can branch ')
     expect(state.thinkNotes).toEqual({ 'graph-vs-list': 'A graph can branch ' })
@@ -154,14 +159,19 @@ describe('notes and lecture questions', () => {
   })
 
   it('adds trimmed lecture questions and ignores blank ones', () => {
-    let state = addLectureQuestion(initialProgress(), '  Why no negative weights?  ')
+    let state = addLectureQuestion(noQuestions, '  Why no negative weights?  ')
     state = addLectureQuestion(state, '   ')
     state = addLectureQuestion(state, 'What about ties?')
     expect(state.lectureQuestions).toEqual(['Why no negative weights?', 'What about ties?'])
   })
 
+  it('lets the student remove a starter question', () => {
+    const state = removeLectureQuestion(initialProgress(), 0)
+    expect(state.lectureQuestions).toEqual(STARTER_LECTURE_QUESTIONS.slice(1))
+  })
+
   it('removes a lecture question by its position', () => {
-    let state = addLectureQuestion(initialProgress(), 'First')
+    let state = addLectureQuestion(noQuestions, 'First')
     state = addLectureQuestion(state, 'Second')
     state = addLectureQuestion(state, 'Third')
     expect(removeLectureQuestion(state, 1).lectureQuestions).toEqual(['First', 'Third'])

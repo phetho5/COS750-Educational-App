@@ -12,7 +12,7 @@ import type { CheckId, LastShown, MisconceptionId, ObjectiveId } from '../questi
  * Bump this whenever ProgressState changes shape. Saved data with any other
  * version is thrown away and the student starts again (see storage.ts).
  */
-export const PROGRESS_VERSION = 1
+export const PROGRESS_VERSION = 2
 
 /** The student's first answer to one check question. Only the first answer counts (handoff D8). */
 export interface AnswerRecord {
@@ -42,6 +42,11 @@ export interface ProgressState {
   readonly thinkNotes: Readonly<Record<string, string>>
   /** The student's own questions to bring to the lecture. */
   readonly lectureQuestions: readonly string[]
+  /**
+   * True after the presenter opens /map?demo=unlock: every module and check
+   * is open, but no scores are recorded. Reset progress turns it off.
+   */
+  readonly demoUnlocked: boolean
 }
 
 /** The three statuses on the module map (CLAUDE.md). */

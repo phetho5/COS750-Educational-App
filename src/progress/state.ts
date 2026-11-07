@@ -12,6 +12,7 @@ import {
   type CheckResult,
   type Question,
 } from '../questions'
+import { STARTER_LECTURE_QUESTIONS } from '../content/lectureQuestions'
 import { canStartCheck, isPass } from './mastery'
 import { PROGRESS_VERSION, type AnswerRecord, type CheckAttempt, type ProgressState } from './types'
 
@@ -24,7 +25,9 @@ export function initialProgress(): ProgressState {
     reviewDue: [],
     lastShown: {},
     thinkNotes: {},
-    lectureQuestions: [],
+    // New students start with the design's three suggested questions (handoff D57).
+    lectureQuestions: [...STARTER_LECTURE_QUESTIONS],
+    demoUnlocked: false,
   }
 }
 
@@ -105,6 +108,11 @@ export function addLectureQuestion(state: ProgressState, text: string): Progress
   const question = text.trim()
   if (question === '') return state
   return { ...state, lectureQuestions: [...state.lectureQuestions, question] }
+}
+
+/** For the live demo: opens every module and check. Records no scores, so mastery stays honest. */
+export function unlockForDemo(state: ProgressState): ProgressState {
+  return { ...state, demoUnlocked: true }
 }
 
 export function removeLectureQuestion(state: ProgressState, index: number): ProgressState {

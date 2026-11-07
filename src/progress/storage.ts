@@ -96,7 +96,7 @@ export function parseProgress(saved: string | null): ProgressState | null {
   }
 
   if (!isRecord(data) || data.version !== PROGRESS_VERSION) return null
-  const { attempts, reviewDue, lastShown, thinkNotes, lectureQuestions } = data
+  const { attempts, reviewDue, lastShown, thinkNotes, lectureQuestions, demoUnlocked } = data
   const valid =
     isAttempts(attempts) &&
     Array.isArray(reviewDue) &&
@@ -104,11 +104,20 @@ export function parseProgress(saved: string | null): ProgressState | null {
     new Set(reviewDue).size === reviewDue.length &&
     isStringRecord(lastShown) &&
     isStringRecord(thinkNotes) &&
-    isStringArray(lectureQuestions)
+    isStringArray(lectureQuestions) &&
+    typeof demoUnlocked === 'boolean'
   if (!valid) return null
 
   // Rebuild the object from the checked fields only, so stray extra fields are dropped.
-  return { version: PROGRESS_VERSION, attempts, reviewDue: reviewDue as CheckId[], lastShown, thinkNotes, lectureQuestions }
+  return {
+    version: PROGRESS_VERSION,
+    attempts,
+    reviewDue: reviewDue as CheckId[],
+    lastShown,
+    thinkNotes,
+    lectureQuestions,
+    demoUnlocked,
+  }
 }
 
 // ---- The store ---------------------------------------------------------

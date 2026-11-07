@@ -74,8 +74,12 @@ export function prerequisiteOf(checkId: CheckId): CheckId | null {
   return index > 0 ? CHECK_IDS[index - 1] : null
 }
 
-/** Module 1 is always open. Every other check opens once the one before it is passed. */
+/**
+ * Module 1 is always open. Every other check opens once the one before it is
+ * passed, or when the demo switch has unlocked everything.
+ */
 export function isUnlocked(state: ProgressState, checkId: CheckId): boolean {
+  if (state.demoUnlocked) return true
   const before = prerequisiteOf(checkId)
   return before === null || hasPassed(state, before)
 }

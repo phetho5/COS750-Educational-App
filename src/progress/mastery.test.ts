@@ -12,7 +12,7 @@ import {
   objectiveMastery,
   scorePercent,
 } from './mastery'
-import { initialProgress } from './state'
+import { initialProgress, unlockForDemo } from './state'
 
 describe('the 80% pass mark', () => {
   it('passes 4 of 5 and 5 of 5, fails 3 of 5 and below', () => {
@@ -92,6 +92,23 @@ describe('unlocking and module status', () => {
 
   it('masters a module when a retry passes after failing', () => {
     expect(moduleStatus(stateWith({ 'module-1': [attempt(2), attempt(4)] }), 1)).toBe('mastered')
+  })
+})
+
+describe('the demo unlock', () => {
+  const demo = unlockForDemo(initialProgress())
+
+  it('opens every module and the final check', () => {
+    expect(CHECK_IDS.every((id) => isUnlocked(demo, id))).toBe(true)
+    expect(CHECK_IDS.map((id) => checkStatus(demo, id))).toEqual(CHECK_IDS.map(() => 'in-progress'))
+  })
+
+  it('records no scores, so no objective looks mastered', () => {
+    expect(objectiveMastery(demo)).toEqual(objectiveMastery(initialProgress()))
+  })
+
+  it('still needs the review before a failed check is retried', () => {
+    expect(canStartCheck({ ...demo, reviewDue: ['module-3'] }, 'module-3')).toBe(false)
   })
 })
 

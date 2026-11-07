@@ -38,6 +38,7 @@ describe('parseProgress', () => {
   it('reads back exactly what was saved', () => {
     const state = busyState()
     expect(parseProgress(saved(state))).toEqual(state)
+    expect(parseProgress(saved({ ...state, demoUnlocked: true }))).toEqual({ ...state, demoUnlocked: true })
     expect(parseProgress(saved(initialProgress()))).toEqual(initialProgress())
   })
 
@@ -50,7 +51,8 @@ describe('parseProgress', () => {
   })
 
   it('rejects saved data from another version', () => {
-    expect(parseProgress(saved({ ...initialProgress(), version: 2 }))).toBeNull()
+    expect(parseProgress(saved({ ...initialProgress(), version: 1 }))).toBeNull()
+    expect(parseProgress(saved({ ...initialProgress(), version: 3 }))).toBeNull()
     expect(parseProgress(saved({ ...initialProgress(), version: undefined }))).toBeNull()
   })
 
@@ -72,6 +74,8 @@ describe('parseProgress', () => {
     ['lastShown with a number', (s) => (s.lastShown = { 'm1-terms': 3 })],
     ['thinkNotes as a list', (s) => (s.thinkNotes = ['note'])],
     ['lectureQuestions with a number', (s) => (s.lectureQuestions = ['ok', 7])],
+    ['demoUnlocked missing', (s) => delete s.demoUnlocked],
+    ['demoUnlocked as text', (s) => (s.demoUnlocked = 'yes')],
   ]
 
   function setAnswer(s: Record<string, unknown>, change: Record<string, unknown>) {
