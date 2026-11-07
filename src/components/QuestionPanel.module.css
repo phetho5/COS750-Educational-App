@@ -1,0 +1,170 @@
+/* A question without a graph uses one narrower column. */
+.single {
+  max-width: 760px;
+}
+
+.panel {
+  gap: var(--space-4);
+}
+
+.prompt {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.lead {
+  font-size: var(--text-body);
+  color: var(--color-muted);
+  max-width: 70ch;
+  text-wrap: pretty;
+}
+
+.question {
+  font-size: var(--text-heading);
+  line-height: 1.25;
+  font-weight: 700;
+  text-wrap: balance;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.option {
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  background: #ffffff;
+  border: 2px solid var(--color-outline);
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  text-align: left;
+  font-size: var(--text-body);
+  font-weight: 700;
+}
+
+.option:hover:not(:disabled) {
+  border-color: var(--color-blue);
+}
+
+.option:disabled {
+  opacity: 0.6;
+}
+
+.dot {
+  width: 22px;
+  height: 22px;
+  flex: none;
+  border-radius: 50%;
+  border: 2px solid var(--color-outline);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+}
+
+.dot span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.optionSelected {
+  background: var(--color-blue-tint);
+  border-color: var(--color-blue);
+}
+
+.optionSelected .dot {
+  border-color: var(--color-blue);
+}
+
+.optionSelected .dot span {
+  background: var(--color-blue);
+}
+
+.optionRight {
+  background: var(--color-good-tint);
+  border-color: var(--color-good);
+}
+
+.optionRight .dot {
+  border-color: var(--color-good);
+}
+
+.optionRight .dot span {
+  background: var(--color-good);
+}
+
+.optionWrong {
+  background: var(--color-bad-tint);
+  border-color: var(--color-bad-icon);
+}
+
+.optionWrong .dot {
+  border-color: var(--color-bad-icon);
+}
+
+.optionWrong .dot span {
+  background: var(--color-bad-icon);
+}
+
+.optionLabel {
+  flex: 1;
+}
+
+.markRight,
+.markWrong {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+}
+
+.markRight {
+  color: var(--color-good);
+}
+
+.markWrong {
+  color: var(--color-bad-text);
+}
+
+.selectHint {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: #ffffff;
+  border: 2px dashed var(--color-outline);
+  border-radius: var(--radius-control);
+  font-size: var(--text-body);
+}
+
+.feedback {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.feedback:empty {
+  display: none;
+}
+
+.check {
+  min-height: 52px;
+  font-size: var(--text-body);
+}
+
+.visited {
+  font-size: var(--text-label);
+  color: var(--color-muted);
+  padding: 0 var(--space-1);
+}
+
+.visited strong {
+  color: var(--color-ink);
+}
