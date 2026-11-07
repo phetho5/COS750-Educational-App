@@ -6,7 +6,8 @@
   the student reads (e.g. the review advice for each misconception) belong in
   src/content/ and are added with the summary screen in step 5.
 */
-import { CHECK_IDS, type MisconceptionId, type ObjectiveId } from '../questions'
+import { CHECK_IDS, type MisconceptionId, type ModuleId, type ObjectiveId } from '../questions'
+import { MISCONCEPTION_REVIEW, OBJECTIVE_REVIEW } from '../content/summaryText'
 import { bestAttempt, isPass, objectiveMastery, scorePercent, type ObjectiveMastery } from './mastery'
 import type { ProgressState } from './types'
 
@@ -72,4 +73,30 @@ export function preLectureSummary(state: ProgressState): PreLectureSummary {
       .filter(([, text]) => text.trim() !== '')
       .map(([boxId, text]) => ({ boxId, text })),
   }
+}
+
+export interface ReviewItem {
+  readonly text: string
+  /** The module to revisit for it. */
+  readonly moduleId: ModuleId
+}
+
+/**
+ * The "What to review" list (handoff D60):
+ * 1. the core Dijkstra mistakes that have their own line, most frequent
+ *    first, pointing to the walkthrough in Module 4;
+ * 2. then one line per objective that is below 80%, or that had a mistake
+ *    without a line of its own, pointing to that objective's module.
+ */
+export function reviewItems(summary: PreLectureSummary): ReviewItem[] {
+  const items: ReviewItem[] = []
+  const objectives = new Set<ObjectiveId>(summary.objectivesToReview)
+
+  for (const m of summary.misconceptionsToReview) {
+    const line = MISCONCEPTION_REVIEW[m.misconception]
+    if (line) items.push({ text: line, moduleId: 4 })
+    else m.objectives.forEach((o) => objectives.add(o))
+  }
+  for (const o of [...objectives].sort()) items.push({ text: OBJECTIVE_REVIEW[o], moduleId: o })
+  return items
 }

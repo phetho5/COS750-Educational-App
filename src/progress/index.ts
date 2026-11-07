@@ -33,6 +33,6 @@ export {
   unlockForDemo,
 } from './state'
 export { browserStorage, createProgressStore, parseProgress, STORAGE_KEY, type ProgressStore, type StorageLike } from './storage'
-export { misconceptionsToReview, preLectureSummary, type MisconceptionToReview, type PreLectureSummary } from './summary'
+export { misconceptionsToReview, preLectureSummary, reviewItems, type MisconceptionToReview, type PreLectureSummary, type ReviewItem } from './summary'
 export type * from './types'
 export { PROGRESS_VERSION } from './types'

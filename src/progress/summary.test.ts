@@ -1,7 +1,8 @@
 import { describe, expect, it } from 'vitest'
 import { attempt, passedUpTo, stateWith } from '../test/progressFixtures'
 import { initialProgress } from './state'
-import { misconceptionsToReview, preLectureSummary } from './summary'
+import { MISCONCEPTION_REVIEW, OBJECTIVE_REVIEW } from '../content/summaryText'
+import { misconceptionsToReview, preLectureSummary, reviewItems } from './summary'
 
 describe('misconceptionsToReview', () => {
   it('is empty for a new student', () => {
@@ -63,5 +64,34 @@ describe('preLectureSummary', () => {
     const summary = preLectureSummary(state)
     expect(summary.lectureQuestions).toEqual(['Why no negative weights?'])
     expect(summary.thinkNotes).toEqual([{ boxId: 'graph-vs-list', text: 'A graph can branch.' }])
+  })
+})
+
+describe('reviewItems', () => {
+  it('is empty when every objective is mastered and there were no mistakes', () => {
+    expect(reviewItems(preLectureSummary(stateWith(passedUpTo(5))))).toEqual([])
+  })
+
+  it('gives core Dijkstra mistakes their own line, pointing to the walkthrough', () => {
+    const state = stateWith({ ...passedUpTo(4), 'module-5': [attempt(4, 5, ['dist-edge-only'], 5)] })
+    expect(reviewItems(preLectureSummary(state))).toEqual([{ text: MISCONCEPTION_REVIEW['dist-edge-only'], moduleId: 4 }])
+  })
+
+  it("groups other mistakes under their objective's line, and lists objectives below 80%", () => {
+    const state = stateWith({
+      ...passedUpTo(2),
+      'module-1': [attempt(4, 5, ['m1-terms-lines'], 1)],
+      'module-3': [attempt(3, 5, ['m3-fewest-always', 'next-alphabetical'], 3)],
+    })
+    const items = reviewItems(preLectureSummary(state))
+    expect(items[0]).toEqual({ text: MISCONCEPTION_REVIEW['next-alphabetical'], moduleId: 4 })
+    expect(items.slice(1).map((i) => i.moduleId)).toEqual([1, 3, 4, 5])
+    expect(items[1].text).toBe(OBJECTIVE_REVIEW[1])
+  })
+
+  it('has a line for every core trace misconception', () => {
+    for (const id of ['next-alphabetical', 'next-discovery-order', 'next-lightest-edge', 'dist-keep-old', 'dist-edge-only', 'dist-always-update', 'dist-own-distance']) {
+      expect(MISCONCEPTION_REVIEW[id]).toBeTruthy()
+    }
   })
 })
