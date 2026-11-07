@@ -104,6 +104,19 @@ describe('Your turn on the sample graph', () => {
     expect(distances).toEqual({ A: 0, B: 3, C: 10, D: 2, E: 12, F: 8 })
   })
 
+  it("never marks the next vertex as visited before the student picks it (that would give the answer away)", () => {
+    const visitedIn = (s: YourTurnState) => Object.keys(s.table).filter((v) => s.table[v].visited).sort()
+    let s = start()
+    while (s.phase !== 'done') {
+      expect(visitedIn(s)).toEqual([...visitedSoFar(s)].sort())
+      const picked = pickVertex(s, s.result.visitOrder[s.done]).state
+      if (picked.phase === 'update') {
+        expect(visitedIn(picked)).toEqual([...visitedSoFar(picked), currentVertex(picked)!].sort())
+      }
+      s = doRight(s)
+    }
+  })
+
   it('says when a box has something that is not a number', () => {
     const s = pickVertex(start(), 'B').state
     const move = submitDistances(s, { F: 'eight' })
