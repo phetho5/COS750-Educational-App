@@ -1,0 +1,294 @@
+/* Shared building blocks, matching design/cos212-app-v2.dc.html. */
+
+/* ---- Buttons ---- */
+
+.button {
+  min-height: var(--button-height);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 0 20px;
+  border: 2px solid var(--color-blue);
+  border-radius: var(--radius-control);
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+  text-align: left;
+  text-decoration: none;
+}
+
+.button:disabled {
+  opacity: 0.45;
+}
+
+.primary {
+  background: var(--color-blue);
+  color: #ffffff;
+}
+
+.primary:hover:not(:disabled) {
+  background: var(--color-blue-dark);
+  border-color: var(--color-blue-dark);
+}
+
+.secondary {
+  background: var(--color-surface);
+  color: var(--color-blue);
+}
+
+.secondary:hover:not(:disabled) {
+  background: var(--color-blue-tint);
+}
+
+.text {
+  background: transparent;
+  border-color: transparent;
+  color: var(--color-blue);
+  padding: 0 12px;
+}
+
+.text:hover:not(:disabled) {
+  background: var(--color-blue-tint);
+  color: var(--color-blue-dark);
+}
+
+.hint {
+  background: var(--color-surface);
+  color: var(--color-hint-text);
+  border-color: var(--color-hint);
+  padding: 0 16px;
+}
+
+.hint:hover:not(:disabled) {
+  background: var(--color-hint-tint);
+}
+
+.large {
+  min-height: 56px;
+  font-size: 18px;
+  padding: 0 24px;
+}
+
+.spread {
+  justify-content: space-between;
+}
+
+/* ---- Cards ---- */
+
+.card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  padding: var(--card-padding);
+}
+
+.cardFlush {
+  padding: 0;
+  overflow: hidden;
+}
+
+/* ---- Text ---- */
+
+.eyebrow {
+  font-size: var(--text-label);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  color: var(--color-muted);
+}
+
+.pageTitle {
+  font-size: var(--text-display);
+  line-height: 1.15;
+  font-weight: 700;
+  text-wrap: balance;
+}
+
+.sectionTitle {
+  font-size: var(--text-title);
+  font-weight: 700;
+}
+
+.lead {
+  font-size: var(--text-body);
+  color: var(--color-muted);
+  max-width: 62ch;
+  text-wrap: pretty;
+}
+
+/* ---- Feedback banners ---- */
+
+.feedback {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+  padding: var(--space-4);
+  border-radius: var(--radius-card);
+  font-size: var(--text-body);
+  text-wrap: pretty;
+}
+
+.feedback svg {
+  margin-top: 2px;
+}
+
+.feedbackBody {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  min-width: 0;
+}
+
+.correct {
+  background: var(--color-good-tint);
+}
+
+.correct strong:first-child {
+  color: var(--color-good);
+}
+
+.wrong {
+  background: var(--color-bad-tint);
+}
+
+.wrong strong:first-child {
+  color: var(--color-bad-text);
+}
+
+.info {
+  background: var(--color-blue-tint);
+}
+
+/* ---- Status badges (module map, summary) ---- */
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px 4px 8px;
+  border-radius: var(--radius-pill);
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+}
+
+.badgeMastered {
+  background: var(--color-blue);
+  color: #ffffff;
+}
+
+.badgeProgress {
+  padding: 2px 12px 2px 8px;
+  border: 2px solid var(--color-blue);
+  color: var(--color-blue-dark);
+}
+
+.badgeLocked {
+  background: var(--color-divider);
+  color: var(--color-ink);
+}
+
+.badgeReview {
+  background: var(--color-hint-tint);
+  color: var(--color-hint-text);
+}
+
+.chip {
+  font-size: 14px;
+  font-weight: 700;
+  padding: 4px 12px;
+  border-radius: var(--radius-pill);
+  background: var(--color-blue-tint);
+  color: var(--color-blue-dark);
+}
+
+.chipOutline {
+  font-size: 14px;
+  font-weight: 700;
+  padding: 2px 12px;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--color-outline);
+  color: var(--color-muted);
+}
+
+/* ---- Page layout ---- */
+
+.page {
+  max-width: var(--content-width);
+  width: 100%;
+  margin: 0 auto;
+  padding: var(--space-5) var(--space-4) var(--space-6);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-5);
+}
+
+.pageHeader {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+/* Two columns that wrap on narrow screens: graph on the left, panel on the right. */
+.columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-5);
+  align-items: flex-start;
+}
+
+.mainColumn {
+  flex: 3 1 480px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.sideColumn {
+  flex: 2 1 380px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+  align-items: center;
+}
+
+.spaceBetween {
+  justify-content: space-between;
+}
+
+/* Bar fixed to the bottom of the screen for the main controls. */
+.stickyBar {
+  position: sticky;
+  bottom: 0;
+  z-index: 20;
+  background: var(--color-surface);
+  border-top: 1px solid var(--color-divider);
+  padding: var(--space-2) var(--space-4);
+}
+
+.stickyBarInner {
+  max-width: var(--content-width);
+  margin: 0 auto;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.muted {
+  color: var(--color-muted);
+}
+
+.small {
+  font-size: var(--text-label);
+}
