@@ -1,0 +1,153 @@
+.review {
+  max-width: 1000px;
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-8);
+}
+
+.top {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.score {
+  flex: 2 1 320px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-5);
+  text-wrap: pretty;
+}
+
+.percent {
+  font-size: 48px;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+.locked {
+  flex: 1 1 260px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  background: var(--color-bg);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-card);
+  padding: var(--card-padding);
+  font-size: 16px;
+}
+
+.steps {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.step {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.stepTitle {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-title);
+  font-weight: 700;
+}
+
+.stepNumber {
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: var(--color-blue-tint);
+  color: var(--color-blue-dark);
+  font-size: 16px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.text {
+  line-height: 1.6;
+  max-width: 66ch;
+  text-wrap: pretty;
+}
+
+.rules {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-4);
+}
+
+.rules p {
+  flex: 1 1 260px;
+  padding: var(--space-4);
+  background: var(--color-bg);
+  border-radius: var(--radius-control);
+}
+
+.selfStart {
+  align-self: flex-start;
+}
+
+.practice {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-divider);
+}
+
+.option {
+  min-height: var(--button-height);
+  padding: 0 20px;
+  border-radius: var(--radius-pill);
+  border: 2px solid var(--color-outline);
+  background: #ffffff;
+  font-weight: 700;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.option:hover {
+  border-color: var(--color-blue);
+}
+
+.right {
+  background: var(--color-good-tint);
+  border-color: var(--color-good);
+}
+
+.wrong {
+  background: var(--color-bad-tint);
+  border-color: var(--color-bad-icon);
+}
+
+.feedback {
+  display: flex;
+  gap: 6px;
+  align-items: flex-start;
+  font-size: 16px;
+}
+
+.good {
+  color: var(--color-good);
+  white-space: nowrap;
+}
+
+.bad {
+  color: var(--color-bad-text);
+  white-space: nowrap;
+}
+
+.retry {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-4);
+}
