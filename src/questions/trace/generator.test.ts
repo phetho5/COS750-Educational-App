@@ -237,14 +237,17 @@ describe('every trace question', () => {
   })
 
   it('follows the text rules: no em-dashes or en-dashes, and no unfilled values', () => {
-    for (const q of everything) {
-      expect(textRuleProblems(q), q.id).toEqual([])
-      for (const text of allStrings(q)) {
-        expect(text, q.id).not.toMatch(/undefined|NaN|\[object/)
-        // Students see ∞. "Infinity" may only be an answer key, and keys aren't in allStrings().
-        expect(text, q.id).not.toMatch(/Infinity/)
-      }
-    }
+    // Collect every problem and assert once: one expect() per string was slow
+    // enough to time out when the whole suite runs in parallel (handoff B7).
+    // Students see ∞. "Infinity" may only be an answer key, and keys aren't in allStrings().
+    const unfilled = /undefined|NaN|\[object|Infinity/
+    const problems = everything.flatMap((q) => [
+      ...textRuleProblems(q).map((p) => `${q.id}: ${p}`),
+      ...allStrings(q)
+        .filter((text) => unfilled.test(text))
+        .map((text) => `${q.id}: unfilled value in "${text}"`),
+    ])
+    expect(problems).toEqual([])
   })
 
   it('is marked as not yet reviewed', () => {
