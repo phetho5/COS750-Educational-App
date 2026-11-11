@@ -31,7 +31,11 @@ function Shell() {
   useDemoSwitch()
 
   // Each new page starts at the top, like a normal website.
-  useEffect(() => window.scrollTo(0, 0), [path])
+  // The braces matter: an effect may only return a clean-up function, and newer
+  // browsers return a Promise from scrollTo (handoff B11).
+  useEffect(() => {
+    window.scrollTo(0, 0)
+  }, [path])
 
   return (
     <>
