@@ -34,7 +34,8 @@ interface MapEntry {
 }
 
 export function MapScreen() {
-  const { progress, reset, isSaving, learningMode, setLearningMode } = useProgress();
+  const { progress, reset, isSaving, learningMode, setLearningMode } =
+    useProgress();
   const [confirming, setConfirming] = useState(false);
   const [resetDone, setResetDone] = useState(false);
 
@@ -189,7 +190,9 @@ export function MapScreen() {
             </span>
           </label>
           <p aria-live="polite" className={`${ui.small} ${ui.muted}`}>
-            {t.learningModeSaved(learningMode === "support" ? t.supportMode : t.challengeMode)}
+            {t.learningModeSaved(
+              learningMode === "support" ? t.supportMode : t.challengeMode,
+            )}
           </p>
         </fieldset>
 

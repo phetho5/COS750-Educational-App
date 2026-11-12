@@ -73,8 +73,12 @@ describe("MapScreen", () => {
 
     await userEvent.click(challenge);
     expect(challenge).toBeChecked();
-    expect(window.localStorage.getItem("cos212-learning-mode")).toBe("challenge");
-    expect(screen.getByText(/This does not change your score or the questions/)).toBeInTheDocument();
+    expect(window.localStorage.getItem("cos212-learning-mode")).toBe(
+      "challenge",
+    );
+    expect(
+      screen.getByText(/This does not change your score or the questions/),
+    ).toBeInTheDocument();
   });
 
   it("opens a module and shows mastery per objective", async () => {

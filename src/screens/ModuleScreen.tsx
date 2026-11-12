@@ -109,7 +109,11 @@ export function ModuleScreen({ moduleId }: { moduleId: ModuleId }) {
         {tab === "try" && (
           <>
             <p className={ui.lead}>{lesson.tryIntro}</p>
-            <TryTab moduleId={moduleId} checkButton={checkButton} learningMode={learningMode} />
+            <TryTab
+              moduleId={moduleId}
+              checkButton={checkButton}
+              learningMode={learningMode}
+            />
           </>
         )}
       </Tabs>
@@ -151,7 +155,7 @@ function TryTab({
 }: {
   moduleId: ModuleId;
   checkButton: ReactNode;
-  learningMode: 'support' | 'challenge';
+  learningMode: "support" | "challenge";
 }) {
   switch (moduleId) {
     case 1:

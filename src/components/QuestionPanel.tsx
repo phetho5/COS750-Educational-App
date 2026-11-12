@@ -13,63 +13,78 @@
   check), so every readable result is passed up through onResult.
   Give this component `key={question.id}` so a new question starts fresh.
 */
-import { useState, type ReactNode } from 'react'
-import { checkAnswer, type CheckResult, type Question } from '../questions'
-import type { LearningMode } from '../progress/learningMode'
-import { questionUiText as t } from '../content/questionUiText'
-import { listText } from '../content/format'
-import { cx } from './classNames'
-import { DistanceTable } from './DistanceTable'
-import { pathEdges, statesFrom } from './graphHelpers'
-import { GraphView, type VertexBadge } from './GraphView'
-import { HintLadder } from './HintLadder'
-import { Icon } from './Icon'
-import { Button, Card, Feedback } from './ui'
-import ui from './ui.module.css'
-import styles from './QuestionPanel.module.css'
+import { useState, type ReactNode } from "react";
+import { checkAnswer, type CheckResult, type Question } from "../questions";
+import type { LearningMode } from "../progress/learningMode";
+import { questionUiText as t } from "../content/questionUiText";
+import { listText } from "../content/format";
+import { cx } from "./classNames";
+import { DistanceTable } from "./DistanceTable";
+import { pathEdges, statesFrom } from "./graphHelpers";
+import { GraphView, type VertexBadge } from "./GraphView";
+import { HintLadder } from "./HintLadder";
+import { Icon } from "./Icon";
+import { Button, Card, Feedback } from "./ui";
+import ui from "./ui.module.css";
+import styles from "./QuestionPanel.module.css";
 
 interface QuestionPanelProps {
-  question: Question
+  question: Question;
   /** Called with every readable result (correct or wrong), in order. */
-  onResult?: (result: CheckResult) => void
+  onResult?: (result: CheckResult) => void;
   /** Shown inside the green banner once the answer is correct (e.g. "Next question"). */
-  afterCorrect?: ReactNode
+  afterCorrect?: ReactNode;
   /** Shown once all four hints are open. Leave out to hide the button. */
-  onNewQuestion?: () => void
+  onNewQuestion?: () => void;
   /** Heading level for the prompt: h1 on a check screen, h2 inside a lesson. */
-  headingLevel?: 1 | 2
-  learningMode?: LearningMode
+  headingLevel?: 1 | 2;
+  learningMode?: LearningMode;
 }
 
-export function QuestionPanel({ question: q, onResult, afterCorrect, onNewQuestion, headingLevel = 1, learningMode = 'support' }: QuestionPanelProps) {
-  const [answer, setAnswer] = useState('')
-  const [result, setResult] = useState<CheckResult | null>(null)
-  const [mistake, setMistake] = useState('')
-  const [hintLevel, setHintLevel] = useState(0)
-  const [subAnswers, setSubAnswers] = useState<Record<number, number>>({})
+export function QuestionPanel({
+  question: q,
+  onResult,
+  afterCorrect,
+  onNewQuestion,
+  headingLevel = 1,
+  learningMode = "support",
+}: QuestionPanelProps) {
+  const [answer, setAnswer] = useState("");
+  const [result, setResult] = useState<CheckResult | null>(null);
+  const [mistake, setMistake] = useState("");
+  const [hintLevel, setHintLevel] = useState(0);
+  const [subAnswers, setSubAnswers] = useState<Record<number, number>>({});
 
-  const isCorrect = result?.status === 'correct'
-  const canCheck = !isCorrect && answer.trim() !== ''
+  const isCorrect = result?.status === "correct";
+  const canCheck = !isCorrect && answer.trim() !== "";
 
   function choose(value: string) {
-    if (isCorrect) return
-    setAnswer(value)
-    setResult(null) // a new answer clears the old feedback, but the hints stay open
+    if (isCorrect) return;
+    setAnswer(value);
+    setResult(null); // a new answer clears the old feedback, but the hints stay open
   }
 
   function check() {
-    const r = checkAnswer(q, answer)
-    setResult(r)
-    if (r.status === 'invalid') return
-    onResult?.(r)
-    if (r.status === 'wrong') {
-      setMistake(r.feedback)
-      if (learningMode === 'support') setHintLevel((level) => Math.max(level, 1))
+    const r = checkAnswer(q, answer);
+    setResult(r);
+    if (r.status === "invalid") return;
+    onResult?.(r);
+    if (r.status === "wrong") {
+      setMistake(r.feedback);
+      if (learningMode === "support")
+        setHintLevel((level) => Math.max(level, 1));
     }
   }
 
-  const Heading = headingLevel === 1 ? 'h1' : 'h2'
-  const graph = q.view && <QuestionGraph question={q} answer={answer} result={result} onSelect={choose} />
+  const Heading = headingLevel === 1 ? "h1" : "h2";
+  const graph = q.view && (
+    <QuestionGraph
+      question={q}
+      answer={answer}
+      result={result}
+      onSelect={choose}
+    />
+  );
 
   return (
     <div className={cx(ui.columns, !q.view && styles.single)}>
@@ -81,52 +96,76 @@ export function QuestionPanel({ question: q, onResult, afterCorrect, onNewQuesti
           <Heading className={styles.question}>{q.prompt}</Heading>
         </div>
 
-        {(q.format === 'multiple-choice' || q.format === 'predict') && (
-          <Options question={q} answer={answer} result={result} onChoose={choose} />
+        {(q.format === "multiple-choice" || q.format === "predict") && (
+          <Options
+            question={q}
+            answer={answer}
+            result={result}
+            onChoose={choose}
+          />
         )}
 
-        {q.format === 'select-vertex' && (
+        {q.format === "select-vertex" && (
           <div className={styles.selectHint}>
             <Icon name="cursor" color="var(--color-blue)" />
             <span>{answer ? t.yourChoice(answer) : t.selectHint}</span>
           </div>
         )}
 
-        {q.format === 'fill-in' && q.view?.table && q.fillTarget && (
+        {q.format === "fill-in" && q.view?.table && q.fillTarget && (
           <DistanceTable
             table={q.view.table}
             vertices={q.view.graph.vertices}
             current={q.view.current}
-            previousText={{ [q.fillTarget]: isCorrect ? (q.view.current ?? '?') : '?' }}
+            previousText={{
+              [q.fillTarget]: isCorrect ? (q.view.current ?? "?") : "?",
+            }}
             editable={{
               [q.fillTarget]: {
                 value: answer,
                 onChange: choose,
                 ariaLabel: `Distance for ${q.fillTarget}`,
-                mark: result?.status === 'correct' ? 'right' : result?.status === 'wrong' ? 'wrong' : null,
+                mark:
+                  result?.status === "correct"
+                    ? "right"
+                    : result?.status === "wrong"
+                      ? "wrong"
+                      : null,
               },
             }}
           />
         )}
 
         <div aria-live="polite" className={styles.feedback}>
-          {result?.status === 'correct' && (
+          {result?.status === "correct" && (
             <Feedback kind="correct" action={afterCorrect}>
               {result.feedback}
             </Feedback>
           )}
-          {result?.status === 'wrong' && <Feedback kind="wrong">{t.wrongBanner(learningMode)}</Feedback>}
-          {result?.status === 'invalid' && <Feedback kind="info">{result.feedback}</Feedback>}
+          {result?.status === "wrong" && (
+            <Feedback kind="wrong">{t.wrongBanner(learningMode)}</Feedback>
+          )}
+          {result?.status === "invalid" && (
+            <Feedback kind="info">{result.feedback}</Feedback>
+          )}
         </div>
 
-        {learningMode === 'challenge' && result?.status === 'wrong' && hintLevel === 0 && (
-          <Button variant="hint" icon="bulb" onClick={() => setHintLevel(1)}>
-            {t.revealHint}
-          </Button>
-        )}
+        {learningMode === "challenge" &&
+          result?.status === "wrong" &&
+          hintLevel === 0 && (
+            <Button variant="hint" icon="bulb" onClick={() => setHintLevel(1)}>
+              {t.revealHint}
+            </Button>
+          )}
 
         {!isCorrect && (
-          <Button spread iconAfter="check" onClick={check} disabled={!canCheck} className={styles.check}>
+          <Button
+            spread
+            iconAfter="check"
+            onClick={check}
+            disabled={!canCheck}
+            className={styles.check}
+          >
             {t.checkButton}
           </Button>
         )}
@@ -144,16 +183,37 @@ export function QuestionPanel({ question: q, onResult, afterCorrect, onNewQuesti
         )}
       </div>
     </div>
-  )
+  );
 }
 
-function Options({ question, answer, result, onChoose }: { question: Question; answer: string; result: CheckResult | null; onChoose: (id: string) => void }) {
-  const locked = result?.status === 'correct'
+function Options({
+  question,
+  answer,
+  result,
+  onChoose,
+}: {
+  question: Question;
+  answer: string;
+  result: CheckResult | null;
+  onChoose: (id: string) => void;
+}) {
+  const locked = result?.status === "correct";
   return (
-    <div role="radiogroup" aria-label="Answer options" className={styles.options}>
+    <div
+      role="radiogroup"
+      aria-label="Answer options"
+      className={styles.options}
+    >
       {question.options.map((option) => {
-        const selected = answer === option.id
-        const mark = selected && result ? (result.status === 'correct' ? 'right' : result.status === 'wrong' ? 'wrong' : null) : null
+        const selected = answer === option.id;
+        const mark =
+          selected && result
+            ? result.status === "correct"
+              ? "right"
+              : result.status === "wrong"
+                ? "wrong"
+                : null
+            : null;
         return (
           <button
             key={option.id}
@@ -161,41 +221,61 @@ function Options({ question, answer, result, onChoose }: { question: Question; a
             role="radio"
             aria-checked={selected}
             disabled={locked && !selected}
-            className={cx(styles.option, selected && styles.optionSelected, mark === 'right' && styles.optionRight, mark === 'wrong' && styles.optionWrong)}
+            className={cx(
+              styles.option,
+              selected && styles.optionSelected,
+              mark === "right" && styles.optionRight,
+              mark === "wrong" && styles.optionWrong,
+            )}
             onClick={() => onChoose(option.id)}
           >
             <span className={styles.dot} aria-hidden="true">
               <span />
             </span>
             <span className={styles.optionLabel}>{option.label}</span>
-            {mark === 'right' && (
+            {mark === "right" && (
               <span className={styles.markRight}>
                 <Icon name="check" />
                 Correct
               </span>
             )}
-            {mark === 'wrong' && (
+            {mark === "wrong" && (
               <span className={styles.markWrong}>
                 <Icon name="cross" color="var(--color-bad-icon)" />
                 Your answer
               </span>
             )}
           </button>
-        )
+        );
       })}
     </div>
-  )
+  );
 }
 
-function QuestionGraph({ question: q, answer, result, onSelect }: { question: Question; answer: string; result: CheckResult | null; onSelect: (v: string) => void }) {
-  const view = q.view!
-  const isSelect = q.format === 'select-vertex'
-  const checked = result !== null && result.status !== 'invalid'
-  const selected = isSelect && answer && !checked ? answer : null
-  const badges: Record<string, VertexBadge> = {}
-  if (isSelect && answer && checked) badges[answer] = result.status === 'correct' ? 'right' : 'wrong'
-  const locked = result?.status === 'correct'
-  const distances = view.table ? Object.fromEntries(view.graph.vertices.map((v) => [v, view.table![v].distance])) : null
+function QuestionGraph({
+  question: q,
+  answer,
+  result,
+  onSelect,
+}: {
+  question: Question;
+  answer: string;
+  result: CheckResult | null;
+  onSelect: (v: string) => void;
+}) {
+  const view = q.view!;
+  const isSelect = q.format === "select-vertex";
+  const checked = result !== null && result.status !== "invalid";
+  const selected = isSelect && answer && !checked ? answer : null;
+  const badges: Record<string, VertexBadge> = {};
+  if (isSelect && answer && checked)
+    badges[answer] = result.status === "correct" ? "right" : "wrong";
+  const locked = result?.status === "correct";
+  const distances = view.table
+    ? Object.fromEntries(
+        view.graph.vertices.map((v) => [v, view.table![v].distance]),
+      )
+    : null;
 
   return (
     <>
@@ -204,10 +284,15 @@ function QuestionGraph({ question: q, answer, result, onSelect }: { question: Qu
           graph={view.graph}
           wide={view.wide}
           narrow={view.narrow}
-          start={view.table ? 'A' : null}
+          start={view.table ? "A" : null}
           label="Question graph"
           description={q.lead}
-          states={statesFrom(view.graph.vertices, view.visited, view.current, selected)}
+          states={statesFrom(
+            view.graph.vertices,
+            view.visited,
+            view.current,
+            selected,
+          )}
           distances={distances}
           checkingEdge={view.checkingEdge}
           pathEdges={pathEdges(view.table)}
@@ -218,10 +303,13 @@ function QuestionGraph({ question: q, answer, result, onSelect }: { question: Qu
       </Card>
       {view.table && (
         <p className={styles.visited}>
-          {t.visitedSoFar} <strong>{view.visited.length ? listText(view.visited) : t.noneYet}</strong>
+          {t.visitedSoFar}{" "}
+          <strong>
+            {view.visited.length ? listText(view.visited) : t.noneYet}
+          </strong>
           {view.current && ` · ${t.visitingNow(view.current)}`}
         </p>
       )}
     </>
-  )
+  );
 }

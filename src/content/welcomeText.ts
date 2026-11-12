@@ -25,12 +25,15 @@ export const mapText = {
   intro:
     "Work through the modules in order. Each one ends with a short check. Score 80% or more to unlock the next one.",
   objectivesTitle: "Learning objectives",
-  learningModeTitle: 'Choose your learning mode',
-  supportMode: 'Support',
-  supportModeDescription: 'Get a nudge automatically after a wrong answer. You can reveal more hints step by step.',
-  challengeMode: 'Challenge',
-  challengeModeDescription: 'Try again without an automatic hint. Reveal the hint ladder when you want help.',
-  learningModeSaved: (mode: string) => `Learning mode: ${mode}. This does not change your score or the questions.`,
+  learningModeTitle: "Choose your learning mode",
+  supportMode: "Support",
+  supportModeDescription:
+    "Get a nudge automatically after a wrong answer. You can reveal more hints step by step.",
+  challengeMode: "Challenge",
+  challengeModeDescription:
+    "Try again without an automatic hint. Reveal the hint ladder when you want help.",
+  learningModeSaved: (mode: string) =>
+    `Learning mode: ${mode}. This does not change your score or the questions.`,
   progressTitle: "Your progress",
   modulesComplete: (complete: number, total: number) =>
     `${complete} of ${total} modules mastered`,
