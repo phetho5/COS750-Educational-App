@@ -173,10 +173,18 @@ describe("ModuleScreen", () => {
     expect(
       screen.getByRole("heading", { name: "Where shortest paths show up" }),
     ).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Navigation" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Delivery planning" })).toBeInTheDocument();
-    expect(screen.getByRole("heading", { name: "Computer networks" })).toBeInTheDocument();
-    expect(screen.getByText(/quickest route minimises travel time/)).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Navigation" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Delivery planning" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Computer networks" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.getByText(/quickest route minimises travel time/),
+    ).toBeInTheDocument();
 
     await userEvent.click(screen.getByRole("tab", { name: "Try" }));
     expect(
