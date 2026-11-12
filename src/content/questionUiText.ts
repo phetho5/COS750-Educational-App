@@ -33,6 +33,7 @@ export const questionUiText = {
   practiceChip: "New question · same type",
   supportMode: "Support mode",
   challengeMode: "Challenge mode",
+  largerGraph: "Larger graph · 8 vertices",
   checkButton: "Check",
   nextQuestion: "Next question",
   seeResults: "See your results",

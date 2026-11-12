@@ -31,9 +31,9 @@ export const mapText = {
     "Get a nudge automatically after a wrong answer. You can reveal more hints step by step.",
   challengeMode: "Challenge",
   challengeModeDescription:
-    "Try again without an automatic hint. Reveal the hint ladder when you want help.",
+    "Try again without an automatic hint. Some trace questions use larger graphs with more routes to compare.",
   learningModeSaved: (mode: string) =>
-    `Learning mode: ${mode}. This does not change your score or the questions.`,
+    `Learning mode: ${mode}. The pass mark and scoring rules stay the same.`,
   progressTitle: "Your progress",
   modulesComplete: (complete: number, total: number) =>
     `${complete} of ${total} modules mastered`,

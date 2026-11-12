@@ -11,12 +11,13 @@ import { lessonUiText as t } from "../../content/lessons";
 import { QuestionPanel } from "../QuestionPanel";
 import { Button } from "../ui";
 
-const newQuestion = () =>
+const newQuestion = (learningMode: LearningMode) =>
   generateTraceQuestion({
     skill: "next-vertex",
     format: "select-vertex",
     objective: 4,
     seed: randomSeed(),
+    ...(learningMode === "challenge" ? { layoutId: "network" as const } : {}),
   });
 
 export function PracticeQuestion({
@@ -24,8 +25,8 @@ export function PracticeQuestion({
 }: {
   learningMode?: LearningMode;
 }) {
-  const [question, setQuestion] = useState(newQuestion);
-  const another = () => setQuestion(newQuestion());
+  const [question, setQuestion] = useState(() => newQuestion(learningMode));
+  const another = () => setQuestion(newQuestion(learningMode));
   return (
     <QuestionPanel
       key={question.id}

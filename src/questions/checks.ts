@@ -1,3 +1,4 @@
+export type CheckDifficulty = "support" | "challenge";
 /*
   Module checks: which questions each check asks, and "a new question of
   the same type" for after the hint ladder.
@@ -122,14 +123,22 @@ export function buildCheck(
   checkId: CheckId,
   seed: number,
   lastShown: LastShown = {},
+  difficulty: CheckDifficulty = "support",
 ): Question[] {
   const rng = createRng(seed);
   const usedGroups = new Set<string>();
 
   return CHECK_PLANS[checkId].map((item, index) => {
     if (item.kind === "trace") {
+      const challengeTrace =
+        (checkId === "module-4" && index === 4) ||
+        (checkId === "module-5" && [0, 2, 4].includes(index)) ||
+        (checkId === "final" && index === 4);
       return generateTraceQuestion({
         ...item.request,
+        ...(difficulty === "challenge" && challengeTrace
+          ? { layoutId: "network" as const }
+          : {}),
         seed: deriveSeed(seed, index),
       } as TraceRequest);
     }
@@ -158,6 +167,7 @@ export function newQuestionLike(question: Question, seed: number): Question {
       format,
       objective: question.objective,
       seed: freshSeed,
+      layoutId: question.trace.layoutId,
     } as TraceRequest);
   }
   if (question.concept) {

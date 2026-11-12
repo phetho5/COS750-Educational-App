@@ -161,41 +161,6 @@ export function MapScreen() {
           </div>
         </section>
 
-        <fieldset className={styles.modePicker}>
-          <legend className={ui.sectionTitle}>{t.learningModeTitle}</legend>
-          <label className={styles.modeOption}>
-            <input
-              type="radio"
-              name="learning-mode"
-              value="support"
-              checked={learningMode === "support"}
-              onChange={() => setLearningMode("support")}
-            />
-            <span className={styles.modeCopy}>
-              <strong>{t.supportMode}</strong>
-              <span>{t.supportModeDescription}</span>
-            </span>
-          </label>
-          <label className={styles.modeOption}>
-            <input
-              type="radio"
-              name="learning-mode"
-              value="challenge"
-              checked={learningMode === "challenge"}
-              onChange={() => setLearningMode("challenge")}
-            />
-            <span className={styles.modeCopy}>
-              <strong>{t.challengeMode}</strong>
-              <span>{t.challengeModeDescription}</span>
-            </span>
-          </label>
-          <p aria-live="polite" className={`${ui.small} ${ui.muted}`}>
-            {t.learningModeSaved(
-              learningMode === "support" ? t.supportMode : t.challengeMode,
-            )}
-          </p>
-        </fieldset>
-
         <ol className={styles.list} aria-label="Modules">
           {entries.map((e) => (
             <li key={e.number}>
@@ -263,6 +228,41 @@ export function MapScreen() {
           })}
         </ul>
         <p className={`${ui.small} ${ui.muted}`}>{t.objectivesNote}</p>
+
+        <fieldset className={styles.modePicker}>
+          <legend className={ui.sectionTitle}>{t.learningModeTitle}</legend>
+          <label className={styles.modeOption}>
+            <input
+              type="radio"
+              name="learning-mode"
+              value="support"
+              checked={learningMode === "support"}
+              onChange={() => setLearningMode("support")}
+            />
+            <span className={styles.modeCopy}>
+              <strong>{t.supportMode}</strong>
+              <span>{t.supportModeDescription}</span>
+            </span>
+          </label>
+          <label className={styles.modeOption}>
+            <input
+              type="radio"
+              name="learning-mode"
+              value="challenge"
+              checked={learningMode === "challenge"}
+              onChange={() => setLearningMode("challenge")}
+            />
+            <span className={styles.modeCopy}>
+              <strong>{t.challengeMode}</strong>
+              <span>{t.challengeModeDescription}</span>
+            </span>
+          </label>
+          <p aria-live="polite" className={`${ui.small} ${ui.muted}`}>
+            {t.learningModeSaved(
+              learningMode === "support" ? t.supportMode : t.challengeMode,
+            )}
+          </p>
+        </fieldset>
 
         <div className={styles.reset}>
           {!confirming ? (

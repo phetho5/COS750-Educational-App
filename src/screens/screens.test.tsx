@@ -67,8 +67,11 @@ describe("MapScreen", () => {
 
   it("lets the learner select a mode and saves the preference separately", async () => {
     withProgress(<MapScreen />);
-    const support = screen.getByRole("radio", { name: /Support/ });
-    const challenge = screen.getByRole("radio", { name: /Challenge/ });
+    const sidebar = within(
+      screen.getByRole("complementary", { name: "Learning objectives" }),
+    );
+    const support = sidebar.getByRole("radio", { name: /Support/ });
+    const challenge = sidebar.getByRole("radio", { name: /Challenge/ });
     expect(support).toBeChecked();
 
     await userEvent.click(challenge);
@@ -77,7 +80,7 @@ describe("MapScreen", () => {
       "challenge",
     );
     expect(
-      screen.getByText(/This does not change your score or the questions/),
+      screen.getByText(/The pass mark and scoring rules stay the same/),
     ).toBeInTheDocument();
   });
 

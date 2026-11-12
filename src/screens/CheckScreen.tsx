@@ -68,7 +68,7 @@ function CheckRun({ checkId, name }: { checkId: CheckId; name: string }) {
   const { progress, update, learningMode } = useProgress();
   // Built once per attempt. A refresh starts a new attempt (D54).
   const [questions] = useState(() =>
-    buildCheck(checkId, randomSeed(), progress.lastShown),
+    buildCheck(checkId, randomSeed(), progress.lastShown, learningMode),
   );
   const [index, setIndex] = useState(0);
   const [firstResults, setFirstResults] = useState<(CheckResult | undefined)[]>(
@@ -135,6 +135,9 @@ function CheckRun({ checkId, name }: { checkId: CheckId; name: string }) {
             <span className={ui.chipOutline}>
               {learningMode === "support" ? t.supportMode : t.challengeMode}
             </span>
+            {question.trace?.layoutId === "network" && (
+              <span className={ui.chipOutline}>{t.largerGraph}</span>
+            )}
             {practice && (
               <span className={ui.chipOutline}>{t.practiceChip}</span>
             )}

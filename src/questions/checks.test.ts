@@ -87,6 +87,34 @@ describe("buildCheck", () => {
     }
   });
 
+  it("uses eight-vertex graphs for selected Challenge trace questions only", () => {
+    for (const seed of SEEDS) {
+      const support = buildCheck("module-5", seed);
+      const challenge = buildCheck("module-5", seed, {}, "challenge");
+      expect(
+        support.every((q) => !q.trace || q.trace.layoutId !== "network"),
+      ).toBe(true);
+      expect(
+        challenge.filter((q) => q.trace?.layoutId === "network"),
+      ).toHaveLength(3);
+      for (const q of challenge.filter(
+        (question) => question.trace?.layoutId === "network",
+      )) {
+        expect(q.view!.graph.vertices).toHaveLength(8);
+        expect(q.view!.graph.edges.length).toBeGreaterThan(9);
+      }
+    }
+  });
+
+  it("uses a larger Challenge graph for the applied Module 4 trace and final trace", () => {
+    const module4 = buildCheck("module-4", 21, {}, "challenge");
+    const final = buildCheck("final", 21, {}, "challenge");
+    expect(module4[4].trace?.layoutId).toBe("network");
+    expect(module4[4].view!.graph.vertices).toHaveLength(8);
+    expect(final[4].trace?.layoutId).toBe("network");
+    expect(final[4].view!.graph.vertices).toHaveLength(8);
+  });
+
   it("uses the four formats the brief asks for across the checks", () => {
     const formats = new Set(
       CHECK_IDS.flatMap((id) => buildCheck(id, 2).map((q) => q.format)),
