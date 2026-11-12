@@ -163,6 +163,27 @@ describe("ModuleScreen", () => {
     expect(screen.getByRole("tabpanel")).not.toBeEmptyDOMElement();
   });
 
+  it("connects shortest-path graphs to practical examples in Module 3's Read tab", async () => {
+    withProgress(<ModuleScreen moduleId={3} />, stateWith(passedUpTo(2)));
+    expect(
+      screen.queryByRole("heading", { name: "Where shortest paths show up" }),
+    ).not.toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("tab", { name: "Read" }));
+    expect(
+      screen.getByRole("heading", { name: "Where shortest paths show up" }),
+    ).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Navigation" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Delivery planning" })).toBeInTheDocument();
+    expect(screen.getByRole("heading", { name: "Computer networks" })).toBeInTheDocument();
+    expect(screen.getByText(/quickest route minimises travel time/)).toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("tab", { name: "Try" }));
+    expect(
+      screen.queryByRole("heading", { name: "Where shortest paths show up" }),
+    ).not.toBeInTheDocument();
+  });
+
   it("saves the Think about it answer with the progress", async () => {
     const store = withProgress(<ModuleScreen moduleId={1} />);
     await userEvent.type(

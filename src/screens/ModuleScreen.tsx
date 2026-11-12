@@ -31,6 +31,7 @@ import { Tabs, type TabInfo } from "../components/Tabs";
 import { ThinkAboutIt } from "../components/ThinkAboutIt";
 import { DijkstraPrinciple } from "../components/DijkstraPrinciple";
 import { DijkstraCommonMistakes } from "../components/DijkstraCommonMistakes";
+import { ShortestPathsInPractice } from "../components/ShortestPathsInPractice";
 import { Button, Feedback, StatusBadge } from "../components/ui";
 import { Walkthrough } from "../components/Walkthrough";
 import { YourTurn } from "../components/YourTurn";
@@ -187,6 +188,7 @@ function ReadTab({ moduleId }: { moduleId: ModuleId }) {
           ))}
         </dl>
       )}
+      {moduleId === 3 && <ShortestPathsInPractice />}
     </div>
   );
 }
