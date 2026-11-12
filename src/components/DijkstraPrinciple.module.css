@@ -1,4 +1,6 @@
 .card {
+  flex: 1 1 100%;
+  width: 100%;
   border-left: 5px solid var(--color-blue);
   background: var(--color-blue-tint);
 }

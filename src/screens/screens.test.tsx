@@ -122,8 +122,13 @@ describe("ModuleScreen", () => {
     ).toBeInTheDocument();
   });
 
-  it("explains why Dijkstra works before the Module 4 learning tabs", async () => {
+  it("shows the Dijkstra explanation only in Module 4's Read tab", async () => {
     withProgress(<ModuleScreen moduleId={4} />, stateWith(passedUpTo(3)));
+    expect(
+      screen.queryByRole("heading", { name: "Why Dijkstra works" }),
+    ).not.toBeInTheDocument();
+
+    await userEvent.click(screen.getByRole("tab", { name: "Read" }));
     expect(
       screen.getByRole("heading", { name: "Why Dijkstra works" }),
     ).toBeInTheDocument();
@@ -136,8 +141,8 @@ describe("ModuleScreen", () => {
 
     await userEvent.click(screen.getByRole("tab", { name: "Try" }));
     expect(
-      screen.getByRole("heading", { name: "Why Dijkstra works" }),
-    ).toBeInTheDocument();
+      screen.queryByRole("heading", { name: "Why Dijkstra works" }),
+    ).not.toBeInTheDocument();
     expect(screen.getByRole("tabpanel")).not.toBeEmptyDOMElement();
   });
 

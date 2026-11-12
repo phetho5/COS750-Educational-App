@@ -90,8 +90,6 @@ export function ModuleScreen({ moduleId }: { moduleId: ModuleId }) {
         {mastered && <StatusBadge status="mastered" />}
       </div>
 
-      {moduleId === 4 && <DijkstraPrinciple />}
-
       <Tabs
         label={t.tabsLabel}
         tabs={TABS}
@@ -169,6 +167,7 @@ function ReadTab({ moduleId }: { moduleId: ModuleId }) {
   const lesson = LESSONS[moduleId];
   return (
     <div className={lessonStyles.read}>
+      {moduleId === 4 && <DijkstraPrinciple />}
       <div className={lessonStyles.readText}>
         {lesson.read.map((paragraph) => (
           <p key={paragraph}>
