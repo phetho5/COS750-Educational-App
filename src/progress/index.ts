@@ -17,9 +17,11 @@ export {
   objectiveMastery,
   PASS_PERCENT,
   prerequisiteOf,
+  progressionNextStep,
   scorePercent,
   type AfterCheck,
   type ObjectiveMastery,
+  type ProgressionNextStep,
 } from './mastery'
 export {
   addLectureQuestion,

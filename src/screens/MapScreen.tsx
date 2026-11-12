@@ -4,7 +4,7 @@
   Statuses and percentages come from the mastery rules in src/progress/.
 */
 import { useState } from 'react'
-import { checkStatus, moduleStatus, objectiveMastery, type ModuleStatus } from '../progress'
+import { checkStatus, hasPassed, moduleStatus, objectiveMastery, progressionNextStep, type ModuleStatus, MODULE_IDS } from '../progress'
 import { FINAL_CHECK_INFO, MODULES, objectiveInfo } from '../content/modules'
 import { mapText as t } from '../content/welcomeText'
 import { checkText } from '../content/checkText'
@@ -34,7 +34,23 @@ export function MapScreen() {
     ...MODULES.map((m) => ({ number: m.id, title: m.title, subtitle: m.subtitle, status: moduleStatus(progress, m.id), path: paths.module(m.id) })),
     { number: 6, ...FINAL_CHECK_INFO, status: checkStatus(progress, 'final'), path: paths.check('final') },
   ]
-  const finalTaken = progress.attempts.final.length > 0
+  const completedModules = MODULE_IDS.filter((id) => hasPassed(progress, `module-${id}`)).length
+  const nextStep = progressionNextStep(progress)
+
+  const nextAction = (() => {
+    switch (nextStep.kind) {
+      case 'review': {
+        const moduleId = Number(nextStep.checkId.slice('module-'.length))
+        return { label: t.continueReview(moduleId), detail: 'Complete the short review to retry this check.', path: paths.review(nextStep.checkId) }
+      }
+      case 'module':
+        return { label: t.continueModule(nextStep.moduleId, MODULES[nextStep.moduleId - 1].title), detail: 'Continue with the next unlocked lesson.', path: paths.module(nextStep.moduleId) }
+      case 'final':
+        return { label: t.continueFinal, detail: 'You have mastered all five modules. Put your learning together in the final check.', path: paths.check('final') }
+      case 'summary':
+        return { label: t.continueSummary, detail: t.progressDone, path: paths.summary }
+    }
+  })()
 
   function confirmReset() {
     reset()
@@ -53,6 +69,36 @@ export function MapScreen() {
 
         {progress.demoUnlocked && <Feedback kind="info">{t.demoNote}</Feedback>}
         {!isSaving && <Feedback kind="info">{checkText.notSavingNote}</Feedback>}
+
+        <section className={styles.progressOverview} aria-labelledby="progress-title">
+          <div className={styles.progressHeading}>
+            <div>
+              <h2 id="progress-title" className={ui.sectionTitle}>{t.progressTitle}</h2>
+              <p>{t.modulesComplete(completedModules, MODULE_IDS.length)}</p>
+            </div>
+            <span className={styles.progressCount}>{completedModules}/{MODULE_IDS.length}</span>
+          </div>
+          <div
+            className={styles.courseProgress}
+            role="progressbar"
+            aria-label={t.progressTitle}
+            aria-valuemin={0}
+            aria-valuemax={MODULE_IDS.length}
+            aria-valuenow={completedModules}
+            aria-valuetext={t.modulesComplete(completedModules, MODULE_IDS.length)}
+          >
+            <span style={{ width: `${(completedModules / MODULE_IDS.length) * 100}%` }} />
+          </div>
+          <div className={styles.nextStep}>
+            <div>
+              <p className={styles.nextLabel}>{t.nextUp}</p>
+              <p className={ui.small}>{nextAction.detail}</p>
+            </div>
+            <Button iconAfter="arrowRight" onClick={() => navigate(nextAction.path)}>
+              {nextAction.label}
+            </Button>
+          </div>
+        </section>
 
         <ol className={styles.list} aria-label="Modules">
           {entries.map((e) => (
@@ -79,11 +125,6 @@ export function MapScreen() {
           ))}
         </ol>
 
-        {finalTaken && (
-          <Button iconAfter="arrowRight" className={styles.summary} onClick={() => navigate(paths.summary)}>
-            {t.summaryButton}
-          </Button>
-        )}
       </section>
 
       <aside className={`${ui.card} ${styles.objectives}`} aria-labelledby="objectives-title">

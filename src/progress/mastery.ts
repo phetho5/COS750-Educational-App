@@ -103,6 +103,24 @@ export function canStartCheck(state: ProgressState, checkId: CheckId): boolean {
   return isUnlocked(state, checkId) && !needsReview(state, checkId)
 }
 
+export type ProgressionNextStep =
+  | { readonly kind: 'review'; readonly checkId: Exclude<CheckId, 'final'> }
+  | { readonly kind: 'module'; readonly moduleId: ModuleId }
+  | { readonly kind: 'final' }
+  | { readonly kind: 'summary' }
+
+/** The learner's next useful destination, prioritising required review before forward progress. */
+export function progressionNextStep(state: ProgressState): ProgressionNextStep {
+  const review = state.reviewDue.find((id): id is Exclude<CheckId, 'final'> => id !== 'final')
+  if (review) return { kind: 'review', checkId: review }
+
+  const moduleId = MODULE_IDS.find((id) => isUnlocked(state, `module-${id}`) && !hasPassed(state, `module-${id}`))
+  if (moduleId !== undefined) return { kind: 'module', moduleId }
+
+  if (state.attempts.final.length === 0) return { kind: 'final' }
+  return { kind: 'summary' }
+}
+
 /** Where the student goes after finishing an attempt at a check. */
 export type AfterCheck = 'next-module' | 'review' | 'summary'
 

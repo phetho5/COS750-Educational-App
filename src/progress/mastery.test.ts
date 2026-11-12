@@ -10,6 +10,7 @@ import {
   moduleStatus,
   nextStepAfterCheck,
   objectiveMastery,
+  progressionNextStep,
   scorePercent,
 } from './mastery'
 import { initialProgress, unlockForDemo } from './state'
@@ -125,6 +126,29 @@ describe('canStartCheck', () => {
 
   it('allows an open check with no review due', () => {
     expect(canStartCheck(initialProgress(), 'module-1')).toBe(true)
+  })
+})
+
+describe('progressionNextStep', () => {
+  it('starts with Module 1 for a new learner', () => {
+    expect(progressionNextStep(initialProgress())).toEqual({ kind: 'module', moduleId: 1 })
+  })
+
+  it('prioritises a required review before moving to the next module', () => {
+    const state = stateWith({ 'module-1': [attempt(4)] }, { reviewDue: ['module-1'] })
+    expect(progressionNextStep(state)).toEqual({ kind: 'review', checkId: 'module-1' })
+  })
+
+  it('selects the next unlocked unmastered module', () => {
+    expect(progressionNextStep(stateWith(passedUpTo(2)))).toEqual({ kind: 'module', moduleId: 3 })
+  })
+
+  it('moves to the final check after all modules are mastered', () => {
+    expect(progressionNextStep(stateWith(passedUpTo(5)))).toEqual({ kind: 'final' })
+  })
+
+  it('moves to the summary after the final check is taken', () => {
+    expect(progressionNextStep(stateWith({ ...passedUpTo(5), final: [attempt(2)] }))).toEqual({ kind: 'summary' })
   })
 })
 

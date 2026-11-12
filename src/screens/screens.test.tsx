@@ -1,4 +1,4 @@
-import { render, screen, within } from "@testing-library/react";
+import { cleanup, render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import type { ReactNode } from "react";
 import { beforeEach, describe, expect, it } from "vitest";
@@ -34,6 +34,9 @@ beforeEach(() => {
 describe("MapScreen", () => {
   it("shows module 1 in progress and the rest locked for a new student", () => {
     withProgress(<MapScreen />);
+    expect(screen.getByText("0 of 5 modules mastered")).toBeInTheDocument();
+    expect(screen.getByRole("progressbar", { name: "Your progress" })).toHaveAttribute("aria-valuenow", "0");
+    expect(screen.getByRole("button", { name: "Continue Module 1: What is a graph?" })).toBeInTheDocument();
     const items = within(
       screen.getByRole("list", { name: "Modules" }),
     ).getAllByRole("listitem");
@@ -65,9 +68,36 @@ describe("MapScreen", () => {
       screen.getByRole("progressbar", { name: "2. Matrix and list" }),
     ).toHaveAttribute("aria-valuetext", "Not started");
     await userEvent.click(
-      screen.getByRole("button", { name: /Representing graphs/ }),
+      within(screen.getByRole("list", { name: "Modules" })).getByRole("button", { name: /Representing graphs/ }),
     );
     expect(window.location.pathname).toBe("/module/2");
+  });
+
+  it("routes the continue action to review, next module, final check, and summary", async () => {
+    withProgress(
+      <MapScreen />,
+      stateWith({ "module-1": [attempt(4)] }, { reviewDue: ["module-1"] }),
+    );
+    await userEvent.click(screen.getByRole("button", { name: "Continue Module 1 review" }));
+    expect(window.location.pathname).toBe("/review/module-1");
+    cleanup();
+
+    window.history.pushState(null, "", "/map");
+    withProgress(<MapScreen />, stateWith(passedUpTo(1)));
+    await userEvent.click(screen.getByRole("button", { name: "Continue Module 2: Representing graphs" }));
+    expect(window.location.pathname).toBe("/module/2");
+    cleanup();
+
+    window.history.pushState(null, "", "/map");
+    withProgress(<MapScreen />, stateWith(passedUpTo(5)));
+    await userEvent.click(screen.getByRole("button", { name: "Start the final check" }));
+    expect(window.location.pathname).toBe("/check/final");
+    cleanup();
+
+    window.history.pushState(null, "", "/map");
+    withProgress(<MapScreen />, stateWith({ ...passedUpTo(5), final: [attempt(2)] }));
+    await userEvent.click(screen.getByRole("button", { name: "See your pre-lecture summary" }));
+    expect(window.location.pathname).toBe("/summary");
   });
 
   it("resets progress only after the student confirms", async () => {
@@ -345,7 +375,7 @@ describe("App", () => {
       screen.getByRole("heading", { level: 1, name: "Module map" }),
     ).toBeInTheDocument();
     await userEvent.click(
-      screen.getByRole("button", { name: /What is a graph/ }),
+      within(screen.getByRole("list", { name: "Modules" })).getByRole("button", { name: /What is a graph/ }),
     );
     expect(
       screen.getByRole("heading", { level: 1, name: "What is a graph?" }),

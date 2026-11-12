@@ -94,6 +94,82 @@ button.entry:hover {
   align-self: flex-start;
 }
 
+.progressOverview {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--color-blue-mid);
+  border-radius: var(--radius-card);
+  background: var(--color-blue-tint);
+}
+
+.progressHeading,
+.nextStep {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.progressHeading p,
+.nextLabel,
+.nextStep p {
+  margin: 0;
+}
+
+.progressHeading > div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.progressCount {
+  font-size: var(--text-title);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.courseProgress {
+  height: 10px;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: #ffffff;
+}
+
+.courseProgress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-blue);
+  transition: width var(--transition-graph);
+}
+
+.nextStep {
+  align-items: flex-end;
+}
+
+.nextStep > div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.nextLabel {
+  font-weight: 700;
+}
+
+@media (max-width: 600px) {
+  .nextStep {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .nextStep button {
+    align-self: flex-start;
+  }
+}
+
 .objectives {
   flex: 2 1 340px;
   min-width: 0;
