@@ -141,12 +141,16 @@ describe("ModuleScreen", () => {
     expect(
       screen.getByRole("heading", { name: "Common mistakes" }),
     ).toBeInTheDocument();
-    const mistakeToggle = screen.getByText("Choose the edge with the smallest weight.");
+    const mistakeToggle = screen.getByText(
+      "Choose the edge with the smallest weight.",
+    );
     expect(mistakeToggle.closest("details")).not.toHaveAttribute("open");
     await userEvent.click(mistakeToggle);
     expect(mistakeToggle.closest("details")).toHaveAttribute("open");
     expect(
-      within(mistakeToggle.closest("details")!).getByText(/A-D-B costs 2 \+ 1 = 3/),
+      within(mistakeToggle.closest("details")!).getByText(
+        /A-D-B costs 2 \+ 1 = 3/,
+      ),
     ).toBeInTheDocument();
 
     await userEvent.click(screen.getByRole("tab", { name: "Try" }));
