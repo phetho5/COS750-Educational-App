@@ -82,6 +82,17 @@ describe('ModuleScreen', () => {
     expect(screen.getByRole('heading', { name: 'Which vertices are neighbours of A?' })).toBeInTheDocument()
   })
 
+  it('explains why Dijkstra works before the Module 4 learning tabs', async () => {
+    withProgress(<ModuleScreen moduleId={4} />, stateWith(passedUpTo(3)))
+    expect(screen.getByRole('heading', { name: 'Why Dijkstra works' })).toBeInTheDocument()
+    expect(screen.getByText(/B has distance 4 and D has distance 2/)).toBeInTheDocument()
+    expect(screen.getByText(/requires non-negative edge weights/)).toBeInTheDocument()
+
+    await userEvent.click(screen.getByRole('tab', { name: 'Try' }))
+    expect(screen.getByRole('heading', { name: 'Why Dijkstra works' })).toBeInTheDocument()
+    expect(screen.getByRole('tabpanel')).not.toBeEmptyDOMElement()
+  })
+
   it('saves the Think about it answer with the progress', async () => {
     const store = withProgress(<ModuleScreen moduleId={1} />)
     await userEvent.type(screen.getByLabelText(LESSONS[1].think), 'It can branch')

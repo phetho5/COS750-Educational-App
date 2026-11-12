@@ -1,6 +1,10 @@
 # Design source archive (kept locally, not in git; see docs/handoff.md D2)
 *.zip
 
+# Local documentation and notes
+/docs/
+*.md
+
 # Logs
 logs
 *.log

@@ -26,6 +26,7 @@ import { useProgress } from '../components/progressContext'
 import { RichText } from '../components/RichText'
 import { Tabs, type TabInfo } from '../components/Tabs'
 import { ThinkAboutIt } from '../components/ThinkAboutIt'
+import { DijkstraPrinciple } from '../components/DijkstraPrinciple'
 import { Button, Feedback, StatusBadge } from '../components/ui'
 import { Walkthrough } from '../components/Walkthrough'
 import { YourTurn } from '../components/YourTurn'
@@ -79,6 +80,8 @@ export function ModuleScreen({ moduleId }: { moduleId: ModuleId }) {
         </div>
         {mastered && <StatusBadge status="mastered" />}
       </div>
+
+      {moduleId === 4 && <DijkstraPrinciple />}
 
       <Tabs label={t.tabsLabel} tabs={TABS} selected={tab} onSelect={setTab} idPrefix={`module-${moduleId}`}>
         {tab === 'watch' && (
