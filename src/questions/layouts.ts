@@ -9,39 +9,39 @@
   Positions are in SVG units. "wide" is for laptops, "narrow" for phones
   (the design switches below 720px). No two edges cross in any layout.
 */
-import type { Graph, VertexId } from '../engine'
-import { compareVertices, SAMPLE_GRAPH } from '../engine'
-import type { Rng } from './random'
+import type { Graph, VertexId } from "../engine";
+import { compareVertices, SAMPLE_GRAPH } from "../engine";
+import type { Rng } from "./random";
 
-export type LayoutId = 'sample' | 'kite' | 'ladder'
+export type LayoutId = "sample" | "kite" | "ladder" | "network";
 
 export interface Point {
-  readonly x: number
-  readonly y: number
+  readonly x: number;
+  readonly y: number;
 }
 
 export interface LayoutSize {
-  readonly viewBox: string
-  readonly positions: Readonly<Record<VertexId, Point>>
+  readonly viewBox: string;
+  readonly positions: Readonly<Record<VertexId, Point>>;
 }
 
 export interface GraphLayout {
-  readonly id: LayoutId
-  readonly start: VertexId
-  readonly vertices: readonly VertexId[]
+  readonly id: LayoutId;
+  readonly start: VertexId;
+  readonly vertices: readonly VertexId[];
   /** Pairs of vertices joined by an edge. */
-  readonly edges: readonly (readonly [VertexId, VertexId])[]
-  readonly wide: LayoutSize
-  readonly narrow: LayoutSize
+  readonly edges: readonly (readonly [VertexId, VertexId])[];
+  readonly wide: LayoutSize;
+  readonly narrow: LayoutSize;
 }
 
-const WIDE_VIEWBOX = '0 0 610 410'
-const NARROW_VIEWBOX = '0 0 400 410'
+const WIDE_VIEWBOX = "0 0 610 410";
+const NARROW_VIEWBOX = "0 0 400 410";
 
 /** The sample graph's shape, with the positions from the design. */
 const SAMPLE_LAYOUT: GraphLayout = {
-  id: 'sample',
-  start: 'A',
+  id: "sample",
+  start: "A",
   vertices: SAMPLE_GRAPH.vertices,
   edges: SAMPLE_GRAPH.edges.map((e) => [e.from, e.to] as const),
   wide: {
@@ -66,7 +66,7 @@ const SAMPLE_LAYOUT: GraphLayout = {
       F: { x: 260, y: 95 },
     },
   },
-}
+};
 
 /*
   Kite: 5 vertices, 7 edges.
@@ -78,17 +78,17 @@ const SAMPLE_LAYOUT: GraphLayout = {
         C -------
 */
 const KITE_LAYOUT: GraphLayout = {
-  id: 'kite',
-  start: 'A',
-  vertices: ['A', 'B', 'C', 'D', 'E'],
+  id: "kite",
+  start: "A",
+  vertices: ["A", "B", "C", "D", "E"],
   edges: [
-    ['A', 'B'],
-    ['A', 'C'],
-    ['B', 'C'],
-    ['B', 'D'],
-    ['C', 'D'],
-    ['C', 'E'],
-    ['D', 'E'],
+    ["A", "B"],
+    ["A", "C"],
+    ["B", "C"],
+    ["B", "D"],
+    ["C", "D"],
+    ["C", "E"],
+    ["D", "E"],
   ],
   wide: {
     viewBox: WIDE_VIEWBOX,
@@ -110,7 +110,7 @@ const KITE_LAYOUT: GraphLayout = {
       E: { x: 360, y: 210 },
     },
   },
-}
+};
 
 /*
   Ladder: 6 vertices, 9 edges.
@@ -121,19 +121,19 @@ const KITE_LAYOUT: GraphLayout = {
     B ----- D ----- F
 */
 const LADDER_LAYOUT: GraphLayout = {
-  id: 'ladder',
-  start: 'A',
-  vertices: ['A', 'B', 'C', 'D', 'E', 'F'],
+  id: "ladder",
+  start: "A",
+  vertices: ["A", "B", "C", "D", "E", "F"],
   edges: [
-    ['A', 'B'],
-    ['A', 'C'],
-    ['B', 'C'],
-    ['B', 'D'],
-    ['C', 'D'],
-    ['C', 'E'],
-    ['D', 'E'],
-    ['D', 'F'],
-    ['E', 'F'],
+    ["A", "B"],
+    ["A", "C"],
+    ["B", "C"],
+    ["B", "D"],
+    ["C", "D"],
+    ["C", "E"],
+    ["D", "E"],
+    ["D", "F"],
+    ["E", "F"],
   ],
   wide: {
     viewBox: WIDE_VIEWBOX,
@@ -157,14 +157,73 @@ const LADDER_LAYOUT: GraphLayout = {
       F: { x: 360, y: 325 },
     },
   },
-}
+};
 
-export const LAYOUTS: readonly GraphLayout[] = [SAMPLE_LAYOUT, KITE_LAYOUT, LADDER_LAYOUT]
+/*
+  Network: 8 vertices and 12 edges, a larger grid-like graph for challenge questions.
+
+    A ----- B ----- C ----- D
+    | \     |       | \     |
+    E ----- F ----- G ----- H
+*/
+const NETWORK_LAYOUT: GraphLayout = {
+  id: "network",
+  start: "A",
+  vertices: ["A", "B", "C", "D", "E", "F", "G", "H"],
+  edges: [
+    ["A", "B"],
+    ["B", "C"],
+    ["C", "D"],
+    ["E", "F"],
+    ["F", "G"],
+    ["G", "H"],
+    ["A", "E"],
+    ["B", "F"],
+    ["C", "G"],
+    ["D", "H"],
+    ["A", "F"],
+    ["C", "H"],
+  ],
+  wide: {
+    viewBox: WIDE_VIEWBOX,
+    positions: {
+      A: { x: 65, y: 100 },
+      B: { x: 225, y: 100 },
+      C: { x: 385, y: 100 },
+      D: { x: 545, y: 100 },
+      E: { x: 65, y: 310 },
+      F: { x: 225, y: 310 },
+      G: { x: 385, y: 310 },
+      H: { x: 545, y: 310 },
+    },
+  },
+  narrow: {
+    viewBox: NARROW_VIEWBOX,
+    positions: {
+      A: { x: 35, y: 100 },
+      B: { x: 145, y: 100 },
+      C: { x: 255, y: 100 },
+      D: { x: 365, y: 100 },
+      E: { x: 35, y: 310 },
+      F: { x: 145, y: 310 },
+      G: { x: 255, y: 310 },
+      H: { x: 365, y: 310 },
+    },
+  },
+};
+
+/** Ordinary Support-mode trace layouts. The larger network is reserved for Challenge mode. */
+export const LAYOUTS: readonly GraphLayout[] = [
+  SAMPLE_LAYOUT,
+  KITE_LAYOUT,
+  LADDER_LAYOUT,
+];
+export const CHALLENGE_LAYOUT: GraphLayout = NETWORK_LAYOUT;
 
 export function layoutById(id: LayoutId): GraphLayout {
-  const layout = LAYOUTS.find((l) => l.id === id)
-  if (!layout) throw new Error(`Unknown layout "${id}".`)
-  return layout
+  const layout = [...LAYOUTS, CHALLENGE_LAYOUT].find((l) => l.id === id);
+  if (!layout) throw new Error(`Unknown layout "${id}".`);
+  return layout;
 }
 
 /**
@@ -178,16 +237,18 @@ export function layoutById(id: LayoutId): GraphLayout {
  * brief requires (docs/handoff.md, bug B2). Shuffling the letters separates them.
  */
 export function withShuffledLabels(layout: GraphLayout, rng: Rng): GraphLayout {
-  const others = layout.vertices.filter((v) => v !== layout.start)
-  const shuffled = rng.shuffle(others)
-  const newName = new Map<VertexId, VertexId>([[layout.start, layout.start]])
-  others.forEach((v, i) => newName.set(v, shuffled[i]))
-  const rename = (v: VertexId) => newName.get(v)!
+  const others = layout.vertices.filter((v) => v !== layout.start);
+  const shuffled = rng.shuffle(others);
+  const newName = new Map<VertexId, VertexId>([[layout.start, layout.start]]);
+  others.forEach((v, i) => newName.set(v, shuffled[i]));
+  const rename = (v: VertexId) => newName.get(v)!;
 
   const renameSize = (size: LayoutSize): LayoutSize => ({
     viewBox: size.viewBox,
-    positions: Object.fromEntries(Object.entries(size.positions).map(([v, point]) => [rename(v), point])),
-  })
+    positions: Object.fromEntries(
+      Object.entries(size.positions).map(([v, point]) => [rename(v), point]),
+    ),
+  });
 
   return {
     ...layout,
@@ -195,18 +256,22 @@ export function withShuffledLabels(layout: GraphLayout, rng: Rng): GraphLayout {
     edges: layout.edges.map(([a, b]) => [rename(a), rename(b)] as const),
     wide: renameSize(layout.wide),
     narrow: renameSize(layout.narrow),
-  }
+  };
 }
 
 /** Random whole-number weights from 1 to 9, one per edge, as the brief asks. */
-export const MIN_WEIGHT = 1
-export const MAX_WEIGHT = 9
+export const MIN_WEIGHT = 1;
+export const MAX_WEIGHT = 9;
 
 /** The layout's shape as an undirected graph with a random weight on each edge. */
 export function withRandomWeights(layout: GraphLayout, rng: Rng): Graph {
   return {
     vertices: layout.vertices,
     directed: false,
-    edges: layout.edges.map(([from, to]) => ({ from, to, weight: rng.int(MIN_WEIGHT, MAX_WEIGHT) })),
-  }
+    edges: layout.edges.map(([from, to]) => ({
+      from,
+      to,
+      weight: rng.int(MIN_WEIGHT, MAX_WEIGHT),
+    })),
+  };
 }

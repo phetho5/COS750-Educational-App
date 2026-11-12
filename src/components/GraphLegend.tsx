@@ -1,13 +1,19 @@
 /* The key under a graph: what each vertex and edge style means. */
-import styles from './GraphLegend.module.css'
+import styles from "./GraphLegend.module.css";
 
 interface GraphLegendProps {
-  showChecking?: boolean
-  showPath?: boolean
-  showSelected?: boolean
+  showChecking?: boolean;
+  showCandidates?: boolean;
+  showPath?: boolean;
+  showSelected?: boolean;
 }
 
-export function GraphLegend({ showChecking, showPath, showSelected }: GraphLegendProps) {
+export function GraphLegend({
+  showChecking,
+  showCandidates,
+  showPath,
+  showSelected,
+}: GraphLegendProps) {
   return (
     <ul aria-label="Legend" className={styles.legend}>
       <li>
@@ -21,10 +27,23 @@ export function GraphLegend({ showChecking, showPath, showSelected }: GraphLegen
       <li>
         <svg viewBox="0 0 22 22" width="22" height="22" aria-hidden="true">
           <circle cx="11" cy="11" r="11" fill="var(--color-blue)" />
-          <path d="m6.5 11.5 3 3 6-6.5" fill="none" stroke="#fff" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round" />
+          <path
+            d="m6.5 11.5 3 3 6-6.5"
+            fill="none"
+            stroke="#fff"
+            strokeWidth="2.2"
+            strokeLinecap="round"
+            strokeLinejoin="round"
+          />
         </svg>
         Visited
       </li>
+      {showCandidates && (
+        <li>
+          <span className={styles.candidate} aria-hidden="true" />
+          Candidate vertex
+        </li>
+      )}
       {showSelected && (
         <li>
           <span className={styles.selected} aria-hidden="true" />
@@ -44,5 +63,5 @@ export function GraphLegend({ showChecking, showPath, showSelected }: GraphLegen
         </li>
       )}
     </ul>
-  )
+  );
 }

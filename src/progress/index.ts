@@ -17,10 +17,12 @@ export {
   objectiveMastery,
   PASS_PERCENT,
   prerequisiteOf,
+  progressionNextStep,
   scorePercent,
   type AfterCheck,
   type ObjectiveMastery,
-} from './mastery'
+  type ProgressionNextStep,
+} from "./mastery";
 export {
   addLectureQuestion,
   answerRecord,
@@ -31,8 +33,28 @@ export {
   removeLectureQuestion,
   setThinkNote,
   unlockForDemo,
-} from './state'
-export { browserStorage, createProgressStore, parseProgress, STORAGE_KEY, type ProgressStore, type StorageLike } from './storage'
-export { misconceptionsToReview, preLectureSummary, reviewItems, type MisconceptionToReview, type PreLectureSummary, type ReviewItem } from './summary'
-export type * from './types'
-export { PROGRESS_VERSION } from './types'
+} from "./state";
+export {
+  browserStorage,
+  createProgressStore,
+  parseProgress,
+  STORAGE_KEY,
+  type ProgressStore,
+  type StorageLike,
+} from "./storage";
+export {
+  misconceptionsToReview,
+  preLectureSummary,
+  reviewItems,
+  type MisconceptionToReview,
+  type PreLectureSummary,
+  type ReviewItem,
+} from "./summary";
+export type * from "./types";
+export { PROGRESS_VERSION } from "./types";
+export {
+  LEARNING_MODE_STORAGE_KEY,
+  readLearningMode,
+  writeLearningMode,
+  type LearningMode,
+} from "./learningMode";

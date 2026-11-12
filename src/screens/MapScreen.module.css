@@ -94,6 +94,129 @@ button.entry:hover {
   align-self: flex-start;
 }
 
+.progressOverview {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--color-blue-mid);
+  border-radius: var(--radius-card);
+  background: var(--color-blue-tint);
+}
+
+.progressHeading,
+.nextStep {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.progressHeading p,
+.nextLabel,
+.nextStep p {
+  margin: 0;
+}
+
+.progressHeading > div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.progressCount {
+  font-size: var(--text-title);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.courseProgress {
+  height: 10px;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: #ffffff;
+}
+
+.courseProgress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-blue);
+  transition: width var(--transition-graph);
+}
+
+.nextStep {
+  align-items: flex-end;
+}
+
+.nextStep > div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.nextLabel {
+  font-weight: 700;
+}
+
+.modePicker {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding: var(--space-4);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-card);
+}
+
+.modePicker legend {
+  padding: 0 var(--space-1);
+}
+
+.modeOption {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-control);
+  background: var(--color-surface);
+  cursor: pointer;
+}
+
+.modeOption:has(input:checked) {
+  border-color: var(--color-blue);
+  background: var(--color-blue-tint);
+}
+
+.modeOption input {
+  margin-top: 4px;
+  accent-color: var(--color-blue);
+}
+
+.modeCopy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.modeCopy span {
+  font-size: var(--text-label);
+  color: var(--color-muted);
+  line-height: 1.45;
+}
+
+@media (max-width: 600px) {
+  .nextStep {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .nextStep button {
+    align-self: flex-start;
+  }
+}
+
 .objectives {
   flex: 2 1 340px;
   min-width: 0;

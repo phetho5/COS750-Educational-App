@@ -13,24 +13,24 @@
     |     / |     / |
     D ----- C ----- E
 */
-import type { Graph } from '../../engine'
-import { layoutById, type GraphLayout } from '../layouts'
+import type { Graph } from "../../engine";
+import { layoutById, type GraphLayout } from "../layouts";
 
-const ladder = layoutById('ladder')
+const ladder = layoutById("ladder");
 
 export const FALLBACK_LAYOUT: GraphLayout = {
   ...ladder,
-  vertices: ['A', 'B', 'C', 'D', 'E', 'F'],
+  vertices: ["A", "B", "C", "D", "E", "F"],
   edges: [
-    ['A', 'D'],
-    ['A', 'F'],
-    ['D', 'F'],
-    ['D', 'C'],
-    ['F', 'C'],
-    ['F', 'B'],
-    ['C', 'B'],
-    ['C', 'E'],
-    ['B', 'E'],
+    ["A", "D"],
+    ["A", "F"],
+    ["D", "F"],
+    ["D", "C"],
+    ["F", "C"],
+    ["F", "B"],
+    ["C", "B"],
+    ["C", "E"],
+    ["B", "E"],
   ],
   wide: {
     viewBox: ladder.wide.viewBox,
@@ -54,12 +54,16 @@ export const FALLBACK_LAYOUT: GraphLayout = {
       E: { x: 360, y: 325 },
     },
   },
-}
+};
 
-const WEIGHTS = [7, 5, 5, 2, 3, 5, 2, 1, 7] // same order as FALLBACK_LAYOUT.edges
+const WEIGHTS = [7, 5, 5, 2, 3, 5, 2, 1, 7]; // same order as FALLBACK_LAYOUT.edges
 
 export const FALLBACK_GRAPH: Graph = {
   vertices: FALLBACK_LAYOUT.vertices,
   directed: false,
-  edges: FALLBACK_LAYOUT.edges.map(([from, to], i) => ({ from, to, weight: WEIGHTS[i] })),
-}
+  edges: FALLBACK_LAYOUT.edges.map(([from, to], i) => ({
+    from,
+    to,
+    weight: WEIGHTS[i],
+  })),
+};
