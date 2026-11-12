@@ -22,7 +22,7 @@ export {
   type AfterCheck,
   type ObjectiveMastery,
   type ProgressionNextStep,
-} from './mastery'
+} from "./mastery";
 export {
   addLectureQuestion,
   answerRecord,
@@ -33,8 +33,22 @@ export {
   removeLectureQuestion,
   setThinkNote,
   unlockForDemo,
-} from './state'
-export { browserStorage, createProgressStore, parseProgress, STORAGE_KEY, type ProgressStore, type StorageLike } from './storage'
-export { misconceptionsToReview, preLectureSummary, reviewItems, type MisconceptionToReview, type PreLectureSummary, type ReviewItem } from './summary'
-export type * from './types'
-export { PROGRESS_VERSION } from './types'
+} from "./state";
+export {
+  browserStorage,
+  createProgressStore,
+  parseProgress,
+  STORAGE_KEY,
+  type ProgressStore,
+  type StorageLike,
+} from "./storage";
+export {
+  misconceptionsToReview,
+  preLectureSummary,
+  reviewItems,
+  type MisconceptionToReview,
+  type PreLectureSummary,
+  type ReviewItem,
+} from "./summary";
+export type * from "./types";
+export { PROGRESS_VERSION } from "./types";
