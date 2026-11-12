@@ -5,6 +5,8 @@
   - unvisited: thin grey outline
   - current: thick orange ring
   - visited: filled blue, with a tick badge
+  - candidate: violet tint with a dashed outline
+  - checking: solid violet outline for the neighbour on the active edge
   - selected: dashed ring around it
   The edge being checked is drawn thicker and dashed.
 
@@ -31,6 +33,9 @@ const COLOURS = {
   tint: '#E8F0FB',
   orange: '#EB6834',
   orangeTint: '#FDEBDD',
+  hint: '#6250D6',
+  hintDark: '#4A3AA7',
+  hintTint: '#EEEBFB',
   grey: '#7A828E',
   pill: '#C4C9D0',
   bg: '#F6F7F9',
@@ -190,9 +195,21 @@ export function GraphView(props: GraphViewProps) {
           r={size.r}
           data-state={state}
           style={{
-            fill: filled ? COLOURS.blue : state === 'selected' ? COLOURS.tint : '#FFFFFF',
-            stroke: state === 'current' ? COLOURS.orange : filled ? COLOURS.blue : state === 'selected' ? COLOURS.blueDark : COLOURS.grey,
-            strokeWidth: state === 'current' ? 4 : 2,
+            fill: filled ? COLOURS.blue : state === 'selected' ? COLOURS.tint : state === 'candidate' || state === 'checking' ? COLOURS.hintTint : '#FFFFFF',
+            stroke:
+              state === 'current'
+                ? COLOURS.orange
+                : filled
+                  ? COLOURS.blue
+                  : state === 'checking'
+                    ? COLOURS.hintDark
+                    : state === 'candidate'
+                      ? COLOURS.hint
+                      : state === 'selected'
+                        ? COLOURS.blueDark
+                        : COLOURS.grey,
+            strokeWidth: state === 'current' ? 4 : state === 'checking' ? 3.5 : 2,
+            strokeDasharray: state === 'candidate' ? '5 3' : 'none',
             transition: `fill ${TRANSITION}, stroke ${TRANSITION}`,
           }}
         />

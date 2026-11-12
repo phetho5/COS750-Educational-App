@@ -63,6 +63,17 @@ export function Walkthrough({
   const step = result.steps[player.step]
   const current = currentVertex(step)
   const visited = graph.vertices.filter((v) => step.table[v].visited && v !== current)
+  const activeVisit =
+    step.kind === 'check-edge'
+      ? result.steps.find((candidateStep) => candidateStep.kind === 'visit' && candidateStep.vertex === step.vertex)
+      : null
+  const candidates =
+    step.kind === 'visit'
+      ? step.neighboursToCheck
+      : activeVisit?.kind === 'visit'
+        ? activeVisit.neighboursToCheck
+        : []
+  const checking = step.kind === 'check-edge' ? step.neighbour : null
   const distances = Object.fromEntries(graph.vertices.map((v) => [v, step.table[v].distance]))
   const changed = step.kind === 'check-edge' && step.updated ? step.neighbour : null
   const text = stepExplanation(step, result)
@@ -84,14 +95,14 @@ export function Walkthrough({
               start={start}
               label={`Graph at step ${player.step + 1}`}
               description={`${text} Visited: ${visited.join(', ') || 'none'}.`}
-              states={statesFrom(graph.vertices, visited, current)}
+              states={statesFrom(graph.vertices, visited, current, null, candidates, checking)}
               distances={distances}
               checkingEdge={step.kind === 'check-edge' ? [step.vertex, step.neighbour] : null}
               pathEdges={pathEdges(step.table)}
               changed={changed}
             />
           </Card>
-          <GraphLegend showChecking showPath />
+          <GraphLegend showChecking showCandidates showPath />
         </div>
 
         <div className={ui.sideColumn}>
@@ -109,6 +120,8 @@ export function Walkthrough({
             showVisited
             current={current}
             changed={changed && step.kind === 'check-edge' ? { [changed]: step.oldDistance } : {}}
+            candidates={candidates}
+            checking={checking}
           />
 
           <Card flush>

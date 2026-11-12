@@ -47,10 +47,44 @@
   background: var(--color-blue-tint);
 }
 
+.candidateRow {
+  background: var(--color-hint-tint);
+}
+
+.updatedRow {
+  background: var(--color-orange-tint);
+}
+
 .vertex {
   text-align: left;
   font-size: var(--text-title);
   font-weight: 700;
+}
+
+.candidateTag {
+  display: inline-flex;
+  align-items: center;
+  margin-left: var(--space-2);
+  padding: 2px 8px;
+  border: 1px dashed var(--color-hint);
+  border-radius: var(--radius-pill);
+  background: var(--color-hint-tint);
+  color: var(--color-hint-text);
+  font-size: var(--text-label);
+  font-weight: 700;
+  vertical-align: middle;
+}
+
+.checkingTag {
+  border-style: solid;
+  background: var(--color-hint);
+  color: #ffffff;
+}
+
+.updatedTag {
+  border: 1px solid var(--color-orange);
+  background: var(--color-orange-tint);
+  color: var(--color-ink);
 }
 
 .distance {

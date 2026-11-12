@@ -44,6 +44,16 @@ describe('GraphView', () => {
     return render(<GraphView graph={SAMPLE_GRAPH} wide={sample.wide} narrow={sample.narrow} label="Sample graph" {...extra} />)
   }
 
+
+  it('marks candidate and currently checked vertices as distinct states', () => {
+    expect(statesFrom(['A', 'B', 'C'], ['A'], null, null, ['B', 'C'], 'B')).toEqual({
+      A: 'visited',
+      B: 'checking',
+      C: 'candidate',
+    })
+    expect(vertexLabel('C', 'candidate', 4)).toBe('Vertex C, candidate, distance 4')
+    expect(vertexLabel('B', 'checking', 3)).toBe('Vertex B, checking, distance 3')
+  })
   it('draws every vertex and every edge weight', () => {
     const { container } = drawSample()
     expect(container.querySelectorAll('circle[data-state]')).toHaveLength(6)
@@ -54,6 +64,12 @@ describe('GraphView', () => {
     const { container } = drawSample({ states: { A: 'visited', B: 'current' } })
     expect(container.querySelectorAll('[data-badge="tick"]')).toHaveLength(1)
     expect(container.querySelector('circle[data-state="current"]')).toHaveStyle({ strokeWidth: '4' })
+  })
+
+  it('gives candidate vertices a dashed outline and the active check a solid outline', () => {
+    const { container } = drawSample({ states: { B: 'candidate', C: 'checking' } })
+    expect(container.querySelector('circle[data-state="candidate"]')).toHaveStyle({ strokeDasharray: '5 3' })
+    expect(container.querySelector('circle[data-state="checking"]')).toHaveStyle({ strokeWidth: '3.5' })
   })
 
   it('draws the edge being checked as a dashed line', () => {
@@ -90,11 +106,39 @@ describe('GraphView', () => {
 })
 
 describe('DistanceTable', () => {
+  const visitD = dijkstra(SAMPLE_GRAPH, 'A').steps.find((step) => step.kind === 'visit' && step.vertex === 'D')!
+
   it('shows distances, previous vertices (None for the start) and visited', () => {
     render(<DistanceTable table={finalTable} vertices={SAMPLE_GRAPH.vertices} showVisited caption="Distance table" />)
     const rowA = screen.getByRole('row', { name: /^A/ })
     expect(rowA).toHaveTextContent('A0NoneYes')
     expect(screen.getByRole('row', { name: /^E/ })).toHaveTextContent('E12CYes')
+  })
+
+  it('labels candidate, checked and updated vertices in the table', () => {
+    const { rerender } = render(
+      <DistanceTable
+        table={visitD.table}
+        vertices={SAMPLE_GRAPH.vertices}
+        showVisited
+        candidates={['B', 'C']}
+        checking="B"
+      />,
+    )
+    expect(screen.getByRole('row', { name: /^B/ })).toHaveTextContent('Checking')
+    expect(screen.getByRole('row', { name: /^C/ })).toHaveTextContent('Candidate')
+
+    rerender(
+      <DistanceTable
+        table={dijkstra(SAMPLE_GRAPH, 'A').steps.find((step) => step.kind === 'check-edge' && step.vertex === 'D' && step.neighbour === 'B')!.table}
+        vertices={SAMPLE_GRAPH.vertices}
+        showVisited
+        changed={{ B: 4 }}
+        candidates={['B', 'C']}
+        checking="B"
+      />,
+    )
+    expect(screen.getByRole('row', { name: /^B/ })).toHaveTextContent('Updated')
   })
 
   it('shows a changed distance with the old one struck through, read out as "was"', () => {

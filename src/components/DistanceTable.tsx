@@ -28,6 +28,10 @@ interface DistanceTableProps {
   current?: VertexId | null
   /** Vertices whose distance just changed, with the distance they had before. */
   changed?: Readonly<Record<VertexId, number>>
+  /** Unvisited neighbours currently being considered from the current vertex. */
+  candidates?: readonly VertexId[]
+  /** The candidate whose edge is being checked right now. */
+  checking?: VertexId | null
   /** Distance cells the student fills in, by vertex. */
   editable?: Readonly<Record<VertexId, EditableCell>>
   /** Replaces what the previous column shows for a vertex (e.g. "?" until a fill-in is answered). */
@@ -35,7 +39,7 @@ interface DistanceTableProps {
 }
 
 export function DistanceTable(props: DistanceTableProps) {
-  const { table, vertices, caption, showVisited = false, current = null, changed = {}, editable = {}, previousText = {} } = props
+  const { table, vertices, caption, showVisited = false, current = null, changed = {}, candidates = [], checking = null, editable = {}, previousText = {} } = props
 
   return (
     <div className={styles.wrap}>
@@ -54,10 +58,30 @@ export function DistanceTable(props: DistanceTableProps) {
             const row = table[v]
             const cell = editable[v]
             const was = changed[v]
+            const isCandidate = candidates.includes(v)
+            const marker = was !== undefined ? 'Updated' : checking === v ? 'Checking' : 'Candidate'
             return (
-              <tr key={v} className={cx(v === current && styles.currentRow)}>
+              <tr
+                key={v}
+                className={cx(
+                  v === current && styles.currentRow,
+                  isCandidate && was === undefined && styles.candidateRow,
+                  was !== undefined && styles.updatedRow,
+                )}
+              >
                 <th scope="row" className={styles.vertex}>
                   {v}
+                  {isCandidate && (
+                    <span
+                      className={cx(
+                        styles.candidateTag,
+                        checking === v && was === undefined && styles.checkingTag,
+                        was !== undefined && styles.updatedTag,
+                      )}
+                    >
+                      {marker}
+                    </span>
+                  )}
                 </th>
                 <td className={cx(styles.distance, was !== undefined && styles.changed)}>
                   {cell ? (

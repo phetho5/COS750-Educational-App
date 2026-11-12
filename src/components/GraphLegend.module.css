@@ -36,6 +36,14 @@
   border: 2px dashed var(--color-blue-dark);
 }
 
+.candidate {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: var(--color-hint-tint);
+  border: 2px dashed var(--color-hint);
+}
+
 .checking,
 .path {
   width: 32px;

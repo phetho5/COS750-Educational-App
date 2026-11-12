@@ -5,7 +5,7 @@
 import type { DistanceTable, VertexId } from '../engine'
 import { spokenDistance } from '../content/format'
 
-export type VertexState = 'unvisited' | 'current' | 'visited' | 'selected'
+export type VertexState = 'unvisited' | 'current' | 'visited' | 'selected' | 'candidate' | 'checking'
 export type EdgePair = readonly [VertexId, VertexId]
 
 /**
@@ -32,12 +32,16 @@ export function statesFrom(
   visited: readonly VertexId[],
   current: VertexId | null,
   selected: VertexId | null = null,
+  candidates: readonly VertexId[] = [],
+  checking: VertexId | null = null,
 ): Record<VertexId, VertexState> {
   const states: Record<VertexId, VertexState> = {}
   for (const v of vertices) {
     if (v === current) states[v] = 'current'
     else if (visited.includes(v)) states[v] = 'visited'
     else if (v === selected) states[v] = 'selected'
+    else if (v === checking) states[v] = 'checking'
+    else if (candidates.includes(v)) states[v] = 'candidate'
     else states[v] = 'unvisited'
   }
   return states

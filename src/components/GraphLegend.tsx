@@ -3,11 +3,12 @@ import styles from './GraphLegend.module.css'
 
 interface GraphLegendProps {
   showChecking?: boolean
+  showCandidates?: boolean
   showPath?: boolean
   showSelected?: boolean
 }
 
-export function GraphLegend({ showChecking, showPath, showSelected }: GraphLegendProps) {
+export function GraphLegend({ showChecking, showCandidates, showPath, showSelected }: GraphLegendProps) {
   return (
     <ul aria-label="Legend" className={styles.legend}>
       <li>
@@ -25,6 +26,12 @@ export function GraphLegend({ showChecking, showPath, showSelected }: GraphLegen
         </svg>
         Visited
       </li>
+      {showCandidates && (
+        <li>
+          <span className={styles.candidate} aria-hidden="true" />
+          Candidate vertex
+        </li>
+      )}
       {showSelected && (
         <li>
           <span className={styles.selected} aria-hidden="true" />

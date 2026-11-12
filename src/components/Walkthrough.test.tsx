@@ -32,7 +32,12 @@ describe('Walkthrough', () => {
     render(<Walkthrough />)
     for (let i = 0; i < 5; i++) fireEvent.keyDown(window, { key: 'ArrowRight' })
     expect(stepLine()).toBe('Step 6 of 16 · Visit D: check D-B')
-    expect(screen.getByRole('row', { name: /^B/ })).toHaveTextContent('B3was 4D')
+    expect(screen.getByRole('row', { name: /^B/ })).toHaveTextContent('BUpdated3was 4D')
+    expect(screen.getByRole('row', { name: /^B/ })).toHaveTextContent('Updated')
+    expect(screen.getByRole('row', { name: /^C/ })).toHaveTextContent('Candidate')
+    expect(screen.getByText('Candidate vertex')).toBeInTheDocument()
+    expect(document.querySelector('circle[data-state="checking"]')).toBeInTheDocument()
+    expect(document.querySelector('circle[data-state="candidate"]')).toBeInTheDocument()
     // Pseudocode: the update line (10) is highlighted.
     const current = screen.getAllByRole('listitem').filter((li) => li.getAttribute('aria-current') === 'step')
     expect(current.map((li) => li.textContent)).toEqual([
