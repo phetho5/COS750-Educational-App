@@ -52,3 +52,4 @@ export {
 } from "./summary";
 export type * from "./types";
 export { PROGRESS_VERSION } from "./types";
+export { LEARNING_MODE_STORAGE_KEY, readLearningMode, writeLearningMode, type LearningMode } from './learningMode';

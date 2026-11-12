@@ -65,6 +65,18 @@ describe("MapScreen", () => {
     ).not.toBeInTheDocument();
   });
 
+  it("lets the learner select a mode and saves the preference separately", async () => {
+    withProgress(<MapScreen />);
+    const support = screen.getByRole("radio", { name: /Support/ });
+    const challenge = screen.getByRole("radio", { name: /Challenge/ });
+    expect(support).toBeChecked();
+
+    await userEvent.click(challenge);
+    expect(challenge).toBeChecked();
+    expect(window.localStorage.getItem("cos212-learning-mode")).toBe("challenge");
+    expect(screen.getByText(/This does not change your score or the questions/)).toBeInTheDocument();
+  });
+
   it("opens a module and shows mastery per objective", async () => {
     withProgress(<MapScreen />, stateWith({ "module-1": [attempt(4)] }));
     expect(

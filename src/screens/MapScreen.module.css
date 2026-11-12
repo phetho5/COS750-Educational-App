@@ -159,6 +159,53 @@ button.entry:hover {
   font-weight: 700;
 }
 
+.modePicker {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding: var(--space-4);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-card);
+}
+
+.modePicker legend {
+  padding: 0 var(--space-1);
+}
+
+.modeOption {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-control);
+  background: var(--color-surface);
+  cursor: pointer;
+}
+
+.modeOption:has(input:checked) {
+  border-color: var(--color-blue);
+  background: var(--color-blue-tint);
+}
+
+.modeOption input {
+  margin-top: 4px;
+  accent-color: var(--color-blue);
+}
+
+.modeCopy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.modeCopy span {
+  font-size: var(--text-label);
+  color: var(--color-muted);
+  line-height: 1.45;
+}
+
 @media (max-width: 600px) {
   .nextStep {
     align-items: stretch;

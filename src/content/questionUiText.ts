@@ -25,9 +25,14 @@ export const HINT_TITLES = [
 
 export const questionUiText = {
   /** On the red banner after a wrong answer. The specific feedback is hint 2. */
-  wrongBanner:
-    "Have a look at the hint below, then try again. You can open more hints one at a time.",
+  wrongBanner: (mode: "support" | "challenge") =>
+    mode === "support"
+      ? "Have a look at the hint below, then try again. You can open more hints one at a time."
+      : "Not quite. Try once more from memory, or reveal a hint when you want help.",
+  revealHint: "Reveal a hint",
   practiceChip: "New question · same type",
+  supportMode: "Support mode",
+  challengeMode: "Challenge mode",
   checkButton: "Check",
   nextQuestion: "Next question",
   seeResults: "See your results",

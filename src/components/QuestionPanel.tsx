@@ -15,6 +15,7 @@
 */
 import { useState, type ReactNode } from 'react'
 import { checkAnswer, type CheckResult, type Question } from '../questions'
+import type { LearningMode } from '../progress/learningMode'
 import { questionUiText as t } from '../content/questionUiText'
 import { listText } from '../content/format'
 import { cx } from './classNames'
@@ -37,9 +38,10 @@ interface QuestionPanelProps {
   onNewQuestion?: () => void
   /** Heading level for the prompt: h1 on a check screen, h2 inside a lesson. */
   headingLevel?: 1 | 2
+  learningMode?: LearningMode
 }
 
-export function QuestionPanel({ question: q, onResult, afterCorrect, onNewQuestion, headingLevel = 1 }: QuestionPanelProps) {
+export function QuestionPanel({ question: q, onResult, afterCorrect, onNewQuestion, headingLevel = 1, learningMode = 'support' }: QuestionPanelProps) {
   const [answer, setAnswer] = useState('')
   const [result, setResult] = useState<CheckResult | null>(null)
   const [mistake, setMistake] = useState('')
@@ -62,7 +64,7 @@ export function QuestionPanel({ question: q, onResult, afterCorrect, onNewQuesti
     onResult?.(r)
     if (r.status === 'wrong') {
       setMistake(r.feedback)
-      setHintLevel((level) => Math.max(level, 1))
+      if (learningMode === 'support') setHintLevel((level) => Math.max(level, 1))
     }
   }
 
@@ -113,9 +115,15 @@ export function QuestionPanel({ question: q, onResult, afterCorrect, onNewQuesti
               {result.feedback}
             </Feedback>
           )}
-          {result?.status === 'wrong' && <Feedback kind="wrong">{t.wrongBanner}</Feedback>}
+          {result?.status === 'wrong' && <Feedback kind="wrong">{t.wrongBanner(learningMode)}</Feedback>}
           {result?.status === 'invalid' && <Feedback kind="info">{result.feedback}</Feedback>}
         </div>
+
+        {learningMode === 'challenge' && result?.status === 'wrong' && hintLevel === 0 && (
+          <Button variant="hint" icon="bulb" onClick={() => setHintLevel(1)}>
+            {t.revealHint}
+          </Button>
+        )}
 
         {!isCorrect && (
           <Button spread iconAfter="check" onClick={check} disabled={!canCheck} className={styles.check}>

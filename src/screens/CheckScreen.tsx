@@ -65,7 +65,7 @@ export function CheckScreen({ checkId }: { checkId: CheckId }) {
 }
 
 function CheckRun({ checkId, name }: { checkId: CheckId; name: string }) {
-  const { progress, update } = useProgress();
+  const { progress, update, learningMode } = useProgress();
   // Built once per attempt. A refresh starts a new attempt (D54).
   const [questions] = useState(() =>
     buildCheck(checkId, randomSeed(), progress.lastShown),
@@ -132,6 +132,9 @@ function CheckRun({ checkId, name }: { checkId: CheckId; name: string }) {
           </p>
           <p className={ui.row}>
             <span className={ui.chip}>{FORMAT_LABEL[question.format]}</span>
+            <span className={ui.chipOutline}>
+              {learningMode === "support" ? t.supportMode : t.challengeMode}
+            </span>
             {practice && (
               <span className={ui.chipOutline}>{t.practiceChip}</span>
             )}
@@ -161,6 +164,7 @@ function CheckRun({ checkId, name }: { checkId: CheckId; name: string }) {
       <QuestionPanel
         key={question.id}
         question={question}
+        learningMode={learningMode}
         onResult={recordFirst}
         onNewQuestion={newPractice}
         afterCorrect={

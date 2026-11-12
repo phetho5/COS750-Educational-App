@@ -57,6 +57,20 @@ describe('QuestionPanel: multiple choice', () => {
     expect(onNewQuestion).toHaveBeenCalledOnce()
   })
 
+  it('lets Challenge mode learners choose when to reveal the first hint', async () => {
+    render(<QuestionPanel question={choice} learningMode="challenge" />)
+    await userEvent.click(screen.getByRole('radio', { name: labelOf(choice, firstWrong(choice)) }))
+    await userEvent.click(screen.getByRole('button', { name: 'Check' }))
+
+    expect(screen.getByText('Not quite.')).toBeInTheDocument()
+    expect(screen.queryByRole('region', { name: 'Hints' })).not.toBeInTheDocument()
+    expect(screen.getByRole('button', { name: 'Reveal a hint' })).toBeInTheDocument()
+
+    await userEvent.click(screen.getByRole('button', { name: 'Reveal a hint' }))
+    expect(screen.getByRole('region', { name: 'Hints' })).toBeInTheDocument()
+    expect(screen.getByText(choice.hints.nudge)).toBeInTheDocument()
+  })
+
   it('checks the smaller-step questions in hint 4', async () => {
     render(<QuestionPanel question={choice} />)
     await userEvent.click(screen.getByRole('radio', { name: labelOf(choice, firstWrong(choice)) }))

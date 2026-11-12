@@ -5,6 +5,7 @@
 */
 import { createContext, useContext } from 'react'
 import type { ProgressState } from '../progress'
+import type { LearningMode } from '../progress/learningMode'
 
 export interface ProgressContextValue {
   progress: ProgressState
@@ -14,6 +15,8 @@ export interface ProgressContextValue {
   reset: () => void
   /** False if progress can't be saved, so it won't survive closing the tab. */
   isSaving: boolean
+  learningMode: LearningMode
+  setLearningMode: (mode: LearningMode) => void
 }
 
 export const ProgressContext = createContext<ProgressContextValue | null>(null)

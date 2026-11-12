@@ -8,6 +8,7 @@
 */
 import { useCallback, useMemo, useState, type ReactNode } from 'react'
 import { createProgressStore, type ProgressState, type ProgressStore } from '../progress'
+import { readLearningMode, writeLearningMode, type LearningMode } from '../progress/learningMode'
 import { ProgressContext, type ProgressContextValue } from './progressContext'
 
 interface ProgressProviderProps {
@@ -20,6 +21,7 @@ export function ProgressProvider({ children, store: givenStore }: ProgressProvid
   // Created once, on first render: loads saved progress or starts fresh.
   const [store] = useState(() => givenStore ?? createProgressStore())
   const [progress, setProgress] = useState<ProgressState>(() => store.get())
+  const [learningMode, setLearningModeState] = useState<LearningMode>(readLearningMode)
 
   const update = useCallback(
     (change: (current: ProgressState) => ProgressState) => {
@@ -31,10 +33,14 @@ export function ProgressProvider({ children, store: givenStore }: ProgressProvid
   )
 
   const reset = useCallback(() => setProgress(store.reset()), [store])
+  const setLearningMode = useCallback((mode: LearningMode) => {
+    setLearningModeState(mode)
+    writeLearningMode(mode)
+  }, [])
 
   const value = useMemo<ProgressContextValue>(
-    () => ({ progress, update, reset, isSaving: store.isSaving() }),
-    [progress, update, reset, store],
+    () => ({ progress, update, reset, isSaving: store.isSaving(), learningMode, setLearningMode }),
+    [progress, update, reset, store, learningMode, setLearningMode],
   )
 
   return <ProgressContext.Provider value={value}>{children}</ProgressContext.Provider>

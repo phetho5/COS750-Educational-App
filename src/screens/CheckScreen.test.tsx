@@ -7,6 +7,7 @@ import {
   initialProgress,
   moduleStatus,
   unlockForDemo,
+  LEARNING_MODE_STORAGE_KEY,
   type ProgressState,
 } from "../progress";
 import { ProgressProvider } from "../components/ProgressProvider";
@@ -41,9 +42,26 @@ const next = () =>
 
 beforeEach(() => {
   window.history.pushState(null, "", "/check/module-1");
+  window.localStorage.clear();
 });
 
 describe("CheckScreen", () => {
+  it("uses saved Challenge mode during an assessment without changing scoring", async () => {
+    window.localStorage.setItem(LEARNING_MODE_STORAGE_KEY, "challenge");
+    const store = renderCheck("module-1");
+    const first = buildCheck("module-1", SEED, {})[0];
+    expect(screen.getByText("Challenge mode")).toBeInTheDocument();
+
+    await answerWrong(first);
+    expect(
+      screen.getByRole("button", { name: "Reveal a hint" }),
+    ).toBeInTheDocument();
+    expect(
+      screen.queryByRole("region", { name: "Hints" }),
+    ).not.toBeInTheDocument();
+    expect(store.get().attempts["module-1"]).toHaveLength(0);
+  });
+
   it("explains module scoring and exposes the current question progress accessibly", async () => {
     renderCheck("module-1");
     const progress = screen.getByRole("progressbar", {

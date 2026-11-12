@@ -47,7 +47,7 @@ const TABS: readonly TabInfo<TabId>[] = [
 ];
 
 export function ModuleScreen({ moduleId }: { moduleId: ModuleId }) {
-  const { progress } = useProgress();
+  const { progress, learningMode } = useProgress();
   const [tab, setTab] = useState<TabId>("watch");
   const checkId = `module-${moduleId}` as const;
   const info = moduleInfo(moduleId);
@@ -109,7 +109,7 @@ export function ModuleScreen({ moduleId }: { moduleId: ModuleId }) {
         {tab === "try" && (
           <>
             <p className={ui.lead}>{lesson.tryIntro}</p>
-            <TryTab moduleId={moduleId} checkButton={checkButton} />
+            <TryTab moduleId={moduleId} checkButton={checkButton} learningMode={learningMode} />
           </>
         )}
       </Tabs>
@@ -147,9 +147,11 @@ function WatchTab({ moduleId }: { moduleId: ModuleId }) {
 function TryTab({
   moduleId,
   checkButton,
+  learningMode,
 }: {
   moduleId: ModuleId;
   checkButton: ReactNode;
+  learningMode: 'support' | 'challenge';
 }) {
   switch (moduleId) {
     case 1:
@@ -159,7 +161,7 @@ function TryTab({
     case 3:
       return <RoutesTry />;
     case 4:
-      return <PracticeQuestion />;
+      return <PracticeQuestion learningMode={learningMode} />;
     case 5:
       return <YourTurn doneAction={checkButton} />;
   }
