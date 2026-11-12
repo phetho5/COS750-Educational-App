@@ -138,10 +138,23 @@ describe("ModuleScreen", () => {
     expect(
       screen.getByText(/requires non-negative edge weights/),
     ).toBeInTheDocument();
+    expect(
+      screen.getByRole("heading", { name: "Common mistakes" }),
+    ).toBeInTheDocument();
+    const mistakeToggle = screen.getByText("Choose the edge with the smallest weight.");
+    expect(mistakeToggle.closest("details")).not.toHaveAttribute("open");
+    await userEvent.click(mistakeToggle);
+    expect(mistakeToggle.closest("details")).toHaveAttribute("open");
+    expect(
+      within(mistakeToggle.closest("details")!).getByText(/A-D-B costs 2 \+ 1 = 3/),
+    ).toBeInTheDocument();
 
     await userEvent.click(screen.getByRole("tab", { name: "Try" }));
     expect(
       screen.queryByRole("heading", { name: "Why Dijkstra works" }),
+    ).not.toBeInTheDocument();
+    expect(
+      screen.queryByRole("heading", { name: "Common mistakes" }),
     ).not.toBeInTheDocument();
     expect(screen.getByRole("tabpanel")).not.toBeEmptyDOMElement();
   });

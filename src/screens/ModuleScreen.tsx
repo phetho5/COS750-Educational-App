@@ -30,6 +30,7 @@ import { RichText } from "../components/RichText";
 import { Tabs, type TabInfo } from "../components/Tabs";
 import { ThinkAboutIt } from "../components/ThinkAboutIt";
 import { DijkstraPrinciple } from "../components/DijkstraPrinciple";
+import { DijkstraCommonMistakes } from "../components/DijkstraCommonMistakes";
 import { Button, Feedback, StatusBadge } from "../components/ui";
 import { Walkthrough } from "../components/Walkthrough";
 import { YourTurn } from "../components/YourTurn";
@@ -168,6 +169,7 @@ function ReadTab({ moduleId }: { moduleId: ModuleId }) {
   return (
     <div className={lessonStyles.read}>
       {moduleId === 4 && <DijkstraPrinciple />}
+      {moduleId === 4 && <DijkstraCommonMistakes />}
       <div className={lessonStyles.readText}>
         {lesson.read.map((paragraph) => (
           <p key={paragraph}>
