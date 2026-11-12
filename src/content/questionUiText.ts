@@ -36,7 +36,13 @@ export const questionUiText = {
   visitedSoFar: 'Visited so far:',
   visitingNow: (v: string) => `visiting ${v} now`,
   noneYet: 'none yet',
-  firstAnswerNote: 'Only your first answer to each question counts. Hints are there to help you learn.',
+  assessmentNote(checkId: CheckId, total: number, passCount: number): string {
+    const scoring =
+      checkId === 'final'
+        ? 'Your first answer to each question is recorded for your pre-lecture summary.'
+        : `Get at least ${passCount} of ${total} right to pass. Only your first answer to each question counts toward your score.`
+    return `${scoring} Hints and practice questions help you learn but do not affect your score.`
+  },
 }
 
 /** "Module 2 check" or "Final check". */

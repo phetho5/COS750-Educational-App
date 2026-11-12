@@ -51,12 +51,13 @@ export const CHECK_PLANS: Readonly<Record<CheckId, readonly PlanItem[]>> = {
     concept('m2-list-length', 'm2-compare'),
   ],
   'module-3': [concept('m3-problem'), concept('m3-path-cost'), concept('m3-shortest-distance'), concept('m3-previous'), concept('m3-fewest-edges')],
+  // Cover every Dijkstra concept group once, then assess choosing the next vertex on a graph.
   'module-4': [
     concept(...M4),
     concept(...M4),
-    trace({ skill: 'next-vertex', format: 'select-vertex', objective: 4 }),
-    trace({ skill: 'predict-update', format: 'predict', objective: 4 }),
     concept(...M4),
+    concept(...M4),
+    trace({ skill: 'next-vertex', format: 'select-vertex', objective: 4 }),
   ],
   'module-5': [
     trace({ skill: 'next-vertex', format: 'select-vertex', objective: 5 }),

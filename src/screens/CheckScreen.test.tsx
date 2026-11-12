@@ -32,6 +32,26 @@ beforeEach(() => {
 })
 
 describe('CheckScreen', () => {
+  it('explains module scoring and exposes the current question progress accessibly', async () => {
+    renderCheck('module-1')
+    const progress = screen.getByRole('progressbar', { name: 'Question progress' })
+    expect(progress).toHaveAttribute('aria-valuenow', '1')
+    expect(progress).toHaveAttribute('aria-valuetext', 'Question 1 of 5')
+    expect(screen.getByText(/at least 4 of 5 right to pass/)).toBeInTheDocument()
+    expect(screen.getByText(/practice questions help you learn but do not affect your score/)).toBeInTheDocument()
+
+    await answerRight(buildCheck('module-1', SEED, {})[0])
+    await next()
+    expect(progress).toHaveAttribute('aria-valuenow', '2')
+    expect(progress).toHaveAttribute('aria-valuetext', 'Question 2 of 5')
+  })
+
+  it('describes the final check as summary evidence, not a pass gate', () => {
+    renderCheck('final', unlockForDemo(initialProgress()))
+    expect(screen.getByText(/recorded for your pre-lecture summary/)).toBeInTheDocument()
+    expect(screen.queryByText(/to pass/)).not.toBeInTheDocument()
+  })
+
   it('runs a module check and records a pass, which opens the next module', async () => {
     const store = renderCheck('module-1')
     const questions = buildCheck('module-1', SEED, {})

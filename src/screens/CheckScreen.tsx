@@ -12,8 +12,8 @@
     next module (pass), the review (below 80%) or the summary (final check).
 */
 import { useState } from 'react'
-import { buildCheck, newQuestionLike, randomSeed, type CheckId, type CheckResult, type Question } from '../questions'
-import { answerRecord, canStartCheck, correctCount, finishCheck, needsReview, nextStepAfterCheck, rememberShown, scorePercent, type CheckAttempt } from '../progress'
+import { buildCheck, CHECK_LENGTH, newQuestionLike, randomSeed, type CheckId, type CheckResult, type Question } from '../questions'
+import { answerRecord, canStartCheck, correctCount, finishCheck, needsReview, nextStepAfterCheck, PASS_PERCENT, rememberShown, scorePercent, type CheckAttempt } from '../progress'
 import { checkName, FORMAT_LABEL, questionUiText as t } from '../content/questionUiText'
 import { checkText } from '../content/checkText'
 import { navigate } from '../routing/router'
@@ -99,9 +99,17 @@ function CheckRun({ checkId, name }: { checkId: CheckId; name: string }) {
             {practice && <span className={ui.chipOutline}>{t.practiceChip}</span>}
           </p>
         </div>
-        <div className={styles.segments} aria-hidden="true">
+        <div
+          className={styles.segments}
+          role="progressbar"
+          aria-label="Question progress"
+          aria-valuemin={1}
+          aria-valuemax={questions.length}
+          aria-valuenow={index + 1}
+          aria-valuetext={`Question ${index + 1} of ${questions.length}`}
+        >
           {questions.map((q, i) => (
-            <span key={q.id} className={i < index ? styles.done : i === index ? styles.now : styles.todo} />
+            <span key={q.id} aria-hidden="true" className={i < index ? styles.done : i === index ? styles.now : styles.todo} />
           ))}
         </div>
       </div>
@@ -118,7 +126,9 @@ function CheckRun({ checkId, name }: { checkId: CheckId; name: string }) {
         }
       />
 
-      <p className={`${ui.small} ${ui.muted}`}>{t.firstAnswerNote}</p>
+      <p className={`${ui.small} ${ui.muted}`}>
+        {t.assessmentNote(checkId, CHECK_LENGTH, Math.ceil((CHECK_LENGTH * PASS_PERCENT) / 100))}
+      </p>
     </div>
   )
 }

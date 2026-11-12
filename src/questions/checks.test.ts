@@ -37,6 +37,27 @@ describe('buildCheck', () => {
     expect(buildCheck('final', 7).map((q) => q.objective)).toEqual([1, 2, 3, 4, 5])
   })
 
+  it('covers every Module 4 concept plus one applied next-vertex trace', () => {
+    const requiredGroups = new Set(['m4-start-values', 'm4-next-rule', 'm4-update-rule', 'm4-is-final'])
+    for (const seed of SEEDS) {
+      const questions = buildCheck('module-4', seed)
+      const concepts = questions.filter((q) => q.concept !== null)
+      const traces = questions.filter((q) => q.trace !== null)
+      expect(new Set(concepts.map((q) => q.concept!.groupId))).toEqual(requiredGroups)
+      expect(traces).toHaveLength(1)
+      expect(traces[0]).toMatchObject({ format: 'select-vertex', trace: { skill: 'next-vertex' } })
+    }
+  })
+
+  it('keeps Module 5 trace skills balanced across every attempt', () => {
+    for (const seed of SEEDS) {
+      const traces = buildCheck('module-5', seed).map((q) => q.trace!.skill)
+      expect(traces.filter((skill) => skill === 'next-vertex')).toHaveLength(2)
+      expect(traces.filter((skill) => skill === 'new-distance')).toHaveLength(2)
+      expect(traces.filter((skill) => skill === 'predict-update')).toHaveLength(1)
+    }
+  })
+
   it('uses the four formats the brief asks for across the checks', () => {
     const formats = new Set(CHECK_IDS.flatMap((id) => buildCheck(id, 2).map((q) => q.format)))
     expect(formats).toEqual(new Set(['multiple-choice', 'select-vertex', 'fill-in', 'predict']))
