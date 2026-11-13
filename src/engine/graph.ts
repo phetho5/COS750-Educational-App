@@ -43,6 +43,8 @@ export function validateGraph(graph: Graph, start: VertexId): void {
     if (!Number.isFinite(edge.weight)) {
       throw new GraphError(`Edge ${name} needs a weight that is a real number.`)
     }
+    //Dijkstra relies on non-negative weights because a shorter route
+    //cannot be discovered by adding a negative edge later.
     if (edge.weight < 0) {
       throw new GraphError(
         `Edge ${name} has a negative weight (${edge.weight}). Dijkstra's algorithm needs every weight to be 0 or more.`,

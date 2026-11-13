@@ -57,6 +57,8 @@ export function isPass(attempt: CheckAttempt): boolean {
 export function bestAttempt(
   attempts: readonly CheckAttempt[],
 ): CheckAttempt | null {
+  //Keep the highest-scoring attempt so a lower-scoring retry
+// cannot remove progress the student has already achieved
   let best: CheckAttempt | null = null;
   for (const attempt of attempts) {
     // `>=` (not `>`) so a later attempt with the same score replaces an earlier one.
@@ -65,6 +67,7 @@ export function bestAttempt(
   }
   return best;
 }
+
 
 export function latestAttempt(
   state: ProgressState,

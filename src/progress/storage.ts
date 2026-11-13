@@ -147,7 +147,8 @@ export function createProgressStore(storage: StorageLike | null = browserStorage
       return initialProgress()
     }
   }
-
+// Saving can fail even when storage was available during loading.
+// Keep the latest progress in memory so the student can continue working.
   function write(state: ProgressState): void {
     if (storage === null) return
     try {

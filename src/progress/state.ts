@@ -115,6 +115,17 @@ export function unlockForDemo(state: ProgressState): ProgressState {
   return { ...state, demoUnlocked: true }
 }
 
+/**
+ * Removes a lecture question by its position in the list.
+ * If the index is outside the list, the original state is returned.
+ */
 export function removeLectureQuestion(state: ProgressState, index: number): ProgressState {
-  return { ...state, lectureQuestions: state.lectureQuestions.filter((_, i) => i !== index) }
+  if (!Number.isInteger(index) || index < 0 || index >= state.lectureQuestions.length) {
+    return state
+  }
+
+  return {
+    ...state,
+    lectureQuestions: state.lectureQuestions.filter((_, i) => i !== index),
+  }
 }
