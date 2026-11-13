@@ -118,7 +118,7 @@ export const CHECK_PLANS: Readonly<Record<CheckId, readonly PlanItem[]>> = {
   ],
 };
 
-/** The questions for one attempt at a check. A new seed gives new questions. */
+// The questions for one attempt at a check. A new seed gives new questions. */
 export function buildCheck(
   checkId: CheckId,
   seed: number,
