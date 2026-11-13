@@ -34,7 +34,7 @@ function renderCheck(
   );
   return store;
 }
-
+// Convenience helper to advance through the check questionnaire flow
 const next = () =>
   userEvent.click(
     screen.getByRole("button", { name: /Next question|See your results/ }),
