@@ -83,7 +83,8 @@ function snapshot(table: WorkingTable): DistanceTable {
   }
   return copy
 }
-
+//Copy each row separately so changes to the working table
+//do not affect the distance values recorded in previous steps.
 /**
  * The unvisited vertex with the smallest distance, or null if every
  * unvisited vertex is still at Infinity (none can be reached).
