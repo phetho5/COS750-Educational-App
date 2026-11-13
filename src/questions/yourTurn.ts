@@ -70,7 +70,7 @@ export function currentVertex(state: YourTurnState): VertexId | null {
   return state.phase === 'update' ? state.result.visitOrder[state.done] : null
 }
 
-/** The neighbours the student must update now (empty unless in the update phase). */
+// The neighbours the student must update now (empty unless in the update phase). 
 export function neighboursToUpdate(state: YourTurnState): readonly VertexId[] {
   return state.phase === 'update' ? visitStep(state.result, state.done).neighboursToCheck : []
 }
