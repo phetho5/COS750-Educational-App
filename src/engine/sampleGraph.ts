@@ -1,5 +1,5 @@
 /*
-  The sample graph from CLAUDE.md. Its values were checked by hand.
+  The sample graph from the project brief. Its values were checked by hand.
   DO NOT CHANGE THEM: the lessons, the walkthrough and the tests depend on them.
 
   Undirected, start vertex A: A-B 4, A-D 2, D-B 1, B-F 5, D-C 8, F-C 3, C-E 2, F-E 6

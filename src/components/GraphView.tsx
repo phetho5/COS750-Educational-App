@@ -1,7 +1,7 @@
 /*
-  Draws a small weighted graph as plain SVG (no graph library, CLAUDE.md).
+  Draws a small weighted graph as plain SVG (no graph library, as the project brief asks).
 
-  Vertex states never rely on colour alone (CLAUDE.md, Accessibility):
+  Vertex states never rely on colour alone (project brief, Accessibility):
   - unvisited: thin grey outline
   - current: thick orange ring
   - visited: filled blue, with a tick badge

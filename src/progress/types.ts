@@ -14,7 +14,7 @@ import type { CheckId, LastShown, MisconceptionId, ObjectiveId } from '../questi
  */
 export const PROGRESS_VERSION = 2
 
-/** The student's first answer to one check question. Only the first answer counts (handoff D8). */
+/** The student's first answer to one check question. Only the first answer counts. */
 export interface AnswerRecord {
   readonly questionId: string
   /** Which type of question it was, e.g. "trace:new-distance:fill-in". */
@@ -49,5 +49,5 @@ export interface ProgressState {
   readonly demoUnlocked: boolean
 }
 
-/** The three statuses on the module map (CLAUDE.md). */
+/** The three statuses on the module map (project brief). */
 export type ModuleStatus = 'locked' | 'in-progress' | 'mastered'

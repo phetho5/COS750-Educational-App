@@ -74,7 +74,7 @@ export interface EdgeCheckMistake {
 
 /**
  * The misconceptions that count as wrong options (the brief's two, plus
- * "always update" from docs/handoff.md D5).
+ * "always update", which we added).
  */
 export function edgeCheckMistakes(c: EdgeCheckCase): EdgeCheckMistake[] {
   return distinctMistakes(c, [
@@ -103,5 +103,5 @@ function distinctMistakes(c: EdgeCheckCase, candidates: [EdgeCheckMisconception,
   return mistakes
 }
 
-/** Questions need at least two different wrong answers (CLAUDE.md, question generation). */
+/** Questions need at least two different wrong answers (project brief, question generation). */
 export const MIN_MISTAKES = 2

@@ -3,7 +3,7 @@ export type CheckDifficulty = "support" | "challenge";
   Module checks: which questions each check asks, and "a new question of
   the same type" for after the hint ladder.
 
-  Every check has 5 questions, so 4 out of 5 (80%) passes (docs/handoff.md D9).
+  Every check has 5 questions, so 4 out of 5 (80%) passes.
   Each check mixes question types, as the brief asks.
 
   `lastShown` maps a concept group id to the version the student saw last
@@ -154,7 +154,7 @@ export function buildCheck(
 }
 
 /**
- * A new question of the same type, for after the hint ladder (CLAUDE.md).
+ * A new question of the same type, for after the hint ladder (project brief).
  * Trace: same skill and format, new numbers. Concept: another version of the
  * same group, never the one just shown.
  */

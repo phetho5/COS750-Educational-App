@@ -18,7 +18,7 @@ export function listText(items: readonly string[]): string {
   return `${items.slice(0, -1).join(', ')} and ${items[items.length - 1]}`
 }
 
-/** An edge's name, written with a plain hyphen (see docs/handoff.md D4). */
+/** An edge's name, written with a plain hyphen. */
 export function edgeName(a: string, b: string): string {
   return `${a}-${b}`
 }

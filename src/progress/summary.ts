@@ -1,5 +1,5 @@
 /*
-  The facts the pre-lecture summary shows (CLAUDE.md): mastery per
+  The facts the pre-lecture summary shows (project brief): mastery per
   objective, strengths, what to review and questions to bring to the lecture.
 
   This file only works out WHICH objectives and mistakes to show. The words
@@ -82,7 +82,7 @@ export interface ReviewItem {
 }
 
 /**
- * The "What to review" list (handoff D60):
+ * The "What to review" list:
  * 1. the core Dijkstra mistakes that have their own line, most frequent
  *    first, pointing to the walkthrough in Module 4;
  * 2. then one line per objective that is below 80%, or that had a mistake

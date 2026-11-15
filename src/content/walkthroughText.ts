@@ -1,5 +1,5 @@
 /*
-  The plain-language explanation of each walkthrough step (handoff D14), and
+  The plain-language explanation of each walkthrough step, and
   the pseudocode with the lines each step runs (D28).
 
   Every number comes from the engine's step, so the text can never disagree

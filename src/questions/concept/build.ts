@@ -10,7 +10,7 @@ import type { ChoiceVersion, ConceptGroup, ConceptOption, ConceptVersion, Select
 
 /**
  * Picks a version at random, but never the one shown last time
- * (CLAUDE.md, concept questions). With only one version, it has to repeat.
+ * (project brief, concept questions). With only one version, it has to repeat.
  */
 export function pickVersion(group: ConceptGroup, lastShownId: string | undefined, rng: Rng): ConceptVersion {
   const fresh = group.versions.filter((v) => v.id !== lastShownId)

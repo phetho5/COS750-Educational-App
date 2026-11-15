@@ -1,5 +1,5 @@
 /*
-  The lesson for each module: Watch, Read and Try (CLAUDE.md: each concept is
+  The lesson for each module: Watch, Read and Try (project brief: each concept is
   offered three ways), plus the optional "Think about it" question.
 
   Words wrapped in **double stars** are shown in bold.

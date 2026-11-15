@@ -1,6 +1,6 @@
 /*
-  The short review after scoring below 80% on a module check (CLAUDE.md:
-  "extra explanation and easier practice"). One per module (handoff D59):
+  The short review after scoring below 80% on a module check (project brief:
+  "extra explanation and easier practice"). One per module:
   another way to see the idea, two rules, and two easy practice questions.
   The student answers both correctly before retrying the check (the design).
 

@@ -25,7 +25,7 @@ export function initialProgress(): ProgressState {
     reviewDue: [],
     lastShown: {},
     thinkNotes: {},
-    // New students start with the design's three suggested questions (handoff D57).
+    // New students start with the design's three suggested questions.
     lectureQuestions: [...STARTER_LECTURE_QUESTIONS],
     demoUnlocked: false,
   }

@@ -7,7 +7,7 @@
   3. Find the steps that make a fair question:
      - no tie for the smallest distance (next-vertex questions), and
      - at least two misconceptions that give a different answer from the
-       correct one (CLAUDE.md, question generation).
+       correct one (project brief, question generation).
   4. Pick one of those steps and build the question.
   If no step qualifies, try new letters and weights. Everything uses a seeded
   random number generator, so the same seed always gives the same question.

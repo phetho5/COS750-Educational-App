@@ -1,6 +1,6 @@
 /*
   Welcome: the hook, the estimated time, the learning objectives and a Start
-  button (CLAUDE.md). The graph shows the finished sample graph: the student
+  button (project brief). The graph shows the finished sample graph: the student
   will be able to work out every number on it by the end.
 */
 import { dijkstra, SAMPLE_GRAPH, SAMPLE_START } from '../engine'

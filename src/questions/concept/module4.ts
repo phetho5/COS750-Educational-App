@@ -1,7 +1,7 @@
 /*
   Module 4: Dijkstra's algorithm (objective 4)
   Explain step by step how Dijkstra's algorithm finds shortest paths.
-  Includes "is this distance final?" (CLAUDE.md, concept questions).
+  Includes "is this distance final?" (project brief, concept questions).
 
   Misconception ids shared with trace questions (next-alphabetical,
   dist-keep-old and so on) are reused here on purpose, so the pre-lecture

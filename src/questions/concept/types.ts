@@ -40,7 +40,7 @@ export type ConceptView = 'sample' | 'sample-directed' | 'none'
 interface VersionBase {
   /** Unique within the bank. */
   readonly id: string
-  /** False until the group has checked the wording and the answer (CLAUDE.md). */
+  /** False until the group has checked the wording and the answer (project brief). */
   readonly reviewed: boolean
   readonly view: ConceptView
   readonly lead: string

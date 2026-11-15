@@ -1,5 +1,5 @@
 /*
-  Pre-lecture summary (CLAUDE.md): mastery per objective, strengths, what to
+  Pre-lecture summary (project brief): mastery per objective, strengths, what to
   review, and questions to bring to the lecture. The facts come from
   preLectureSummary() and reviewItems() in src/progress/summary.ts.
 */

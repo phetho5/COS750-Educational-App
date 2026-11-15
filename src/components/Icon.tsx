@@ -1,6 +1,6 @@
 /*
   The design's line icons (24 × 24, drawn with strokes). Our fonts have no
-  ✓, ✕ or arrows (handoff stage 1, item 11), so every tick, cross and arrow
+  ✓, ✕ or arrows, so every tick, cross and arrow
   in the app is one of these SVGs. Icons are decorative (aria-hidden): the
   text next to them always says the same thing in words.
 */

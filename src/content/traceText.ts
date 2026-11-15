@@ -2,7 +2,7 @@
   Every sentence a student sees in a trace question.
 
   The question generator fills in the numbers. The wording lives here so the
-  group can review and edit it in one place. Rules from CLAUDE.md: plain
+  group can review and edit it in one place. Rules from the project brief: plain
   South African English, no em-dashes, edges written with a hyphen (A-B).
 
   Level 2 hints ("what went wrong") explain the specific mistake but don't

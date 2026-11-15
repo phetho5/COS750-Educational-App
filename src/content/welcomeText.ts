@@ -1,4 +1,4 @@
-/* Wording for the Welcome screen and the module map (CLAUDE.md, Screens). */
+/* Wording for the Welcome screen and the module map (project brief, Screens). */
 
 /** Set to true once the group has reviewed this file's wording. */
 export const WELCOME_TEXT_REVIEWED = false;
@@ -6,7 +6,7 @@ export const WELCOME_TEXT_REVIEWED = false;
 export const welcomeText = {
   eyebrow: "COS212 · Before the lecture",
   title: "Graphs and the shortest path",
-  // The hook, word for word from CLAUDE.md.
+  // The hook, word for word from the project brief.
   hook: "How does a navigation app find the quickest route from campus to the Gautrain station? Problems like this are solved with shortest path algorithms, and Dijkstra's algorithm is the classic one.",
   facts: [
     { term: "Time", value: "About 35 minutes" },
@@ -45,7 +45,7 @@ export const mapText = {
   continueSummary: "See your pre-lecture summary",
   progressDone:
     "All five modules are mastered. Your pre-lecture summary is ready.",
-  // Handoff D8: only the first answer counts, so the design's "hints never count against you" was misleading.
+  // Only the first answer counts, so the design's "hints never count against you" was misleading.
   objectivesNote:
     "Only your first answer to each check question counts. Hints are there to help you learn.",
   summaryButton: "See your pre-lecture summary",

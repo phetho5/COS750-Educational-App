@@ -19,7 +19,7 @@ function doRight(state: YourTurnState): YourTurnState {
   let s = pickVertex(state, vertex).state
   if (s.phase === 'update') {
     const typed: Record<string, string> = {}
-    // The right answers here are from the sample graph in CLAUDE.md, checked by hand.
+    // The right answers here are from the sample graph in the project brief, checked by hand.
     for (const v of neighboursToUpdate(s)) typed[v] = String(SAMPLE_FINAL_STEPWISE[vertex][v])
     s = submitDistances(s, typed).state
   }

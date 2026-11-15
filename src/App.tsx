@@ -32,7 +32,7 @@ function Shell() {
 
   // Each new page starts at the top, like a normal website.
   // The braces matter: an effect may only return a clean-up function, and newer
-  // browsers return a Promise from scrollTo (handoff B11).
+  // browsers return a Promise from scrollTo.
   useEffect(() => {
     window.scrollTo(0, 0)
   }, [path])
@@ -67,7 +67,7 @@ function Screen({ route }: { route: Route }) {
 }
 
 /**
- * The hidden demo switch (handoff D6): opening /map?demo=unlock opens every
+ * The hidden demo switch: opening /map?demo=unlock opens every
  * module for the live demo. The query is then removed from the address bar,
  * so it isn't bookmarked or shared by accident.
  */

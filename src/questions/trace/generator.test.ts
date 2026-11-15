@@ -279,7 +279,7 @@ describe("every trace question", () => {
 
   it("follows the text rules: no em-dashes or en-dashes, and no unfilled values", () => {
     // Collect every problem and assert once: one expect() per string was slow
-    // enough to time out when the whole suite runs in parallel (handoff B7).
+    // enough to time out when the whole suite runs in parallel.
     // Students see ∞. "Infinity" may only be an answer key, and keys aren't in allStrings().
     const unfilled = /undefined|NaN|\[object|Infinity/;
     const problems = everything.flatMap((q) => [

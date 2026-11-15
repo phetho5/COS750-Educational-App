@@ -6,7 +6,7 @@
     reads, so the app never depends on storage working.
   - Every change is also written to localStorage as a backup, so progress
     survives a page refresh.
-  - Every localStorage call is wrapped in try/catch (CLAUDE.md). Storage can
+  - Every localStorage call is wrapped in try/catch (project brief). Storage can
     be missing or fail: private browsing, storage full, cookies blocked, or
     even reading `window.localStorage` itself can throw. When it fails, the
     app carries on with the in-memory copy, and progress lasts until the tab

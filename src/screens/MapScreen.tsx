@@ -1,6 +1,6 @@
 /*
   Module map: each module's status (locked, in progress, mastered), progress
-  per learning objective, and a Reset progress button (CLAUDE.md).
+  per learning objective, and a Reset progress button (project brief).
   Statuses and percentages come from the mastery rules in src/progress/.
 */
 import { useState } from "react";

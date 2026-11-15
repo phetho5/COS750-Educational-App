@@ -1,5 +1,5 @@
 /*
-  The review after scoring below 80% on a module check (CLAUDE.md): extra
+  The review after scoring below 80% on a module check (project brief): extra
   explanation, easier practice, then a retry. The retry opens once both
   practice questions are answered correctly (the design). Starting the check
   marks the review as done (completeReview), so the check can begin.

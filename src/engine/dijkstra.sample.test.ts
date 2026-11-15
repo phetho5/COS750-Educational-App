@@ -1,5 +1,5 @@
 /*
-  The sample graph from CLAUDE.md must give exactly the hand-checked results.
+  The sample graph from the project brief must give exactly the hand-checked results.
   If any of these fail, the engine is wrong, not the sample graph.
 */
 import { describe, expect, it } from 'vitest'

@@ -1,6 +1,6 @@
 /*
   The questions a new student starts with in "Questions to bring to the
-  lecture" (from the design, handoff D57). Students can remove them and add
+  lecture" (from the design). Students can remove them and add
   their own.
 */
 export const STARTER_LECTURE_QUESTIONS: readonly string[] = [

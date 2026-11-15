@@ -1,7 +1,7 @@
 /*
-  Checks for the text rules in CLAUDE.md, shared by tests.
+  Checks for the text rules in the project brief, shared by tests.
   Student-facing text must have no em-dashes, and we write edges with a
-  plain hyphen, so en-dashes are banned too (docs/handoff.md D4).
+  plain hyphen, so en-dashes are banned too.
 */
 
 const BANNED = [

@@ -3,7 +3,7 @@
   vertices, then the student chooses each next vertex and types the new
   distances of its neighbours, pressing Check after each step.
 
-  Every answer is checked against an engine run (CLAUDE.md: never mark a
+  Every answer is checked against an engine run (project brief: never mark a
   wrong answer as correct). The student's progress is a position in the
   engine's visit order, so the table shown is always one of the engine's own
   tables. Nothing is worked out twice.

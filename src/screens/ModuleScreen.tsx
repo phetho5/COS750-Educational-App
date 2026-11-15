@@ -1,8 +1,8 @@
 /*
-  A module's lesson: Watch, Read and Try tabs (CLAUDE.md), the optional
+  A module's lesson: Watch, Read and Try tabs (project brief), the optional
   "Think about it" box, and the button to start the module check.
 
-  What each tab shows (handoff D58):
+  What each tab shows:
     Module 1  Watch: the graph built in parts  Try: select A's neighbours
     Module 2  Watch: edges through 3 views     Try: find an edge in the views
     Module 3  Watch: three routes compared     Try: choose the shortest route

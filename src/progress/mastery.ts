@@ -2,7 +2,7 @@
   Mastery rules. Every function here is pure: it reads a ProgressState and
   works something out, without changing anything.
 
-  The rules (CLAUDE.md, plus the decisions in docs/handoff.md):
+  The rules (from the project brief, plus the group's decisions):
   - 80% or more on a check passes it. Each check has 5 questions, so 4 correct passes.
   - Only the first answer to each question counts.
   - Passing module n's check masters module n and unlocks module n + 1.
@@ -28,7 +28,7 @@ export const PASS_PERCENT = 80;
 export const MODULE_IDS: readonly ModuleId[] = [1, 2, 3, 4, 5];
 export const OBJECTIVE_IDS: readonly ObjectiveId[] = [1, 2, 3, 4, 5];
 
-/** Module n's check tests only objective n (handoff D44), so it measures that objective. */
+/** Module n's check tests only objective n, so it measures that objective. */
 export function checkForObjective(objective: ObjectiveId): CheckId {
   return `module-${objective}`;
 }

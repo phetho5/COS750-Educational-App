@@ -1,8 +1,8 @@
 /*
-  Wording for the pre-lecture summary (CLAUDE.md): mastery per objective,
+  Wording for the pre-lecture summary (project brief): mastery per objective,
   strengths, what to review and questions to bring to the lecture.
 
-  "What to review" (handoff D60): the seven trace misconceptions (the core
+  "What to review": the seven trace misconceptions (the core
   Dijkstra mistakes, shared by trace and concept questions, D43) each have
   their own line. Every other mistake is grouped under its objective's line,
   so the group doesn't have to review about 90 separate sentences.

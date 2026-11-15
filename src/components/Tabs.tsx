@@ -1,5 +1,5 @@
 /*
-  Watch / Read / Try tabs (CLAUDE.md: each concept is offered three ways).
+  Watch / Read / Try tabs (project brief: each concept is offered three ways).
   Follows the standard keyboard pattern for tabs: Tab moves into the tab
   list, the left and right arrow keys move between tabs, Home and End jump
   to the first and last.

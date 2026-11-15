@@ -234,7 +234,7 @@ export function layoutById(id: LayoutId): GraphLayout {
  * checks neighbours alphabetically, so "alphabetical order" and "the order
  * vertices were first reached" almost always picked the same wrong vertex.
  * Then hardly any next-vertex step had the two different wrong answers the
- * brief requires (docs/handoff.md, bug B2). Shuffling the letters separates them.
+ * brief requires. Shuffling the letters separates them.
  */
 export function withShuffledLabels(layout: GraphLayout, rng: Rng): GraphLayout {
   const others = layout.vertices.filter((v) => v !== layout.start);

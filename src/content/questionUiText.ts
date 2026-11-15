@@ -15,7 +15,7 @@ export const FORMAT_LABEL: Record<QuestionFormat, string> = {
   predict: "Predict the next step",
 };
 
-/** The four hint levels (CLAUDE.md: nudge, explanation, worked example, smaller questions). */
+/** The four hint levels (project brief: nudge, explanation, worked example, smaller questions). */
 export const HINT_TITLES = [
   "A nudge",
   "What went wrong",

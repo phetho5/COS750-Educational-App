@@ -1,5 +1,5 @@
 /*
-  The hint ladder (CLAUDE.md, the core feature). A wrong answer opens level
+  The hint ladder (project brief, the core feature). A wrong answer opens level
   1. The student opens the next level one at a time:
     1. a nudge
     2. what went wrong (the feedback for the student's own wrong answer)

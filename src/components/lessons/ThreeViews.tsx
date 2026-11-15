@@ -1,7 +1,7 @@
 /*
   Module 2: one graph, three views (the drawing, the adjacency matrix and
   the adjacency list). Selecting an edge in one view highlights it in the
-  others (CLAUDE.md, learning path step 2).
+  others (project brief, learning path step 2).
 
   - Watch: steps through every edge on its own (or with Back and Next).
   - Try: the student is asked to find a given edge in the matrix or list.

@@ -1,5 +1,5 @@
 /*
-  The five modules and the learning objectives (CLAUDE.md, Learning path and
+  The five modules and the learning objectives (project brief, Learning path and
   Learning objectives). Module n teaches objective n.
 */
 import type { ModuleId, ObjectiveId } from '../questions'
