@@ -1,0 +1,59 @@
+.card {
+  flex: 1 1 100%;
+  width: 100%;
+  border-left: 5px solid var(--color-blue);
+  background: var(--color-blue-tint);
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  max-width: 76ch;
+  text-wrap: pretty;
+}
+
+.section p,
+.section h2,
+.section h3 {
+  margin: 0;
+}
+
+.eyebrow {
+  color: var(--color-blue-dark);
+  font-size: var(--text-label);
+  font-weight: 700;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+.title {
+  font-size: var(--text-title);
+  line-height: 1.2;
+}
+
+.invariant {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding: var(--space-3) var(--space-4);
+  border-left: 3px solid var(--color-orange);
+  border-radius: var(--radius-control);
+  background: var(--color-surface);
+}
+
+.example {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.example h3 {
+  font-size: 1rem;
+}
+
+.warning {
+  padding-top: var(--space-2);
+  border-top: 1px solid var(--color-outline);
+  color: var(--color-ink);
+}

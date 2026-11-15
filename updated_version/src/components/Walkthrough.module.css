@@ -1,0 +1,140 @@
+.walkthrough {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.stepCount {
+  font-size: var(--text-body);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.stepTitle {
+  font-weight: 400;
+  color: var(--color-muted);
+}
+
+.explain {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  font-size: var(--text-body);
+  max-width: 70ch;
+  text-wrap: pretty;
+}
+
+.codeToggle {
+  width: 100%;
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+  padding: 0 var(--space-4);
+  background: transparent;
+  border: 0;
+  cursor: pointer;
+  text-align: left;
+}
+
+.codeToggle:hover {
+  background: var(--color-bg);
+}
+
+.codeToggleLabel {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--color-blue);
+}
+
+.code {
+  list-style: none;
+  padding: var(--space-2) 0;
+  margin: 0 var(--space-3) var(--space-3);
+  background: var(--color-bg);
+  border-radius: var(--radius-control);
+  font-family: var(--font-mono);
+  font-size: 14px;
+  line-height: 1.6;
+  overflow-x: auto;
+}
+
+.codeLine,
+.codeLineOn {
+  display: flex;
+  gap: 10px;
+  padding: 2px 12px 2px 8px;
+  border-left: 4px solid transparent;
+  color: var(--color-muted);
+}
+
+.codeLineOn {
+  border-left-color: var(--color-orange);
+  font-weight: 700;
+  color: var(--color-ink);
+}
+
+.lineNumber {
+  width: 20px;
+  flex: none;
+  text-align: right;
+  color: var(--color-muted);
+  font-weight: 400;
+}
+
+.lineText {
+  white-space: pre;
+}
+
+.controls {
+  justify-content: center;
+}
+
+.play {
+  min-width: 112px;
+}
+
+.speed {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  color: var(--color-muted);
+}
+
+.speed select {
+  min-height: var(--button-height);
+  padding: 0 var(--space-2);
+  border: 2px solid var(--color-outline);
+  border-radius: var(--radius-control);
+  background: var(--color-surface);
+  font-size: 16px;
+  font-weight: 700;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+
+/* Algorithm controls should feel like a playable visualization. */
+.stepCount { display: inline-flex; align-items: center; flex-wrap:wrap; gap:8px; color:#ecf8ff; }
+.stepTitle { color:var(--color-muted); }
+.codeToggle { background:#24323e; border-radius:13px; }
+.codeToggle:hover { background:#314557; }
+.codeToggleLabel { color:var(--color-blue-dark); }
+.code { background:#101e28; border:1px solid #344b5a; border-radius:13px; padding:12px 0; }
+.codeLineOn { background:#433528; border-left-color:var(--color-orange); }
+.controls { padding:12px; background:#1b2935; border:1px solid #3f5364; border-radius:17px; }
+.speed select { background:#2b4150; border:1px solid #638299; }
+
+/* Theme-specific surface refinements. */
+
+:global(html[data-theme='light']) .stepCount { color:var(--color-ink); }
+:global(html[data-theme='light']) .codeToggle { background:#ebf3f9; }
+:global(html[data-theme='light']) .codeToggle:hover { background:#d6e8f4; }
+:global(html[data-theme='light']) .code { background:#f4f8fc; border-color:#cfdfeb; }
+:global(html[data-theme='light']) .codeLineOn { background:#fff0dd; }
+:global(html[data-theme='light']) .controls { background:#edf6fb; border-color:#c8dce9; }
+:global(html[data-theme='light']) .speed select { background:#fff; border-color:#99b7c9; }
