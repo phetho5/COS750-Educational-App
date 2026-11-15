@@ -17,7 +17,7 @@
   height: var(--button-height);
   border-radius: var(--radius-pill);
   border: 2px solid var(--color-outline);
-  background: #ffffff;
+  background: var(--color-surface-raised);
   color: var(--color-ink);
   font-weight: 700;
   cursor: pointer;
@@ -157,7 +157,7 @@
   height: 44px;
   border-radius: 8px;
   border: 2px solid var(--color-divider);
-  background: #ffffff;
+  background: var(--color-surface-raised);
   color: var(--color-ink);
   font-weight: 700;
   font-size: 18px;
@@ -231,7 +231,7 @@ button.listItem:hover {
   padding: 0 14px;
   border-radius: var(--radius-pill);
   border: 2px solid var(--color-outline);
-  background: #ffffff;
+  background: var(--color-surface-raised);
   color: var(--color-ink);
   font-weight: 700;
   font-size: 16px;
@@ -278,7 +278,7 @@ button.listItem {
   min-height: 56px;
   padding: var(--space-2) var(--space-4);
   text-align: left;
-  background: #ffffff;
+  background: var(--color-surface-raised);
   border: 2px solid var(--color-outline);
   border-radius: var(--radius-control);
   cursor: pointer;
@@ -294,3 +294,25 @@ button.listItem {
   background: var(--color-blue-tint);
   border-color: var(--color-blue);
 }
+
+/* Consistent tactile learning interactions. */
+.dot, .cell, .listItem, .choice { background:var(--color-surface-raised); transition:transform var(--transition-fast),background var(--transition-fast),border-color var(--transition-fast); }
+.dot:hover:not(:disabled), button.cell:hover, button.listItem:hover, .choice:hover { transform:translateY(-2px); background:#344e5b; }
+.dotOn, .choiceOn { background:var(--color-blue-tint); color:#b5efff; border-color:#67ccec; }
+.glossary { border-color:#45586a; }
+.glossary div:nth-child(odd) { background:rgba(255,255,255,.024); }
+.edgeSummary { border:1px solid #4b7186; }
+.route { border-radius:14px; background:var(--color-surface-raised); }
+.routeOn { background:var(--color-blue-tint); }
+
+/* Theme-specific surface refinements. */
+
+:global(html[data-theme='light']) .dot:hover:not(:disabled),
+:global(html[data-theme='light']) button.cell:hover,
+:global(html[data-theme='light']) button.listItem:hover,
+:global(html[data-theme='light']) .choice:hover { background:var(--theme-hover-activity); }
+:global(html[data-theme='light']) .dotOn,
+:global(html[data-theme='light']) .choiceOn { background:var(--color-blue-tint); color:var(--color-blue-dark); border-color:#58a7cf; }
+:global(html[data-theme='light']) .glossary { border-color:#c5d9e6; }
+:global(html[data-theme='light']) .glossary div:nth-child(odd) { background:rgba(42,105,149,.04); }
+:global(html[data-theme='light']) .edgeSummary { border-color:#9fc8de; }

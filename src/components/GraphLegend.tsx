@@ -30,7 +30,7 @@ export function GraphLegend({
           <path
             d="m6.5 11.5 3 3 6-6.5"
             fill="none"
-            stroke="#fff"
+            stroke="var(--graph-contrast-text)"
             strokeWidth="2.2"
             strokeLinecap="round"
             strokeLinejoin="round"

@@ -117,3 +117,24 @@
   color: var(--color-ink);
   cursor: pointer;
 }
+
+/* Algorithm controls should feel like a playable visualization. */
+.stepCount { display: inline-flex; align-items: center; flex-wrap:wrap; gap:8px; color:#ecf8ff; }
+.stepTitle { color:var(--color-muted); }
+.codeToggle { background:#24323e; border-radius:13px; }
+.codeToggle:hover { background:#314557; }
+.codeToggleLabel { color:var(--color-blue-dark); }
+.code { background:#101e28; border:1px solid #344b5a; border-radius:13px; padding:12px 0; }
+.codeLineOn { background:#433528; border-left-color:var(--color-orange); }
+.controls { padding:12px; background:#1b2935; border:1px solid #3f5364; border-radius:17px; }
+.speed select { background:#2b4150; border:1px solid #638299; }
+
+/* Theme-specific surface refinements. */
+
+:global(html[data-theme='light']) .stepCount { color:var(--color-ink); }
+:global(html[data-theme='light']) .codeToggle { background:#ebf3f9; }
+:global(html[data-theme='light']) .codeToggle:hover { background:#d6e8f4; }
+:global(html[data-theme='light']) .code { background:#f4f8fc; border-color:#cfdfeb; }
+:global(html[data-theme='light']) .codeLineOn { background:#fff0dd; }
+:global(html[data-theme='light']) .controls { background:#edf6fb; border-color:#c8dce9; }
+:global(html[data-theme='light']) .speed select { background:#fff; border-color:#99b7c9; }
