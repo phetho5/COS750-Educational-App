@@ -55,22 +55,23 @@ const SIZES = {
   },
 };
 
+// SVG uses the same theme tokens as CSS, so graph states stay readable in both modes.
 const COLOURS = {
-  ink: "#1B2430",
-  blue: "#256ABF",
-  blueDark: "#1C5CAB",
-  tint: "#E8F0FB",
-  orange: "#EB6834",
-  orangeTint: "#FDEBDD",
-  hint: "#6250D6",
-  hintDark: "#4A3AA7",
-  hintTint: "#EEEBFB",
-  grey: "#7A828E",
-  pill: "#C4C9D0",
-  bg: "#F6F7F9",
-  divider: "#E1E4E8",
-  good: "#006300",
-  badIcon: "#D03B3B",
+  ink: 'var(--graph-ink)',
+  blue: 'var(--graph-blue)',
+  blueDark: 'var(--graph-blue-dark)',
+  tint: 'var(--graph-tint)',
+  orange: 'var(--graph-orange)',
+  orangeTint: 'var(--graph-orange-tint)',
+  hint: 'var(--graph-hint)',
+  hintDark: 'var(--graph-hint-dark)',
+  hintTint: 'var(--graph-hint-tint)',
+  grey: 'var(--graph-grey)',
+  pill: 'var(--graph-pill)',
+  bg: 'var(--graph-bg)',
+  divider: 'var(--graph-divider)',
+  good: 'var(--graph-good)',
+  badIcon: 'var(--graph-bad)',
 };
 
 const FONT =
@@ -214,7 +215,7 @@ export function GraphView(props: GraphViewProps) {
             height={size.pillH}
             rx={size.pillH / 2}
             style={{
-              fill: "#FFFFFF",
+              fill: "var(--graph-node-bg)",
               stroke: hot ? COLOURS.orange : COLOURS.pill,
               strokeWidth: hot ? 2.5 : 1.5,
             }}
@@ -292,7 +293,7 @@ export function GraphView(props: GraphViewProps) {
                 ? COLOURS.tint
                 : state === "candidate" || state === "checking"
                   ? COLOURS.hintTint
-                  : "#FFFFFF",
+                  : "var(--graph-node-bg)",
             stroke:
               state === "current"
                 ? COLOURS.orange
@@ -315,7 +316,7 @@ export function GraphView(props: GraphViewProps) {
           x={p.x}
           y={p.y}
           size={size.vertexFont}
-          fill={filled ? "#FFFFFF" : COLOURS.ink}
+          fill={filled ? "var(--graph-contrast-text)" : COLOURS.ink}
         >
           {v}
         </SvgText>
@@ -431,7 +432,7 @@ function Badge({
         cy={y}
         r={r}
         style={{
-          fill: kind === "tick" ? "#FFFFFF" : colour,
+          fill: kind === "tick" ? "var(--graph-badge-bg)" : colour,
           stroke: colour,
           strokeWidth: 2,
         }}
@@ -440,7 +441,7 @@ function Badge({
         d={d}
         style={{
           fill: "none",
-          stroke: kind === "tick" ? COLOURS.blue : "#FFFFFF",
+          stroke: kind === "tick" ? COLOURS.blue : "var(--graph-contrast-text)",
           strokeWidth: 2.2,
           strokeLinecap: "round",
           strokeLinejoin: "round",
@@ -461,7 +462,7 @@ function StartTag({ x, y }: { x: number; y: number }) {
         rx={11}
         style={{ fill: COLOURS.ink }}
       />
-      <SvgText x={x} y={y} size={13} fill="#FFFFFF">
+      <SvgText x={x} y={y} size={13} fill="var(--graph-contrast-text)">
         Start
       </SvgText>
     </g>

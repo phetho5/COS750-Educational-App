@@ -1,5 +1,5 @@
 /*
-  Design tokens taken from design/cos212-app-v2.dc.html.
+  COS750 visual refresh: original theme inspired by game-like learning interfaces.
   Components use these variables instead of raw values, so the look stays
   consistent and can be changed in one place.
 */
@@ -21,38 +21,45 @@
 }
 
 :root {
+  /* High-contrast, game-inspired dark learning palette. */
+  --color-surface-raised: #283441;
+  --color-surface-deep: #19222c;
+  --color-accent-lime: #c5f17e;
+  --color-action-ink: #10222c;
+  --focus-outline: #c5f17e;
+
   /* Text */
-  --color-ink: #1b2430;
-  --color-muted: #4f5866;
+  --color-ink: #f3f6fc;
+  --color-muted: #b8c4d3;
 
   /* Surfaces */
-  --color-bg: #f6f7f9;
-  --color-surface: #ffffff;
-  --color-divider: #e1e4e8;
-  --color-outline: #7a828e; /* form borders, unvisited vertices, edges */
-  --color-pill-border: #c4c9d0; /* edge weight pills */
+  --color-bg: #12171e;
+  --color-surface: #202935;
+  --color-divider: #394858;
+  --color-outline: #73849a; /* form borders and graph edges */
+  --color-pill-border: #596c80; /* edge weight pills */
 
   /* Primary blue: actions, visited vertices, shortest path */
-  --color-blue: #256abf;
-  --color-blue-dark: #1c5cab; /* hover, focus ring, text on tint */
-  --color-blue-tint: #e8f0fb;
-  --color-blue-mid: #8db3e2; /* current segment in a progress bar */
+  --color-blue: #51c1ef;
+  --color-blue-dark: #89e1ff; /* hover accent */
+  --color-blue-tint: #243d4d;
+  --color-blue-mid: #407b9a; /* current segment in a progress bar */
 
   /* Orange: current vertex and the edge being checked */
-  --color-orange: #eb6834;
-  --color-orange-tint: #fdebdd;
+  --color-orange: #ffae64;
+  --color-orange-tint: #43362c;
 
   /* Purple: hints */
-  --color-hint: #6250d6;
-  --color-hint-text: #4a3aa7;
-  --color-hint-tint: #eeebfb;
+  --color-hint: #b29bff;
+  --color-hint-text: #d4c6ff;
+  --color-hint-tint: #353047;
 
   /* Feedback */
-  --color-good: #006300;
-  --color-good-tint: #e7f4e7;
-  --color-bad-text: #a82828;
-  --color-bad-icon: #d03b3b;
-  --color-bad-tint: #fbe9e9;
+  --color-good: #88e6ab;
+  --color-good-tint: #1c4034;
+  --color-bad-text: #ffb4b7;
+  --color-bad-icon: #ff848a;
+  --color-bad-tint: #452c34;
 
   /* Fonts */
   --font-body: 'Atkinson Hyperlegible Next', 'Atkinson Hyperlegible', system-ui, sans-serif;
@@ -80,17 +87,108 @@
   --card-padding: clamp(16px, 0.8vw + 12.9px, 24px);
 
   /* Shape */
-  --radius-control: 8px; /* buttons, inputs */
-  --radius-card: 12px;
+  --radius-control: 13px; /* buttons, inputs */
+  --radius-card: 20px;
   --radius-pill: 999px;
-  --shadow-card: 0 1px 3px rgba(27, 36, 48, 0.08);
+  --shadow-card: 0 16px 42px rgba(0, 0, 0, 0.17), 0 2px 8px rgba(0, 0, 0, 0.13);
 
   /* Sizes */
   --touch-target: 44px; /* WCAG minimum we commit to */
   --button-height: 48px;
-  --content-width: 1200px;
+  --content-width: 1240px;
 
   /* Motion */
-  --transition-fast: 0.2s ease-out;
-  --transition-graph: 0.5s ease-out;
+  --transition-fast: 0.22s cubic-bezier(.2,.7,.2,1);
+  --transition-graph: 0.48s cubic-bezier(.2,.7,.2,1);
+}
+
+/* Theme-wide color tokens. The default remains the existing dark design. */
+:root {
+  --theme-backdrop-a: rgba(57, 164, 199, .18);
+  --theme-backdrop-b: rgba(98, 81, 165, .13);
+  --theme-hero-glow: rgba(58, 176, 213, .12);
+  --theme-card-sheen: rgba(255, 255, 255, .026);
+  --theme-hover-row: rgba(125,184,207,.08);
+  --theme-header-bg: rgba(22,28,37,.92);
+  --theme-sticky-bg: rgba(28,37,48,.97);
+  --theme-selection-bg: #3c6f7a;
+  --theme-selection-ink: #fff;
+  --theme-hover-activity: #344e5b;
+  --graph-ink: #eef6ff;
+  --graph-blue: #47c4ed;
+  --graph-blue-dark: #89e1ff;
+  --graph-tint: #244b5a;
+  --graph-orange: #ffae64;
+  --graph-orange-tint: #44362b;
+  --graph-hint: #b4a1ff;
+  --graph-hint-dark: #d4c6ff;
+  --graph-hint-tint: #36314b;
+  --graph-grey: #8599ae;
+  --graph-pill: #567486;
+  --graph-bg: #1c2b38;
+  --graph-divider: #435363;
+  --graph-good: #88e6ab;
+  --graph-bad: #ff858b;
+  --graph-node-bg: #263a48;
+  --graph-badge-bg: #253844;
+  --graph-contrast-text: #102633;
+}
+
+/* Brighter but restrained color system for reading and graph learning. */
+:root[data-theme='light'] {
+  --color-surface-raised: #f0f5fb;
+  --color-surface-deep: #e9f2f8;
+  --color-accent-lime: #256a40;
+  --color-action-ink: #102b3a;
+  --focus-outline: #1b719f;
+  --color-ink: #16283c;
+  --color-muted: #4c6278;
+  --color-bg: #f5f8fc;
+  --color-surface: #ffffff;
+  --color-divider: #d7e1eb;
+  --color-outline: #71859a;
+  --color-pill-border: #8fa5b5;
+  --color-blue: #116c9b;
+  --color-blue-dark: #075b85;
+  --color-blue-tint: #e1f3fc;
+  --color-blue-mid: #5a9bbc;
+  --color-orange: #aa5700;
+  --color-orange-tint: #fff0db;
+  --color-hint: #7355c3;
+  --color-hint-text: #51369c;
+  --color-hint-tint: #f2edff;
+  --color-good: #176c43;
+  --color-good-tint: #e7f7ec;
+  --color-bad-text: #9b2e3a;
+  --color-bad-icon: #af3641;
+  --color-bad-tint: #fff0f0;
+  --shadow-card: 0 16px 36px rgba(28, 65, 93, .08), 0 2px 8px rgba(28,65,93,.06);
+  --theme-backdrop-a: rgba(92, 181, 224, .13);
+  --theme-backdrop-b: rgba(171, 150, 239, .10);
+  --theme-hero-glow: rgba(71, 168, 223, .11);
+  --theme-card-sheen: rgba(255, 255, 255, .75);
+  --theme-hover-row: rgba(51,127,173,.08);
+  --theme-header-bg: rgba(255,255,255,.94);
+  --theme-sticky-bg: rgba(255,255,255,.97);
+  --theme-selection-bg: #bddfed;
+  --theme-selection-ink: #142a3b;
+  --theme-hover-activity: #e4f2fa;
+  --graph-ink: #243a50;
+  --graph-blue: #1681b3;
+  --graph-blue-dark: #12668f;
+  --graph-tint: #d9eef8;
+  --graph-orange: #b95e12;
+  --graph-orange-tint: #ffefd8;
+  --graph-hint: #7657bc;
+  --graph-hint-dark: #6545a9;
+  --graph-hint-tint: #eee8ff;
+  --graph-grey: #7891a4;
+  --graph-pill: #819bad;
+  --graph-bg: #f0f6fb;
+  --graph-divider: #a2b5c6;
+  --graph-good: #228158;
+  --graph-bad: #b53e4a;
+  --graph-node-bg: #f8fcff;
+  --graph-badge-bg: #f5faff;
+  --graph-contrast-text: #ffffff;
 }

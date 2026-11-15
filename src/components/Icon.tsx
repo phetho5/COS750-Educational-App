@@ -66,6 +66,13 @@ const PATHS = {
     </>
   ),
   try: <path d="m4 4 7 17 2.5-7.5L21 11z" />,
+  sun: (
+    <>
+      <circle cx="12" cy="12" r="4" />
+      <path d="M12 2v2m0 16v2M4.93 4.93l1.42 1.42m11.3 11.3 1.42 1.42M2 12h2m16 0h2M4.93 19.07l1.42-1.42m11.3-11.3 1.42-1.42" />
+    </>
+  ),
+  moon: <path d="M20.99 13A9 9 0 0 1 11 3.01 9 9 0 1 0 20.99 13Z" />,
   info: (
     <>
       <circle cx="12" cy="12" r="10" />
@@ -116,7 +123,7 @@ export function VisitedTick({ size = 20 }: { size?: number }) {
       <path
         d="m7 12.5 3.2 3.2L17 9"
         fill="none"
-        stroke="#ffffff"
+        stroke="var(--graph-contrast-text)"
         strokeWidth="2.5"
         strokeLinecap="round"
         strokeLinejoin="round"

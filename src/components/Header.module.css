@@ -64,3 +64,175 @@
 .skip:focus {
   top: var(--space-2);
 }
+
+.header {
+  background: rgba(22, 28, 37, .92);
+  border-bottom: 1px solid #344451;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  min-height: 74px;
+  box-shadow: 0 2px 18px rgba(0,0,0,.15);
+}
+.home { padding: 5px 12px; gap: 12px; }
+.home:hover { background: #263747; }
+.logo {
+  width: 39px; height: 39px; border: 2px solid #67cdea;
+  border-radius: 13px; background: #203c4b;
+  box-shadow: inset 0 0 0 4px rgba(81,193,239,.10), 0 0 15px rgba(81,193,239,.17);
+  transform: rotate(-9deg);
+}
+.logo span { width: 15px; height: 15px; border-radius: 5px; background: var(--color-accent-lime); transform: rotate(9deg); }
+.name { font-weight: 800; font-size: 20px; letter-spacing: -.02em; }
+.skip { z-index: 40; }
+
+/* The glossy sun / moon switch uses the existing theme state in Header.tsx.
+   Left = light, right = dark. Pure CSS artwork, no image asset needed. */
+.header { background: var(--theme-header-bg); }
+:global(html[data-theme='light']) .header {
+  border-bottom-color: #dbe5ee;
+  box-shadow: 0 2px 18px rgba(32, 77, 115, .06);
+}
+:global(html[data-theme='light']) .home:hover { background: #e8f2f9; }
+:global(html[data-theme='light']) .logo {
+  border-color: #1b8ebd;
+  background: #e6f6fb;
+  box-shadow: inset 0 0 0 4px rgba(47, 154, 202, .1), 0 0 14px rgba(47, 154, 202, .1);
+}
+
+.themeToggle {
+  --switch-width: 76px;
+  --switch-height: 30px;
+  --thumb-size: 36px;
+  --thumb-travel: 48px;
+  margin-left: auto;
+  width: var(--switch-width);
+  height: 44px; /* Comfortable click/tap target around a compact visual switch. */
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex: none;
+  background: transparent;
+  border: 0;
+  border-radius: 999px;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.themeTrack {
+  display: block;
+  position: relative;
+  isolation: isolate;
+  width: var(--switch-width);
+  height: var(--switch-height);
+  border-radius: 999px;
+  border: 2px solid rgba(255, 255, 255, .95);
+  background: linear-gradient(135deg, #aeb5c0, #e4e7ec 90%);
+  box-shadow: inset 0 3px 8px rgba(56, 66, 82, .35),
+              0 2px 5px rgba(0, 0, 0, .12);
+  transition: background .38s ease, box-shadow .38s ease;
+}
+
+.dark .themeTrack {
+  background: linear-gradient(135deg, #4e597e 5%, #858cad 95%);
+  box-shadow: inset 0 3px 11px rgba(24, 33, 66, .53),
+              0 2px 5px rgba(0, 0, 0, .14);
+}
+
+.trackIcon {
+  position: absolute;
+  top: 50%;
+  display: flex;
+  transform: translateY(-50%);
+  align-items: center;
+  justify-content: center;
+  opacity: .62;
+  pointer-events: none;
+}
+.trackSun { left: 9px; color: #d4daf1; }
+.trackMoon { right: 9px; color: #8f99a8; }
+.dark .trackSun { color: #c4cde6; }
+.light .trackMoon { color: #8b94a3; }
+
+.themeThumb {
+  position: absolute;
+  z-index: 1;
+  top: calc((var(--switch-height) - var(--thumb-size)) / 2);
+  left: -4px;
+  display: grid;
+  place-items: center;
+  width: var(--thumb-size);
+  height: var(--thumb-size);
+  border: 2px solid #fff;
+  border-radius: 50%;
+  background: linear-gradient(145deg, #fff 8%, #f4f6f9 58%, #e5eaf0 100%);
+  box-shadow: inset 0 4px 5px rgba(255, 255, 255, .95),
+              inset 0 -3px 5px rgba(180, 193, 207, .18),
+              0 4px 7px rgba(37, 48, 66, .17),
+              0 10px 17px rgba(28, 37, 57, .22);
+  transform: translateX(0);
+  transition: transform .42s cubic-bezier(.22, 1.3, .36, 1);
+}
+.dark .themeThumb { transform: translateX(var(--thumb-travel)); }
+
+.thumbIcon {
+  position: absolute;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: opacity .2s ease, transform .4s ease;
+}
+.thumbSun {
+  color: #ffa20c;
+  opacity: 1;
+  transform: rotate(0) scale(1);
+}
+.thumbMoon {
+  color: #4b62c9;
+  opacity: 0;
+  transform: rotate(-30deg) scale(.7);
+}
+.dark .thumbSun { opacity: 0; transform: rotate(40deg) scale(.7); }
+.dark .thumbMoon { opacity: 1; transform: rotate(0) scale(1); }
+/* Two small sparkle shapes beside the moon, like the supplied reference. */
+.thumbMoon::before,
+.thumbMoon::after {
+  content: '✦';
+  position: absolute;
+  line-height: 1;
+  color: #4b62c9;
+}
+.thumbMoon::before { font-size: 8px; right: -4px; top: -1px; }
+.thumbMoon::after { font-size: 5px; right: -1px; top: -5px; }
+
+/* Scale the existing React SVG icons without changing Header.tsx. */
+.trackIcon svg { width: 15px; height: 15px; }
+.thumbSun svg, .thumbMoon svg { width: 19px; height: 19px; }
+
+.themeToggle:focus-visible { outline: none; }
+.themeToggle:focus-visible .themeTrack {
+  outline: 3px solid var(--focus-outline);
+  outline-offset: 5px;
+}
+.themeToggle:hover .themeThumb {
+  box-shadow: inset 0 4px 5px rgba(255, 255, 255, .95),
+              inset 0 -3px 5px rgba(180, 193, 207, .18),
+              0 5px 10px rgba(37, 48, 66, .2),
+              0 12px 20px rgba(28, 37, 57, .27);
+}
+
+@media (max-width: 480px) {
+  .header { padding-inline: 12px; }
+  .themeToggle {
+    --switch-width: 68px;
+    --switch-height: 28px;
+    --thumb-size: 34px;
+    --thumb-travel: 42px;
+  }
+  .thumbSun svg, .thumbMoon svg { width: 17px; height: 17px; }
+  .trackIcon svg { width: 13px; height: 13px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .themeTrack, .themeThumb, .thumbIcon { transition: none; }
+}

@@ -37,7 +37,7 @@
   padding: var(--space-3) var(--space-4);
   border: 2px solid var(--color-outline);
   border-radius: var(--radius-control);
-  background: #ffffff;
+  background: var(--color-surface-raised);
   resize: vertical;
 }
 

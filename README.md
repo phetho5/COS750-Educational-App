@@ -1,107 +1,144 @@
-# COS212 app: Graphs and the shortest path
+# COS212: Graphs and the Shortest Path
 
-A prototype for the COS750 (Educational Software Development) exam project at the University of Pretoria. It gives second-year COS212 students tutor-style practice on graphs and Dijkstra's shortest path algorithm before the lecture, with assessment that adds scaffolding (a four-level hint ladder and a review path) for students who struggle.
+An interactive educational web application developed as a COS750 (Educational Software Development) project at the University of Pretoria. It helps second-year COS212 students prepare for lectures on graphs, graph representations, shortest paths, and Dijkstra's algorithm through visual demonstrations, guided activities, and formative assessments.
 
-**Live app:** _to be added after deployment (step 7)_
+The application is a React and TypeScript single-page application, built with Vite. Student progress and preferences are stored locally in the browser; no separate server or database is required for normal use.
 
-## What's in the app
+## Learning experience
 
-Students have no prior knowledge of graphs. They work through five modules in order, each ending with a short check:
+Students begin with introductory graph concepts and progress through five modules. Each module uses **Watch**, **Read**, and **Try** activities, followed by a five-question knowledge check.
 
 | Module | Watch | Read | Try |
-|---|---|---|---|
-| 1. What is a graph? | The graph built in four parts | Vertices, edges, weights, directed and undirected | Select a vertex's neighbours |
-| 2. Representing graphs | Each edge shown in the drawing, the adjacency matrix and the adjacency list | Matrix and list | Find an edge in the three linked views |
-| 3. The shortest path problem | Three routes compared | Paths and path length | Choose the shortest route |
-| 4. Dijkstra's algorithm | Step-by-step walkthrough with the table, explanations, pseudocode and play controls | The two rules | Predict the next vertex |
-| 5. Your turn | The walkthrough again | How to trace on paper | Trace the algorithm yourself, step by step |
+| --- | --- | --- | --- |
+| **1. What is a graph?** | Build a graph in four parts. | Vertices, edges, weights, and directed and undirected graphs. | Select a vertex's neighbours. |
+| **2. Representing graphs** | See corresponding edges in a graph drawing, adjacency matrix, and adjacency list. | Matrix and list representations. | Find an edge across the linked views. |
+| **3. The shortest path problem** | Compare three possible routes. | Paths and path lengths. | Identify the shortest route. |
+| **4. Dijkstra's algorithm** | Follow an interactive walkthrough with a distance table, explanations, pseudocode, and playback controls. | The algorithm's two central rules. | Predict the next vertex. |
+| **5. Your turn** | Revisit the walkthrough. | Learn how to trace the algorithm on paper. | Trace the algorithm independently, step by step. |
 
-Then a final check and a pre-lecture summary (mastery per objective, strengths, what to review and questions to bring to the lecture).
+After the modules, students complete a final check and receive a pre-lecture summary showing mastery by learning objective, strengths, areas to review, and questions to take to the lecture.
 
-**Assessment and scaffolding**
+### Assessments and learning support
 
-- Each check has 5 questions of mixed types: multiple choice, selecting a vertex on the graph, filling in a distance table cell and predicting the next step.
-- Trace questions are generated on random weights, and their answers come from the Dijkstra engine. Every wrong option is tied to a specific misconception with its own feedback.
-- A wrong answer opens a hint ladder, one level at a time: a nudge, what went wrong, a worked example, then smaller questions. After that the student can try a new question of the same type.
-- Only the first answer to each question counts. 80% (4 of 5) unlocks the next module. Below 80%, the student does a short review with easier practice, then retries.
-- Progress is saved in the browser (localStorage). If storage isn't available, the app keeps working in memory.
+- Module checks and the final check present **five questions**, one at a time.
+- Question formats include multiple choice, graph-vertex selection, distance-table entry, and next-step prediction.
+- Algorithm-tracing questions use generated graph weights. The Dijkstra engine determines the correct answers, while incorrect options connect to specific misconceptions and feedback.
+- Incorrect answers reveal a **four-level hint ladder**: a nudge, an explanation of the mistake, a worked example, and smaller guided questions. Students can then attempt a new question of the same type.
+- Only the **first answer** to each scored question contributes to the assessment score. Practice questions after hints do not replace the original scored answer.
+- A score of **80% or higher (4/5)** passes a module and unlocks the next one.
+- Students below 80% complete a short review and easier practice before retrying.
+- Module status, objective mastery, and next steps are visible on the module map.
 
-**For the demo:** opening `/map?demo=unlock` opens every module without recording any scores. Reset progress on the module map turns it off.
+### Learning modes
+
+On the module map, students can choose **Support** or **Challenge** learning mode. The selection affects the learning or question experience and is stored separately from assessment scores. It is independent of the interface's light/dark appearance setting.
+
+## Interface and visual design
+
+The interface combines a connected learning roadmap, card-based screens, visual progress indicators, and interactive graphs to support step-by-step learning.
+
+- **Module roadmap:** clearly distinguishes locked, in-progress, and mastered modules.
+- **Watch / Read / Try navigation:** makes it easy to move between demonstration, explanation, and practice.
+- **Interactive graph visualizations:** use labelled vertices, weighted edges, visible selection states, and highlights for the current vertex, visited vertices, candidate vertices, and active edges.
+- **Dijkstra walkthrough:** uses step-by-step controls, distance-table changes, and visual path indicators.
+- **Feedback and progress:** use distinct states, badges, contextual hints, and progress bars.
+- **Visual styling:** charcoal surfaces and cyan, lime, amber, and violet accents in dark mode; light backgrounds and high-contrast accents in light mode; rounded cards, subtle depth, and gentle transitions.
+- **Accessibility features:** skip-to-content navigation, visible keyboard focus, descriptive graph states, legible self-hosted fonts, and support for reduced-motion preferences.
+- **Responsive styles:** the layout and graph sizing adapt to narrower screens; final cross-device checks remain part of project verification.
+
+### Light and dark mode
+
+An appearance control in the **top-right header** is available throughout the app:
+
+1. Select **Light mode** to use a light interface, or **Dark mode** to return to the dark appearance.
+2. The change takes effect immediately on the app's pages and graph visualizations.
+3. The preference is saved in browser `localStorage` as `cos750-color-theme` and is restored on subsequent visits.
+
+**Dark mode is the default** when no preference has been saved. If browser storage is unavailable, the switch still works during the current session, although the preference may not persist.
+
+The appearance is controlled by `src/components/Header.tsx`, with button styling in `src/components/Header.module.css`. Theme palettes and graph colors are defined in `src/styles/tokens.css`; global styles and motion behaviour are in `src/styles/global.css`. The `index.html` startup script applies the saved mode before React renders the interface.
 
 ## Requirements
 
-- Node.js 22.22 or later, or 24.15 or later (we develop on Node 24.19). Older versions fail because Vitest and jsdom need them.
-- npm
+- **Node.js:** version `22.22.2` or later in the Node 22 line; version `24.15.0` or later in the Node 24 line; or version `26.0.0` or later, as declared in `package.json`.
+- **npm:** installed with Node.js.
+- A modern web browser.
 
-## Install
+## Install and run locally
 
-```sh
-npm install
-```
+1. Extract the application ZIP into a folder on your computer.
+2. Open that folder in Visual Studio Code or another editor. The folder should contain `package.json` and `index.html` directly.
+3. Open a terminal in the project folder and run:
 
-## Run locally
+   ```bash
+   npm install
+   npm run dev
+   ```
 
-```sh
-npm run dev
-```
+4. Open the local address shown by Vite (usually `http://localhost:5173/`).
 
-Then open the address Vite prints (usually http://localhost:5173).
+The app uses Vite's development server; a separate Live Server extension is not required.
 
-## Test
+### Development commands
 
-```sh
-npm test            # run every test once
-npm run test:watch  # re-run tests as files change
-```
-
-The tests cover the engine (including every sample-graph fact in the brief), the question generator, the concept bank, the mastery rules, saving, the content and the screens.
-
-## Lint
-
-```sh
-npm run lint
-```
-
-## Build
-
-```sh
-npm run build    # type-checks, then builds the static site into dist/
-npm run preview  # serves dist/ locally to check the build
-```
-
-## Deploy
-
-The app is a static site hosted on Vercel. `vercel.json` sends every URL to `index.html`, so refreshing any page works.
-
-_Deployment steps to be completed in step 7._
+| Command | Purpose |
+| --- | --- |
+| `npm run dev` | Start the local development server. |
+| `npm test` | Run the automated tests once. |
+| `npm run test:watch` | Re-run tests as files change. |
+| `npm run lint` | Run Oxlint. |
+| `npm run build` | Type-check and create a production build in `dist/`. |
+| `npm run preview` | Preview the production build locally. |
 
 ## Project structure
 
-| Folder | What it holds |
-|---|---|
-| `src/engine/` | Dijkstra engine (pure TypeScript, no React) |
-| `src/questions/` | Trace question generator and concept question bank |
-| `src/content/` | Lesson text, objectives, hints and feedback |
-| `src/progress/` | Mastery rules and localStorage |
-| `src/components/` | Reusable UI (graph view, distance table, hint ladder and so on) |
-| `src/screens/` | One file per screen |
-| `src/routing/` | A small router built on the browser's History API |
-| `src/styles/` | Design tokens and global styles |
-| `src/test/` | Test setup and shared test helpers |
-| `design/` | Claude Design export we build from |
-| `docs/` | Handoff log and GenAI prompt log |
+| Path | Responsibility |
+| --- | --- |
+| `src/App.tsx` | App shell, shared header, and screen routing. |
+| `src/engine/` | Graph and Dijkstra algorithm logic, implemented in TypeScript. |
+| `src/questions/` | Generated tracing questions and concept question bank. |
+| `src/content/` | Module lessons, learning objectives, hints, and feedback text. |
+| `src/progress/` | Assessment results, mastery, learning-mode preference, and progress storage. |
+| `src/components/` | Reusable components, including graphs, tables, hints, header, and UI controls. |
+| `src/screens/` | Welcome, map, module, assessment, review, summary, and related screens. |
+| `src/routing/` | Browser History API-based navigation. |
+| `src/styles/` | Global CSS, theme variables, typography, and motion. |
+| `src/test/` | Shared test setup and test helpers. |
+| `public/` | Static assets, including the favicon and font files. |
+| `index.html` | HTML entry point and initial appearance setting. |
+| `vercel.json` | Single-page application route rewrite configuration for Vercel. |
 
-## Documentation
+### State and saved preferences
 
-- `CLAUDE.md`: the project brief and rules.
-- `docs/handoff.md`: everything we've done, every decision and every bug, stage by stage.
-- `docs/genai-log.md`: the GenAI prompts we used, for our ID document.
-- Each folder in `src/` has a `README.md` explaining its files.
+Student progress is saved with browser `localStorage` and falls back to in-memory state when local storage cannot be used. Learning-mode preference and interface appearance are managed independently from scored progress. Clearing site storage may reset locally saved progress and preferences.
 
-## Status
+### Demonstration mode
 
-Build steps 1 to 5 are done: setup, engine, questions, progress and all screens. Still to do: step 6 (responsive layout and accessibility pass, starting with checking every screen at 1440px and 390px) and step 7 (deployment). All student-facing text is marked as not yet reviewed until the group has checked it.
+For demonstrations, visit:
 
-## Fonts
+```text
+http://localhost:5173/map?demo=unlock
+```
 
-The app uses Atkinson Hyperlegible Next and Atkinson Hyperlegible Mono, self-hosted in `public/fonts/` under the SIL Open Font License 1.1 (licence files are in the same folder).
+This unlocks all modules for navigation without recording scores. The app removes the demo query parameter from the address bar after processing it. The **Reset progress** control on the module map can clear the demo state.
+
+## Testing and quality checks
+
+The project includes automated tests for the algorithm engine, question generation, concept content, mastery and progress rules, storage, and app screens. Run `npm test` to check these behaviours after changes.
+
+Before production release, verify the complete learning flow, responsive layouts at desktop and phone sizes, keyboard and screen-reader use, light/dark contrast, and visual interactions. Student-facing educational copy should also be reviewed by the project group.
+
+## Production build and deployment
+
+Build the static application with:
+
+```bash
+npm run build
+npm run preview
+```
+
+The generated site is located in `dist/`. The project includes `vercel.json`, which rewrites incoming routes to `index.html` so browser refreshes work in the single-page application. Deployment and the public application URL should be confirmed before the site is described as live.
+
+## Fonts and licensing
+
+The app self-hosts **Atkinson Hyperlegible Next** and **Atkinson Hyperlegible Mono** from `public/fonts/`. Their SIL Open Font License 1.1 files are supplied alongside the fonts.

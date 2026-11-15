@@ -5,6 +5,17 @@
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>COS212: Graphs and the shortest path</title>
+    <script>
+      // Read the saved theme before paint; default to the existing dark design.
+      (function () {
+        var theme = 'dark';
+        try {
+          if (localStorage.getItem('cos750-color-theme') === 'light') theme = 'light';
+        } catch (error) { /* Browsers can block local storage. */ }
+        document.documentElement.dataset.theme = theme;
+        document.documentElement.style.colorScheme = theme;
+      })();
+    </script>
   </head>
   <body>
     <div id="root"></div>

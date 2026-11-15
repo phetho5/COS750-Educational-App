@@ -175,7 +175,7 @@
   padding: 0 var(--space-4);
   border: 2px solid var(--color-outline);
   border-radius: var(--radius-control);
-  background: #ffffff;
+  background: var(--color-surface-raised);
 }
 
 .note {
@@ -186,3 +186,14 @@
   background: var(--color-bg);
   border-radius: var(--radius-control);
 }
+
+.bigTitle { font-weight:900; letter-spacing:-.02em; }
+.bar { height:12px; background:#304351; }
+.bar div { background:linear-gradient(90deg,#50bddd,#baf18a); transition:width var(--transition-graph); }
+.objectives li:hover { background:rgba(255,255,255,.024); }
+
+/* Theme-specific surface refinements. */
+
+:global(html[data-theme='light']) .bar { background:#d6e6f0; }
+:global(html[data-theme='light']) .bar div { background:linear-gradient(90deg,#1592bf,#59bd85); }
+:global(html[data-theme='light']) .objectives li:hover { background:rgba(42,105,149,.05); }
