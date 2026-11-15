@@ -112,7 +112,7 @@ A switch in the top-right corner of every page changes the app between dark mode
 - Vitest 5, React Testing Library and jsdom for tests
 - oxlint for linting
 - Graphs drawn in plain SVG (no graph library)
-- CSS Modules and CSS custom properties, first styled from the Claude Design files, then given dark and light themes
+- CSS Modules and CSS custom properties, with dark and light themes
 - No backend, database, sign-in or AI calls. It is a static site.
 
 ## Requirements
@@ -186,15 +186,6 @@ Vercel builds the GitHub repository's `main` branch, so every push to `main` upd
 | `src/styles/` | Design tokens and global styles |
 | `src/test/` | Test setup and shared test helpers |
 | `public/fonts/` | Self-hosted fonts and their licences |
-| `design/` | The Claude Design export we built from |
-| `docs/` | Handoff log and GenAI prompt log |
-
-## Documentation
-
-- `CLAUDE.md`: the project brief and rules.
-- `docs/handoff.md`: everything we did, every decision and every bug, stage by stage.
-- `docs/genai-log.md`: the GenAI prompts we used, for our ID document.
-- Each folder in `src/` has a `README.md` explaining its files.
 
 ## Status
 
@@ -205,10 +196,6 @@ Known limitations:
 - The concept questions and student-facing text are marked `reviewed: false` until the group has checked them.
 - Challenge-mode trace questions have no fixed fallback graph, unlike Support mode.
 - Both themes still need a final look on every screen at laptop (1440px) and phone (390px) width.
-
-## GenAI use
-
-We used Claude Code to help build this app. Every prompt, with a one-line summary of what it produced, is in `docs/genai-log.md`.
 
 ## Fonts
 
