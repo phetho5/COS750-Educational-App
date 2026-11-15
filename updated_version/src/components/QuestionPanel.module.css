@@ -1,0 +1,189 @@
+/* A question without a graph uses one narrower column. */
+.single {
+  max-width: 760px;
+}
+
+.panel {
+  gap: var(--space-4);
+}
+
+.prompt {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.lead {
+  font-size: var(--text-body);
+  color: var(--color-muted);
+  max-width: 70ch;
+  text-wrap: pretty;
+}
+
+.question {
+  font-size: var(--text-heading);
+  line-height: 1.25;
+  font-weight: 700;
+  text-wrap: balance;
+}
+
+.options {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.option {
+  min-height: 56px;
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-2) var(--space-4);
+  background: var(--color-surface-raised);
+  border: 2px solid var(--color-outline);
+  border-radius: var(--radius-control);
+  cursor: pointer;
+  text-align: left;
+  font-size: var(--text-body);
+  font-weight: 700;
+}
+
+.option:hover:not(:disabled) {
+  border-color: var(--color-blue);
+}
+
+.option:disabled {
+  opacity: 0.6;
+}
+
+.dot {
+  width: 22px;
+  height: 22px;
+  flex: none;
+  border-radius: 50%;
+  border: 2px solid var(--color-outline);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-surface-raised);
+}
+
+.dot span {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+}
+
+.optionSelected {
+  background: var(--color-blue-tint);
+  border-color: var(--color-blue);
+}
+
+.optionSelected .dot {
+  border-color: var(--color-blue);
+}
+
+.optionSelected .dot span {
+  background: var(--color-blue);
+}
+
+.optionRight {
+  background: var(--color-good-tint);
+  border-color: var(--color-good);
+}
+
+.optionRight .dot {
+  border-color: var(--color-good);
+}
+
+.optionRight .dot span {
+  background: var(--color-good);
+}
+
+.optionWrong {
+  background: var(--color-bad-tint);
+  border-color: var(--color-bad-icon);
+}
+
+.optionWrong .dot {
+  border-color: var(--color-bad-icon);
+}
+
+.optionWrong .dot span {
+  background: var(--color-bad-icon);
+}
+
+.optionLabel {
+  flex: 1;
+}
+
+.markRight,
+.markWrong {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+}
+
+.markRight {
+  color: var(--color-good);
+}
+
+.markWrong {
+  color: var(--color-bad-text);
+}
+
+.selectHint {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  padding: var(--space-3) var(--space-4);
+  background: var(--color-surface-raised);
+  border: 2px dashed var(--color-outline);
+  border-radius: var(--radius-control);
+  font-size: var(--text-body);
+}
+
+.feedback {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.feedback:empty {
+  display: none;
+}
+
+.check {
+  min-height: 52px;
+  font-size: var(--text-body);
+}
+
+.visited {
+  font-size: var(--text-label);
+  color: var(--color-muted);
+  padding: 0 var(--space-1);
+}
+
+.visited strong {
+  color: var(--color-ink);
+}
+
+.option { border:1px solid #576d80; background:#253341; border-radius:15px; box-shadow:inset 0 -3px rgba(0,0,0,.12); transition: transform var(--transition-fast),border-color var(--transition-fast),background var(--transition-fast),box-shadow var(--transition-fast); }
+.option:hover:not(:disabled) { background:#2d4555; transform:translateX(4px); border-color:#75d5ef; }
+.optionSelected { background:#284f60; border-color:#65c8ed; box-shadow:inset 4px 0 #65c8ed; }
+.optionRight { background:#254b39; border-color:#76e4a5; box-shadow:inset 4px 0 #76e4a5; }
+.optionWrong { background:#50313a; border-color:#ff9098; box-shadow:inset 4px 0 #ff9098; }
+.dot { background:#162733; border-color:#748ba0; }
+.selectHint { border-color:#62849a; background:#233644; }
+.question { letter-spacing:-.01em; }
+
+/* Theme-specific surface refinements. */
+
+:global(html[data-theme='light']) .option { border-color:#c1d4e1; background:#f7fbff; box-shadow:inset 0 -3px rgba(28,65,93,.07); }
+:global(html[data-theme='light']) .option:hover:not(:disabled) { background:#e6f3fc; border-color:#4aa7d1; }
+:global(html[data-theme='light']) .optionSelected { background:#d9eefb; border-color:#238cb9; box-shadow:inset 4px 0 #238cb9; }
+:global(html[data-theme='light']) .optionRight { background:#e4f7ec; border-color:#39865a; box-shadow:inset 4px 0 #39865a; }
+:global(html[data-theme='light']) .optionWrong { background:#fff0f0; border-color:#b84b58; box-shadow:inset 4px 0 #b84b58; }
+:global(html[data-theme='light']) .dot { background:#fff; border-color:#8aa5b7; }
+:global(html[data-theme='light']) .selectHint { border-color:#a1bdcf; background:#eef6fb; }

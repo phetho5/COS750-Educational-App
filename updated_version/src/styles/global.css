@@ -1,0 +1,126 @@
+/* Base styles for the whole app, updated with the COS750 original learning theme. */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  background: var(--color-bg);
+  color: var(--color-ink);
+  font-family: var(--font-body);
+  font-size: 18px;
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+p,
+ol,
+ul {
+  margin: 0;
+}
+
+a {
+  color: var(--color-blue);
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  color: var(--color-blue-dark);
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+  color: inherit;
+}
+
+button {
+  transition:
+    background-color var(--transition-fast),
+    border-color var(--transition-fast),
+    color var(--transition-fast);
+}
+
+button:disabled {
+  cursor: not-allowed;
+}
+
+::selection {
+  background: var(--color-blue-tint);
+}
+
+/*
+  Focus: hide the ring for mouse clicks, show a clear one for keyboard users.
+  SVG vertices and edges that act as buttons get the same ring.
+*/
+:focus {
+  outline: none;
+}
+
+:focus-visible,
+g[role='button']:focus-visible {
+  outline: 3px solid var(--color-blue-dark);
+  outline-offset: 2px;
+}
+
+/* Text that screen readers announce but sighted users don't see. */
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition: none !important;
+    animation: none !important;
+  }
+}
+
+/* COS750 learning experience: atmospheric backdrop and accessible motion. */
+html { scroll-behavior: smooth; color-scheme: dark; }
+html[data-theme="light"] { color-scheme: light; }
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(ellipse 68% 36% at 84% -12%, var(--theme-backdrop-a), transparent 75%),
+    radial-gradient(ellipse 42% 25% at -12% 35%, var(--theme-backdrop-b), transparent 85%),
+    var(--color-bg);
+  color: var(--color-ink);
+}
+button, a { -webkit-tap-highlight-color: transparent; }
+button { transition: background-color var(--transition-fast), border-color var(--transition-fast), color var(--transition-fast), transform var(--transition-fast), box-shadow var(--transition-fast); }
+button:active:not(:disabled) { transform: scale(.985); }
+button:disabled { opacity: .55; }
+:focus-visible, g[role='button']:focus-visible { outline: 3px solid var(--focus-outline); outline-offset: 3px; }
+::selection { background: var(--theme-selection-bg); color: var(--theme-selection-ink); }
+@keyframes fade-rise { from { opacity: 0; transform: translateY(14px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes friendly-glow { 0%, 100% { box-shadow: 0 0 0 0 rgba(81,193,239,.08); } 50% { box-shadow: 0 0 0 8px rgba(81,193,239,.03); } }
+@keyframes bar-in { from { opacity: .35; } to { opacity: 1; } }
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  *, *::before, *::after { scroll-behavior: auto !important; transition-duration: .01ms !important; animation: none !important; }
+}
+
+/* SVG graph node interactions: use existing vertex state and graph semantics. */
+svg[role='group'] g[role='button'] { transition: filter var(--transition-fast); }
+svg[role='group'] g[role='button']:hover { filter: drop-shadow(0 0 8px rgba(103,208,238,.55)); }
+svg[role='group'] circle[data-state='current'] { filter:drop-shadow(0 0 7px rgba(255,174,100,.44)); }
+svg[role='group'] circle[data-state='visited'] { filter:drop-shadow(0 0 6px rgba(81,193,239,.30)); }
+svg[role='group'] circle[data-state='candidate'] { filter:drop-shadow(0 0 6px rgba(178,155,255,.36)); }

@@ -1,0 +1,348 @@
+.map {
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: var(--space-6) var(--space-7);
+  align-items: flex-start;
+  padding-top: var(--space-6);
+  padding-bottom: var(--space-8);
+}
+
+.modules {
+  flex: 3 1 460px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.list {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+}
+
+.entry {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  gap: var(--space-4);
+  padding: var(--space-4);
+  min-height: 80px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-card);
+  box-shadow: var(--shadow-card);
+  cursor: pointer;
+  text-align: left;
+}
+
+button.entry:hover {
+  border-color: var(--color-blue);
+}
+
+.locked {
+  background: var(--color-bg);
+  box-shadow: none;
+  cursor: default;
+}
+
+.number {
+  width: 40px;
+  height: 40px;
+  flex: none;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 17px;
+  background: var(--color-bg);
+  color: var(--color-ink);
+}
+
+.locked .number {
+  background: var(--color-surface-raised);
+  color: var(--color-muted);
+  border: 1px solid var(--color-divider);
+}
+
+.text {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.title {
+  font-size: var(--text-title);
+  font-weight: 700;
+}
+
+.locked .title {
+  color: var(--color-muted);
+}
+
+.subtitle {
+  font-size: 15px;
+  color: var(--color-muted);
+}
+
+.summary {
+  align-self: flex-start;
+}
+
+.progressOverview {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+  padding: var(--space-4);
+  border: 1px solid var(--color-blue-mid);
+  border-radius: var(--radius-card);
+  background: var(--color-blue-tint);
+}
+
+.progressHeading,
+.nextStep {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-3);
+}
+
+.progressHeading p,
+.nextLabel,
+.nextStep p {
+  margin: 0;
+}
+
+.progressHeading > div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.progressCount {
+  font-size: var(--text-title);
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.courseProgress {
+  height: 10px;
+  overflow: hidden;
+  border-radius: var(--radius-pill);
+  background: var(--color-surface-raised);
+}
+
+.courseProgress span {
+  display: block;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--color-blue);
+  transition: width var(--transition-graph);
+}
+
+.nextStep {
+  align-items: flex-end;
+}
+
+.nextStep > div {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.nextLabel {
+  font-weight: 700;
+}
+
+.modePicker {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  margin: 0;
+  padding: var(--space-4);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-card);
+}
+
+.modePicker legend {
+  padding: 0 var(--space-1);
+}
+
+.modeOption {
+  display: flex;
+  align-items: flex-start;
+  gap: var(--space-3);
+  padding: var(--space-3);
+  border: 1px solid var(--color-divider);
+  border-radius: var(--radius-control);
+  background: var(--color-surface);
+  cursor: pointer;
+}
+
+.modeOption:has(input:checked) {
+  border-color: var(--color-blue);
+  background: var(--color-blue-tint);
+}
+
+.modeOption input {
+  margin-top: 4px;
+  accent-color: var(--color-blue);
+}
+
+.modeCopy {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-1);
+}
+
+.modeCopy span {
+  font-size: var(--text-label);
+  color: var(--color-muted);
+  line-height: 1.45;
+}
+
+@media (max-width: 600px) {
+  .nextStep {
+    align-items: stretch;
+    flex-direction: column;
+  }
+
+  .nextStep button {
+    align-self: flex-start;
+  }
+}
+
+.objectives {
+  flex: 2 1 340px;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.bars {
+  list-style: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-4);
+}
+
+.bars li {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  font-size: 16px;
+}
+
+.barRow {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+}
+
+.bar {
+  flex: 1;
+  height: 8px;
+  background: var(--color-divider);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.bar div {
+  height: 100%;
+  background: var(--color-blue);
+  border-radius: 4px;
+}
+
+.percent {
+  width: 44px;
+  text-align: right;
+  font-size: 15px;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
+
+.reset {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2);
+  padding-top: var(--space-4);
+  border-top: 1px solid var(--color-divider);
+}
+
+.reset > button {
+  align-self: flex-start;
+}
+
+.confirm {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+/* Learning journey: connected stage nodes and lively but honest progress. */
+.map { gap: 32px; }
+.modules { gap: 24px; }
+.list { position: relative; gap: 15px; padding-left: 9px; }
+.list::before { content:''; position:absolute; left: 42px; top: 35px; bottom:35px; border-left: 4px dashed #405768; opacity:.9; pointer-events:none; }
+.list > li { position:relative; }
+.entry { position:relative; min-height: 99px; border-radius: 19px; padding: 20px 20px 20px 16px; border: 1px solid #48596b; box-shadow: 0 8px 0 rgba(0,0,0,.13),0 12px 27px rgba(0,0,0,.11); transition: transform var(--transition-fast),background var(--transition-fast),border var(--transition-fast),box-shadow var(--transition-fast); }
+button.entry { background: linear-gradient(112deg,#253745, #202d38); }
+button.entry:hover { border-color: #69c7e5; transform:translateX(6px); background:linear-gradient(112deg,#2d4c5c,#253642); box-shadow: 0 8px 0 rgba(0,0,0,.13),0 20px 32px rgba(0,0,0,.20); }
+button.entry:active { transform:translateX(3px); }
+.locked { background: #1a232d; color: var(--color-muted); border-color:#303f4d; opacity:.78; box-shadow: none; }
+.number { position:relative; z-index:1; width: 54px; height:54px; flex-shrink:0; border-radius: 17px; background:linear-gradient(150deg,#4ec8ed,#2684ac); color:#0f2736; box-shadow:inset 0 -4px rgba(0,0,0,.16),0 4px 0 #123e55; font-size:20px; font-weight:900; border:2px solid #9de9fa; }
+.locked .number { background:#263341; color:#a8b7ca; border:2px solid #506175; box-shadow:inset 0 -4px rgba(0,0,0,.14); }
+.title { color:#f2f7fc; font-size:clamp(17px, 1.6vw,21px); }
+.subtitle { color:var(--color-muted); }
+.progressOverview { background:linear-gradient(125deg,#254957,#233543 65%); border:1px solid #527c90; border-radius:20px; box-shadow: var(--shadow-card); padding:clamp(19px,2vw,28px); gap:20px; }
+.progressCount { font-size:28px; color:var(--color-accent-lime); font-weight:900; }
+.courseProgress { height:14px; border:1px solid #54778a; padding:2px; background:#172b37; }
+.courseProgress span { background:linear-gradient(90deg,#54bbdd,#bbef82); box-shadow:0 0 15px rgba(150,225,148,.3); animation:bar-in .5s both; }
+.nextStep { border-top:1px solid #4c7182; padding-top:18px; }
+.nextLabel { color:#b0efff; }
+.objectives { position:relative; background:linear-gradient(160deg,#202f3a,#202a35); }
+.bars { gap:20px; }
+.bar { height:11px; background:#344756; }
+.bar div { background:linear-gradient(90deg,#4bbbd9,#abe789); transition:width var(--transition-graph); }
+.modePicker { border-color:#48596b; background:#1b2732; border-radius:16px; }
+.modeOption { border-color:#465a6d; background:#253341; transition:border-color var(--transition-fast),transform var(--transition-fast),background var(--transition-fast); }
+.modeOption:hover { transform:translateX(3px); border-color:#6abfd6; }
+.modeOption:has(input:checked) { background:#244858; border-color:#5accec; box-shadow:inset 3px 0 #5accec; }
+.reset { border-color:#465869; }
+@media (max-width:700px) { .list::before { left: 35px; } .entry { gap:12px; padding:14px 12px; flex-wrap:wrap; } .number { width:48px; height:48px; } }
+
+/* Theme-specific surface refinements. */
+
+:global(html[data-theme='light']) .list::before { border-left-color: #b6cedd; }
+:global(html[data-theme='light']) .entry { border-color: #cbdde9; box-shadow:0 8px 0 rgba(49,95,125,.06),0 12px 27px rgba(49,95,125,.09); }
+:global(html[data-theme='light']) button.entry { background: linear-gradient(112deg,#fff, #f0f7fc); }
+:global(html[data-theme='light']) button.entry:hover {
+  border-color: #2393c5;
+  background: linear-gradient(112deg,#e1f4fc,#f3fbff);
+  box-shadow: 0 8px 0 rgba(49,95,125,.06),0 20px 32px rgba(49,95,125,.12);
+}
+:global(html[data-theme='light']) .locked { background:#edf2f6; color:#52697b; border-color:#dae5ec; }
+:global(html[data-theme='light']) .number { background:linear-gradient(150deg,#49c2e9,#1884b3); color:#fff; border-color:#c0edff; box-shadow:inset 0 -4px rgba(0,0,0,.10),0 4px 0 #a6d3e7; }
+:global(html[data-theme='light']) .locked .number { background:#d6e3ed; color:#53697c; border-color:#a2b8c9; box-shadow:inset 0 -4px rgba(0,0,0,.04); }
+:global(html[data-theme='light']) .title { color:#19354b; }
+:global(html[data-theme='light']) .progressOverview { background:linear-gradient(125deg,#e5f5fb,#f5fbff 65%); border-color:#b6d4e3; }
+:global(html[data-theme='light']) .progressCount { color:#196a42; }
+:global(html[data-theme='light']) .courseProgress { border-color:#a8c7d7; background:#d5e9f4; }
+:global(html[data-theme='light']) .courseProgress span { background:linear-gradient(90deg,#178bc1,#54b985); }
+:global(html[data-theme='light']) .nextStep { border-top-color:#c7dde9; }
+:global(html[data-theme='light']) .nextLabel { color:#116687; }
+:global(html[data-theme='light']) .objectives { background:linear-gradient(160deg,#fff,#f1f7fb); }
+:global(html[data-theme='light']) .bar { background:#d6e5ef; }
+:global(html[data-theme='light']) .bar div { background:linear-gradient(90deg,#1592c5,#64c28e); }
+:global(html[data-theme='light']) .modePicker { border-color:#c7dbe7; background:#f2f8fc; }
+:global(html[data-theme='light']) .modeOption { border-color:#c6d9e5; background:#fff; }
+:global(html[data-theme='light']) .modeOption:hover { border-color:#348db8; }
+:global(html[data-theme='light']) .modeOption:has(input:checked) { background:#e3f4fc; border-color:#187fae; box-shadow:inset 3px 0 #187fae; }
+:global(html[data-theme='light']) .reset { border-color:#b8ccda; }
